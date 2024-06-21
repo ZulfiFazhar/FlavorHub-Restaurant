@@ -42,7 +42,7 @@ const Sidebar = ({ children }) => {
           htmlFor="sidebar-mobile-fixed"
           className="sidebar-overlay"
         ></label>
-        <aside className="sidebar px-2 bg-gray-2 sidebar-fixed-left sidebar-mobile h-full justify-start max-sm:fixed max-sm:-translate-x-full">
+        <aside className="sidebar px-2 bg-gradient-to-tr from-blue-500 to-purple-600 sidebar-fixed-left sidebar-mobile h-full justify-start max-sm:fixed max-sm:-translate-x-full">
           <section className="sidebar-title items-center p-4 justify-center my-3">
             <Image
               src="/next.svg"
@@ -61,8 +61,8 @@ const Sidebar = ({ children }) => {
                       <Link href={item.path}>
                         <div
                           className={`menu-item ${
-                            pathname === item.path ? "bg-gray-6 py-4" : ""
-                          }hover:bg-gray-4`}
+                            pathname === item.path ? "bg-slate-100/20 py-4" : ""
+                          }`}
                         >
                           <Icon icon={item.icon} fontSize={24} />
                           <span className="font-medium text-base ml-2">
@@ -100,9 +100,9 @@ const Sidebar = ({ children }) => {
                               <label
                                 className={`menu-item ml-6 ${
                                   pathname === subItem.path
-                                    ? "bg-gray-6 py-2"
+                                    ? "bg-neutral-400 py-2"
                                     : ""
-                                }hover:bg-gray-4`}
+                                }`}
                               >
                                 {subItem.name}
                               </label>
@@ -115,53 +115,6 @@ const Sidebar = ({ children }) => {
                 </ul>
               </section>
             </nav>
-          </section>
-          <section className="sidebar-footer justify-end pt-2">
-            <div className="divider my-0"></div>
-            <div className="dropdown z-50 flex h-fit w-full cursor-pointer hover:bg-gray-6">
-              <label
-                className="whites mx-2 flex h-fit w-full cursor-pointer p-0 hover:bg-gray-6"
-                tabIndex="0"
-              >
-                <div className="flex flex-row gap-4 p-4">
-                  <div className="avatar avatar-md">
-                    <Image
-                      src="/vercel.svg"
-                      alt="avatar"
-                      width={40}
-                      height={40}
-                    />
-                  </div>
-                  <div className="flex flex-col">
-                    <span>Sandra Marx</span>
-                    <span className="text-xs font-normal text-content2">
-                      sandra
-                    </span>
-                  </div>
-                </div>
-              </label>
-              <div className="dropdown-menu dropdown-menu-right-top ml-2">
-                <a className="dropdown-item text-sm">Profile</a>
-                <a tabIndex="-1" className="dropdown-item text-sm">
-                  Account settings
-                </a>
-                <a tabIndex="-1" className="dropdown-item text-sm">
-                  Change email
-                </a>
-                <a tabIndex="-1" className="dropdown-item text-sm">
-                  Subscriptions
-                </a>
-                <a tabIndex="-1" className="dropdown-item text-sm">
-                  Change password
-                </a>
-                <a tabIndex="-1" className="dropdown-item text-sm">
-                  Refer a friend
-                </a>
-                <a tabIndex="-1" className="dropdown-item text-sm">
-                  Settings
-                </a>
-              </div>
-            </div>
           </section>
         </aside>
       </div>
