@@ -8,7 +8,7 @@ import Link from "next/link";
 const fixedMenu = [
   { name: "General", path: "/", icon: "mdi:cog" },
   { name: "Teams", path: "/teams", icon: "mdi:account-group" },
-  { name: "Billing", path: "/billing", icon: "mdi:credit-card" },
+  { name: "Mails", path: "/mails", icon: "mdi:mail" },
 ];
 
 // Dynamic Menu
@@ -61,7 +61,7 @@ const Sidebar = ({ children }) => {
                       <Link href={item.path}>
                         <div
                           className={`menu-item ${
-                            pathname === item.path ? "bg-slate-100/20 py-4" : ""
+                            pathname === item.path ? "bg-slate-900/10 py-4" : ""
                           }`}
                         >
                           <Icon icon={item.icon} fontSize={24} />
@@ -100,7 +100,7 @@ const Sidebar = ({ children }) => {
                               <label
                                 className={`menu-item ml-6 ${
                                   pathname === subItem.path
-                                    ? "bg-neutral-400 py-2"
+                                    ? "bg-slate-900/10 py-2"
                                     : ""
                                 }`}
                               >
