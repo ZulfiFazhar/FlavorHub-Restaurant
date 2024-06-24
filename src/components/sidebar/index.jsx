@@ -4,6 +4,9 @@ import { Icon } from "@iconify/react";
 import { usePathname } from "next/navigation";
 import Link from "next/link";
 
+// Local components
+import LogoutButton from "../auth/LogoutButton";
+
 // Fixed Menu
 const fixedMenu = [
   { name: "General", path: "/", icon: "mdi:cog" },
@@ -72,6 +75,10 @@ const Sidebar = ({ children }) => {
                       </Link>
                     </li>
                   ))}
+
+                
+                  <LogoutButton />
+
                   {dynamicMenu.map((item, index) => (
                     <li key={index}>
                       <input
