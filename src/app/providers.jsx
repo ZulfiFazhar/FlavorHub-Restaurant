@@ -1,6 +1,6 @@
 "use client";
 import React from "react";
-import Sidebar from "./components/sidebar";
+import Sidebar from "@/components/sidebar";
 import { NextUIProvider } from "@nextui-org/react";
 import { ToastContainer } from "react-toastify";
 
