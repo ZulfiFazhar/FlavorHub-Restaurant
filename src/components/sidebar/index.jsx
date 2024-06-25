@@ -1,18 +1,15 @@
+"use client"
+
 import Image from "next/image";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Icon } from "@iconify/react";
 import { usePathname } from "next/navigation";
 import Link from "next/link";
+import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 
 // Local components
 import LogoutButton from "../auth/LogoutButton";
-
-// Fixed Menu
-const fixedMenu = [
-  { name: "General", path: "/", icon: "mdi:cog" },
-  { name: "Teams", path: "/teams", icon: "mdi:account-group" },
-  { name: "Mails", path: "/mails", icon: "mdi:mail" },
-];
+import { usePekerjaanContext } from "@/app/providers";
 
 // Dynamic Menu
 const dynamicMenu = [
@@ -31,7 +28,31 @@ const dynamicMenu = [
 ];
 
 const Sidebar = ({ children }) => {
+  const pekerjaan = usePekerjaanContext()
   const pathname = usePathname();
+
+  let fixedMenu = []
+  switch(pekerjaan){
+    case "pelayan":
+      fixedMenu = [
+        { name: "Reservasi", path: "/", icon: "mdi:cog" },
+        { name: "Pesanan", path: "/pesanan", icon: "mdi:account-group" },
+      ];
+      break;
+    case "koki":
+      fixedMenu = [
+        { name: "Pesanan", path: "/", icon: "mdi:cog" },
+        { name: "Katalog", path: "/katalog", icon: "mdi:account-group" },
+      ];
+      break;
+    case "kasir":
+      fixedMenu = [
+        { name: "Pembayaran", path: "/", icon: "mdi:cog" },
+        { name: "Histori", path: "/katalog", icon: "mdi:account-group" },
+        { name: "Laporan", path: "/laporan", icon: "mdi:mail" }
+      ];
+      break;
+  }
 
   return (
     <div className="flex">
