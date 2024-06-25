@@ -13,6 +13,24 @@ function Login() {
         router.refresh()
     },[])
 
+    const supabase = createClientComponentClient()
+
+    const createNewUser = async () => {
+        const { data, error } = await supabase.auth.signUp({
+            email: 'koki1@gmail.com',
+            password: '123456',
+            options: {
+              data: {
+                nama:"Asep",
+                umur: 23,
+                pekerjaan:"koki"
+              },
+            },
+          })
+
+        if(data)console.log(data)
+        if(error)console.log(error)
+    }
 
     const login = async () => {
         try {
