@@ -64,7 +64,7 @@ const Sidebar = ({ children }) => {
                       <Link href={item.path}>
                         <div
                           className={`menu-item ${
-                            pathname === item.path ? "bg-slate-900/10 py-4" : ""
+                            pathname === item.path ? "bg-slate-900/15 py-4" : ""
                           }`}
                         >
                           <Icon icon={item.icon} fontSize={24} />
@@ -76,7 +76,6 @@ const Sidebar = ({ children }) => {
                     </li>
                   ))}
 
-                
                   <LogoutButton />
 
                   {dynamicMenu.map((item, index) => (
@@ -107,7 +106,7 @@ const Sidebar = ({ children }) => {
                               <label
                                 className={`menu-item ml-6 ${
                                   pathname === subItem.path
-                                    ? "bg-slate-900/10 py-2"
+                                    ? "bg-slate-900/15 py-2"
                                     : ""
                                 }`}
                               >
