@@ -2,15 +2,19 @@
 
 import { createClientComponentClient } from '@supabase/auth-helpers-nextjs'
 import { useRouter } from 'next/navigation'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 
 function Login() {
     const [loginForm, setLoginForm] = useState({email:'',password:''})
 
     const router = useRouter()
+    
+    useEffect(() => {
+        router.refresh()
+    },[])
+
 
     const login = async () => {
-        console.log("tes")
         try {
             const supabase = createClientComponentClient()
             const {data, error} = await supabase
