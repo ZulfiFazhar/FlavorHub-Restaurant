@@ -44,7 +44,7 @@ function Login() {
 
             if(data && data.user != null){
                 console.log(data)
-                router.push('/')
+                router.push('/resto')
             }
         } catch (error) {
             console.log(error)

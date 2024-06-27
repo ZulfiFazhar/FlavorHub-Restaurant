@@ -16,7 +16,7 @@ export async function middleware(req){
     if(!session && pathname != '/login'){
         return NextResponse.redirect(new URL('/login', req.url))
     }else if(session && pathname == '/login'){
-        return NextResponse.redirect(new URL('/', req.url))
+        return NextResponse.redirect(new URL('/resto', req.url))
     }
 
     return res

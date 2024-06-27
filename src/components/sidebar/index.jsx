@@ -1,31 +1,14 @@
 "use client"
 
 import Image from "next/image";
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { Icon } from "@iconify/react";
 import { usePathname } from "next/navigation";
 import Link from "next/link";
-import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 
 // Local components
 import LogoutButton from "../auth/LogoutButton";
-import { usePekerjaanContext } from "@/app/providers";
-
-// Dynamic Menu
-const dynamicMenu = [
-  {
-    name: "Account",
-    icon: "mdi:account",
-    link: "/account",
-    subMenu: [
-      { name: "Accounts", path: "/account/accounts" },
-      { name: "Billing", path: "/account/billing" },
-      { name: "Security", path: "/account/security" },
-      { name: "Notifications", path: "/account/notifications" },
-      { name: "Integrations", path: "/account/integrations" },
-    ],
-  },
-];
+import { usePekerjaanContext } from "@/app/resto/providers";
 
 const Sidebar = ({ children }) => {
   const pekerjaan = usePekerjaanContext()
@@ -35,21 +18,21 @@ const Sidebar = ({ children }) => {
   switch(pekerjaan){
     case "pelayan":
       fixedMenu = [
-        { name: "Reservasi", path: "/", icon: "mdi:cog" },
-        { name: "Pesanan", path: "/pesanan", icon: "mdi:account-group" },
+        { name: "Reservasi", path: "/resto", icon: "mdi:cog" },
+        { name: "Pesanan", path: "/resto/pesanan", icon: "mdi:account-group" },
       ];
       break;
     case "koki":
       fixedMenu = [
-        { name: "Pesanan", path: "/", icon: "mdi:cog" },
-        { name: "Katalog", path: "/katalog", icon: "mdi:account-group" },
+        { name: "Pesanan", path: "/resto", icon: "mdi:cog" },
+        { name: "Menu", path: "/resto/menu", icon: "mdi:account-group" },
       ];
       break;
     case "kasir":
       fixedMenu = [
-        { name: "Pembayaran", path: "/", icon: "mdi:cog" },
-        { name: "Histori", path: "/katalog", icon: "mdi:account-group" },
-        { name: "Laporan", path: "/laporan", icon: "mdi:mail" }
+        { name: "Pembayaran", path: "/resto", icon: "mdi:cog" },
+        { name: "Histori", path: "/resto/histori", icon: "mdi:account-group" },
+        { name: "Laporan", path: "/resto/laporan", icon: "mdi:mail" }
       ];
       break;
   }
@@ -99,46 +82,6 @@ const Sidebar = ({ children }) => {
 
                   <LogoutButton />
 
-                  {dynamicMenu.map((item, index) => (
-                    <li key={index}>
-                      <input
-                        type="checkbox"
-                        id={`menu-${index}`}
-                        className="menu-toggle"
-                      />
-                      <label
-                        htmlFor={`menu-${index}`}
-                        className="menu-item justify-between"
-                      >
-                        <div className="flex gap-2">
-                          <Icon icon={item.icon} fontSize={24} />
-                          <span className="font-medium text-base ml-2">
-                            {item.name}
-                          </span>
-                        </div>
-                        <span className="menu-icon">
-                          <Icon icon="mdi:chevron-down" fontSize={24} />
-                        </span>
-                      </label>
-                      <div className="menu-item-collapse">
-                        <div className="min-h-0">
-                          {item.subMenu.map((subItem, subIndex) => (
-                            <Link key={subIndex} href={subItem.path}>
-                              <label
-                                className={`menu-item ml-6 ${
-                                  pathname === subItem.path
-                                    ? "bg-slate-900/15 py-2"
-                                    : ""
-                                }`}
-                              >
-                                {subItem.name}
-                              </label>
-                            </Link>
-                          ))}
-                        </div>
-                      </div>
-                    </li>
-                  ))}
                 </ul>
               </section>
             </nav>
