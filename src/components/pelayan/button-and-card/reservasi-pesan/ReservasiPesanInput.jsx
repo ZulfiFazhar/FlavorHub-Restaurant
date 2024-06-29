@@ -1,9 +1,24 @@
 import { createClientComponentClient } from '@supabase/auth-helpers-nextjs'
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useRef } from 'react'
+
+// Local components
+import MenuDipilihCards from './reservasi-pesan-input-bc/MenuDipilihCards'
+import PencarianMenu from './reservasi-pesan-input-bc/PencarianMenu'
 
 
 function ReservasiPesanInput({respesModal, setRespesModal}) {
     const [menu, setMenu] = useState(null)
+    const [menuDipesan, setMenuDipesan] = useState([])
+    const [menuHasilPencarian, setMenuHasilPencarian] = useState([])
+    const searchInputRef = useRef(null)
+    const namaInputRef = useRef(null)
+
+    useEffect(() => {
+        setMenuDipesan(md => [])
+        setMenuHasilPencarian(mhp => [])
+        if(searchInputRef.current)searchInputRef.current.value = ''
+        if(namaInputRef.current)namaInputRef.current.value = ''
+    }, [respesModal])
 
     useEffect(() => {
         const fetchMenu = async () => {
@@ -11,32 +26,34 @@ function ReservasiPesanInput({respesModal, setRespesModal}) {
             const {data, error} = await supabase.from('menu').select("*")
 
             if(error)console.log(error)
-            if(data){
-                setMenu(data)
-            }
+            if(data)setMenu(data)
         }
 
         fetchMenu()
     }, [])
 
-    console.log(menu)
-
   return (
-    <div className='w-1/2 bg-blue-100 min-h-screen'>
+    <div className='w-1/2 bg-blue-100 min-h-screen py-2 px-4'>
         <h2>Reservasi dan Pesan</h2>
         <h2>Meja : {respesModal.nomor_meja}</h2>
         
         <label htmlFor='pemesan'>Pemesan : </label>
-        <input id='pemesan' className='px-2 rounded-md border border-black'></input>
+        <input ref={namaInputRef} id='pemesan' className='px-2 rounded-md border border-black mb-2'></input>
         
-        <div className=' w-60 flex justify-between border border-black p-2 rounded-md'>
-            <h4>Burger</h4>
-            <div className=' w-20 flex justify-between border border-black rounded-full'>
-                <button className='px-2 border-r border-black rounded-full'>-</button>
-                <span>2</span>
-                <button className='px-2 border-l border-black rounded-full'>+</button>
-            </div>
-        </div>
+        <br/>
+
+        <PencarianMenu
+            menu={menu}
+            setMenuDipesan={setMenuDipesan}
+            menuHasilPencarian={menuHasilPencarian}
+            setMenuHasilPencarian={setMenuHasilPencarian}
+            searchInputRef={searchInputRef}
+        />
+
+        <MenuDipilihCards 
+            menuDipesan={menuDipesan} 
+            setMenuDipesan={setMenuDipesan}
+        />
 
     </div>
   )
