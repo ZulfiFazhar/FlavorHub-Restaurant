@@ -1,42 +1,18 @@
 "use client"
 
-import React, { useState, useEffect } from "react";
-import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
+import React from "react";
 import { usePekerjaanContext } from "./providers";
 
+// Local components
+import ReservasiPelayan from "@/components/pelayan/ReservasiPelayan";
 
 export default function Home() {
-  const [reservasiPesanan, setReservasiPesanan] = useState()
   const pekerjaan = usePekerjaanContext()
-
-  useEffect(() => {
-    const getReservasiPesananData = async () => {
-      const supabase = createClientComponentClient()
-      const {data, error} = await supabase.from('reservasi_pesanan').select('*')
-
-      if(error){
-        console.log("error")
-      }else{
-        setReservasiPesanan(data)
-      }
-    }
-
-
-    getReservasiPesananData()
-
-  }, [])
-
-
-  const DashboardPelayan = (
-    <div className=" text-sm pl-24">
-      {JSON.stringify(reservasiPesanan)}
-    </div>
-  )
 
   let content;
   switch (pekerjaan) {
     case "pelayan":
-      content = DashboardPelayan
+      content = <ReservasiPelayan />
       break;
     case "koki":
       content = "Halaman Koki"
@@ -49,11 +25,9 @@ export default function Home() {
       break;
   }
 
-
-
   return (
-    <main className="flex min-h-screen flex-col items-center justify-between p-24">
-      <h1 className="text-4xl font-bold text-black">{content}</h1>
-    </main>
+    <>
+        {content}
+    </>
   );
 }
