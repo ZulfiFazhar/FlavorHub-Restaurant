@@ -9,7 +9,7 @@ function MejaButton({respesModal, setRespesModal, properti}) {
   return (
     <div className=' flex'>
 
-        <div className=' flex flex-col justify-start items-center w-24 h-28 rounded-md bg-green-500 pt-3 hover:cursor-pointer' onClick={handleClick}>
+        <div className={`flex flex-col justify-start items-center w-24 h-28 rounded-md ${properti.status == 'kosong' ? 'bg-green-600' : 'bg-orange-600'} pt-3 hover:cursor-pointer`} onClick={handleClick}>
             <h3 className='text-6xl mb-1'>
                 {properti.nomor_meja}
             </h3>

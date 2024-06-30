@@ -67,18 +67,30 @@ function ReservasiPesanInput({respesModal, setRespesModal}) {
         }
 
         // insert new pesanan data
-        const {data, error} = await supabase
+        const {dataPes, errorPes} = await supabase
             .from("pesanan")
             .insert([newPesanan])
         
-        if(error){
-            return console.log(error)
+        if(errorPes){
+            return console.log(errorPes)
         }else{
-            console.log(data)
+            console.log(dataPes)
         }
 
         // Reset interface state
         resetInterfaceState()
+
+        // Update status meja dalam tabel reservasi_pesanan
+        const {dataRespes, errorRespes} = await supabase
+            .from('reservasi_pesanan')
+            .update({status:'dipesan', nama_pemesan:nama_pemesan, pesanan:formattedPesanan})
+            .eq('id', respesModal.id)
+
+        if(errorRespes){
+            return console.log(errorRespes)
+        }else{
+            console.log(dataRespes)
+        }
     } 
 
   return (

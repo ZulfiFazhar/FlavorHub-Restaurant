@@ -10,13 +10,14 @@ import ReservasiPesanModal from './button-and-card/ReservasiPesanModal'
 import { createClientComponentClient } from '@supabase/auth-helpers-nextjs'
 
 function ReservasiPelayan() {
-const [reservasiPesanan, setReservasiPesanan] = useState(null)
-// Respes = Reservasi dan pesan
-const [respesModal, setRespesModal] = useState(false)
+  const [reservasiPesanan, setReservasiPesanan] = useState(null)
+  // Respes = Reservasi dan pesan
+  const [respesModal, setRespesModal] = useState(false)
+
+  const supabase = createClientComponentClient()
 
   useEffect(() => {
     const getReservasiPesananData = async () => {
-      const supabase = createClientComponentClient()
       const {data, error} = await supabase.from('reservasi_pesanan').select('*')
 
       if(error){
@@ -29,6 +30,29 @@ const [respesModal, setRespesModal] = useState(false)
     getReservasiPesananData()
 
   }, [])
+
+  // Subcribe to reservasi pesanan 
+  useEffect(() => {
+    const subscribeToReservasiPesanan = supabase
+    .channel('reservasi-pesanan-subscribe')
+    .on('postgres_changes', {
+        event: '*',
+        schema: 'public',
+        table: 'reservasi_pesanan'
+    }, (payload) => {
+        if(payload.eventType == 'UPDATE'){
+          setReservasiPesanan((prevRespes) => {
+            return prevRespes.map(rp => (rp.id === payload.new.id ? payload.new : rp))
+          })
+        }
+    })
+    .subscribe();
+
+    // Cleanup subscription on component unmount
+    return () => {
+    subscribeToReservasiPesanan.unsubscribe();
+    };
+  }, [supabase]);
 
   // console.log(respesModal)
   return (
