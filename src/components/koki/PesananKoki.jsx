@@ -4,6 +4,9 @@ import React, {useEffect, useState} from 'react'
 
 import { createClientComponentClient } from '@supabase/auth-helpers-nextjs'
 
+// Local components
+import PesananCards from './button-and-card/pesanan/PesananCards'
+
 function PesananKoki() {
     const [pesanan, setPesanan] = useState([])
     const supabase = createClientComponentClient()
@@ -33,10 +36,9 @@ function PesananKoki() {
             schema: 'public',
             table: 'pesanan'
         }, (payload) => {
-            console.log(payload);
             // Update the state with new data depending on action
             if(payload.eventType == 'INSERT'){
-                setPesanan((p) => [...p, payload.new]);
+                setPesanan((p) => [payload.new, ...p]);
             }else if(payload.eventType == 'UPDATE'){
                 // Jika update-nya berupa status menjadi 'selesai'
                 if(payload.new.status == 'selesai'){
@@ -58,13 +60,8 @@ function PesananKoki() {
         };
     }, [supabase]);
   
-
-    console.log(pesanan)
-    // subscribeToPesanan()
     return (
-        <div className=' min-h-screen'>
-
-        </div>
+        <PesananCards pesanan={pesanan} supabase={supabase} setPesanan={setPesanan} />
     )
 
 }
