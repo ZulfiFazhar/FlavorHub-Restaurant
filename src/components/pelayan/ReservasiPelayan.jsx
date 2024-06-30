@@ -30,7 +30,7 @@ const [respesModal, setRespesModal] = useState(false)
 
   }, [])
 
-
+  // console.log(respesModal)
   return (
     <div className=' w-full min-h-screen bg-white flex'>
         <div className=' w-1/2 min-h-screen bg-slate-100  '>
