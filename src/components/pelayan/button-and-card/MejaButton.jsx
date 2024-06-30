@@ -14,7 +14,7 @@ function MejaButton({respesModal, setRespesModal, properti}) {
                 {properti.nomor_meja}
             </h3>
             <span className=' text-xs'>Status : {properti.status}</span>
-            {properti.status != "kosong" &&
+            {properti.nama_pemesan != null &&
                 <span className=' text-xs'>Pemesan : {properti.nama_pemesan}</span>
             }
         </div>

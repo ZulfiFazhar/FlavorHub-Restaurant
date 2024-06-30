@@ -50,11 +50,11 @@ function ReservasiPelayan() {
 
     // Cleanup subscription on component unmount
     return () => {
-    subscribeToReservasiPesanan.unsubscribe();
+      subscribeToReservasiPesanan.unsubscribe();
     };
   }, [supabase]);
 
-  // console.log(respesModal)
+  console.log(respesModal)
   return (
     <div className=' w-full min-h-screen bg-white flex'>
         <div className=' w-1/2 min-h-screen bg-slate-100  '>

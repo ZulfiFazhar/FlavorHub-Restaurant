@@ -1,6 +1,9 @@
 import { createClientComponentClient } from '@supabase/auth-helpers-nextjs'
 import React, { useEffect, useState, useRef } from 'react'
 
+// Local library
+import { resetInterfaceState, handleClickPesan } from '../../library/reservasiPesan'
+
 // Local components
 import MenuDipilihCards from './reservasi-pesan-input-bc/MenuDipilihCards'
 import PencarianMenu from './reservasi-pesan-input-bc/PencarianMenu'
@@ -15,15 +18,8 @@ function ReservasiPesanInput({respesModal, setRespesModal}) {
     const supabase = createClientComponentClient()
 
     useEffect(() => {
-        resetInterfaceState()
+        resetInterfaceState(setMenuDipesan,setMenuHasilPencarian,searchInputRef,namaInputRef)
     }, [respesModal])
-
-    const resetInterfaceState = () => {
-        setMenuDipesan(md => [])
-        setMenuHasilPencarian(mhp => [])
-        if(searchInputRef.current)searchInputRef.current.value = ''
-        if(namaInputRef.current)namaInputRef.current.value = ''
-    }
 
     useEffect(() => {
         const fetchMenu = async () => {
@@ -36,62 +32,10 @@ function ReservasiPesanInput({respesModal, setRespesModal}) {
         fetchMenu()
     }, [])
 
-    const handleClickPesan = async () => {
-        let nama_pemesan = ''
-        if(namaInputRef.current && namaInputRef.current.value == ""){
-            return alert("Nama pemesan harus diisi")
-        }else{
-            nama_pemesan = namaInputRef.current.value
-        }
-
-        let invalid = false
-        const formattedPesanan = menuDipesan.map(md => {
-            if(md.opsi != null && md.opsiDipilih == ""){
-                invalid = true
-            }
-            let formattedmd = {
-                nama_masakan : md.nama_masakan,
-                opsi : md.opsiDiplih,
-                jumlah : md.jumlah
-            }
-            return formattedmd
-        })
-        
-        if(invalid)return alert("Opsi harus diisi")
-        
-        const newPesanan = {
-            nama_pemesan : nama_pemesan,
-            nomor_meja : respesModal.nomor_meja,
-            pesanan : formattedPesanan,
-            status : 'dipesan'
-        }
-
-        // insert new pesanan data
-        const {dataPes, errorPes} = await supabase
-            .from("pesanan")
-            .insert([newPesanan])
-        
-        if(errorPes){
-            return console.log(errorPes)
-        }else{
-            console.log(dataPes)
-        }
-
-        // Reset interface state
-        resetInterfaceState()
-
-        // Update status meja dalam tabel reservasi_pesanan
-        const {dataRespes, errorRespes} = await supabase
-            .from('reservasi_pesanan')
-            .update({status:'dipesan', nama_pemesan:nama_pemesan, pesanan:formattedPesanan})
-            .eq('id', respesModal.id)
-
-        if(errorRespes){
-            return console.log(errorRespes)
-        }else{
-            console.log(dataRespes)
-        }
-    } 
+    const handleClickPsn = () => {
+        handleClickPesan(namaInputRef, searchInputRef, menuDipesan, setMenuDipesan, setMenuHasilPencarian, respesModal, supabase)
+    }
+    
 
   return (
     <div className='w-1/2 flex flex-col bg-blue-100 min-h-screen py-2 px-4'>
@@ -116,7 +60,7 @@ function ReservasiPesanInput({respesModal, setRespesModal}) {
             setMenuDipesan={setMenuDipesan}
         />
 
-        <button className=' flex-none mt-auto border border-black rounded-md' onClick={handleClickPesan}>Pesan</button>
+        <button className=' flex-none mt-auto border border-black rounded-md' onClick={handleClickPsn}>Pesan</button>
     </div>
   )
 }
