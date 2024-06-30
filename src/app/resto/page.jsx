@@ -5,17 +5,17 @@ import { usePekerjaanContext } from "./providers";
 
 // Local components
 import ReservasiPelayan from "@/components/pelayan/ReservasiPelayan";
+import PesananKoki from "@/components/koki/PesananKoki";
 
 export default function Home() {
   const pekerjaan = usePekerjaanContext()
-
   let content;
   switch (pekerjaan) {
     case "pelayan":
       content = <ReservasiPelayan />
       break;
     case "koki":
-      content = "Halaman Koki"
+      content = <PesananKoki />
       break;
     case "kasir":
       content = "Halaman kasir"
