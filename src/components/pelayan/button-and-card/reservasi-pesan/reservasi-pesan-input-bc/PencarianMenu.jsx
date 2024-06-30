@@ -39,7 +39,7 @@ function PencarianMenu({menu, setMenuDipesan, menuHasilPencarian, setMenuHasilPe
             </div>
 
             {menuHasilPencarian.length != 0 ?
-                <div className='border border-black p-2 mt-2 absolute bg-blue-100'>
+                <div className='border border-black p-2 mt-2 ml-24 absolute bg-blue-100'>
                     <h1 className='text-lg'>Menu hasil pencarian</h1>
                         {menuHasilPencarian.map(item => {
                             return (
