@@ -37,7 +37,7 @@ function PesananCards({pesanan, supabase, setPesanan}) {
                                         {psn.pesanan.map(ps => {
                                             return (
                                                 <div key={Math.random()} className='border border-black rounded-md px-2 mr-2'>
-                                                    <span className='mr-2'>{ps.nama}</span>
+                                                    <span className='mr-2'>{ps.nama_masakan}</span>
 
                                                     {ps.opsi != false &&
                                                         <span className='mr-2 text-sm'>{ps.opsi}</span>
