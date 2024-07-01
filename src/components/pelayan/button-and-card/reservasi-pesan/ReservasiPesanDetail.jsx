@@ -27,14 +27,14 @@ function ReservasiPesanDetail({respesModal, setRespesModal}) {
       .from('pesanan')
       .update({status:'selesai'})
       .eq('nomor_meja', respesModal.nomor_meja)
-
+      .neq('status', 'selesai')
+      .neq('status', 'sudah dibayar');
+      
       if(error){
         console.log(error)
       }else{
         console.log(data)
       }
-
-    
   }
 
 
@@ -60,7 +60,10 @@ function ReservasiPesanDetail({respesModal, setRespesModal}) {
         }
       </div>
 
-      <button className='border border-black rounded-md px-2 mt-10' onClick={handleClickCustomerDone}>Pelanggan telah selesai</button>
+      {
+        respesModal.status == 'diterima' &&
+        <button className='border border-black rounded-md px-2 mt-10' onClick={handleClickCustomerDone}>Pelanggan telah selesai</button>
+      }
     </div>
   )
 }
