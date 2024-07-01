@@ -19,7 +19,7 @@ const Sidebar = ({ children }) => {
     case "pelayan":
       fixedMenu = [
         { name: "Reservasi", path: "/resto", icon: "mdi:cog" },
-        { name: "Pesanan", path: "/resto/pesanan", icon: "mdi:account-group" },
+        { name: "Pesanan", path: "/resto/pesanan-pelayan", icon: "mdi:account-group" },
       ];
       break;
     case "koki":

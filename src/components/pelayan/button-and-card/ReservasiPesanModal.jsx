@@ -16,10 +16,9 @@ function ReservasiPesanModal({respesModal, setRespesModal}) {
     let content;
     if(respesModal?.status == "kosong"){
       content = <ReservasiPesanInput respesModal={respesModal} setRespesModal={setRespesModal} />
-    }else if(respesModal?.status == "dipesan"){
+    }else{
       content = <ReservasiPesanDetail respesModal={respesModal} setRespesModal={setRespesModal} />
     }
-    console.log(respesModal)
   return (
     <>
       {content}

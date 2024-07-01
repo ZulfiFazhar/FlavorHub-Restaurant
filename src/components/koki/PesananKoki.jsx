@@ -20,7 +20,7 @@ function PesananKoki() {
             
             if(error)console.log(error)
             if(data){
-                const undonePesanan = data.filter(psn => psn.status != 'selesai')
+                const undonePesanan = data.filter(psn => psn.status != 'selesai' && psn.status != 'sudah dibayar')
                 setPesanan(p => undonePesanan)
             }
         }

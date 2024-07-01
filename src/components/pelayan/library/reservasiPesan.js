@@ -1,7 +1,6 @@
 // Pelayan memesan menu setelah mengisi form pemesanan
 // Fungsi: validasi form, insert data pesanan, update data meja (reservasi_pesanan), reset interface state
 export const handleClickPesan = async (namaInputRef, searchInputRef, menuDipesan, setMenuDipesan, setMenuHasilPencarian, respesModal, supabase) => {
-    console.log("tes")
     // validasi nama pemesan
     let nama_pemesan = ''
     if(namaInputRef.current && namaInputRef.current.value == ""){
@@ -12,15 +11,19 @@ export const handleClickPesan = async (namaInputRef, searchInputRef, menuDipesan
 
     // buat pesanan dengan format mengikuti tabel pesanan kolom pesanan
     let invalid = false
+    let totalHarga = 0
     const formattedPesanan = menuDipesan.map(md => {
         if(md.opsi != null && md.opsiDipilih == ""){
             invalid = true
         }
         let formattedmd = {
+            id: md.id,
             nama_masakan : md.nama_masakan,
             opsi : md.opsiDiplih,
-            jumlah : md.jumlah
+            jumlah : md.jumlah,
+            harga : md.harga * md.jumlah
         }
+        totalHarga += formattedmd.harga
         return formattedmd
     })
     
@@ -32,7 +35,8 @@ export const handleClickPesan = async (namaInputRef, searchInputRef, menuDipesan
         nama_pemesan : nama_pemesan,
         nomor_meja : respesModal.nomor_meja,
         pesanan : formattedPesanan,
-        status : 'dipesan'
+        status : 'dipesan',
+        total_harga : totalHarga
     }
 
     // insert new pesanan data

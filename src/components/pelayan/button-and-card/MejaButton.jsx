@@ -1,11 +1,12 @@
 import React from 'react'
+import { createClientComponentClient } from '@supabase/auth-helpers-nextjs'
 
 function MejaButton({respesModal, setRespesModal, properti}) {
 
     const handleClick = () => {
         setRespesModal(rm => properti)
     }
-
+    
   return (
     <div className=' flex'>
 

@@ -8,18 +8,32 @@ function ReservasiPesanDetail({respesModal, setRespesModal}) {
 
   const supabase = createClientComponentClient()
   
-  const handleClickCustomerDone = async () => {
-    const {data, error} = await supabase
-      .from('reservasi_pesanan')
-      .update({status:'kosong',nama_pemesan:null,pesanan:null})
-      .eq('id', respesModal.id)
+  const handleClickCustomerDone = async (nomor_meja) => {
+    // Update reservasi pesanan
+    const {dataRespes, errorRespes} = await supabase
+    .from('reservasi_pesanan')
+    .update({status:'kosong',nama_pemesan:null,pesanan:null})
+    .eq('nomor_meja', respesModal.nomor_meja)
 
+    if(errorRespes){
+        return console.log(errorRespes)
+    }else{
+        console.log(dataRespes)
+        setRespesModal(rm => ({...rm, status:'kosong', nama_pemesan:null, pesanan:null}
+        ))
+    }
+
+    const {data, error} = await supabase
+      .from('pesanan')
+      .update({status:'selesai'})
+      .eq('nomor_meja', respesModal.nomor_meja)
+      .neq('status', 'selesai')
+      .neq('status', 'sudah dibayar');
+      
       if(error){
         console.log(error)
       }else{
         console.log(data)
-        setRespesModal(rm => ({...rm, status:'kosong', nama_pemesan:null, pesanan:null}
-        ))
       }
   }
 
@@ -46,7 +60,10 @@ function ReservasiPesanDetail({respesModal, setRespesModal}) {
         }
       </div>
 
-      <button className='border border-black rounded-md px-2 mt-10' onClick={handleClickCustomerDone}>Pelanggan telah selesai</button>
+      {
+        respesModal.status == 'diterima' &&
+        <button className='border border-black rounded-md px-2 mt-10' onClick={handleClickCustomerDone}>Pelanggan telah selesai</button>
+      }
     </div>
   )
 }
