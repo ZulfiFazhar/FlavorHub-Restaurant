@@ -21,7 +21,6 @@ function PesananPelayan() {
     }
   }, [pekerjaan])
 
-
     // Fetch pesanan data
     useEffect(() => {
         const fetchPesananData = async () => {
@@ -54,16 +53,16 @@ function PesananPelayan() {
                     setPesanan(prevPesanan => {
                         return prevPesanan.filter(psn => psn.id != payload.new.id)
                     })
-                }else if(payload.new.status == 'diantar' || payload.new.status == 'diterima'){
-                  // setPesanan(prevPesanan => {
-                  //     return prevPesanan.map(psn => (psn.id === payload.new.id ? payload.new : psn))
-                  // })
+                }else if(payload.new.status == 'diantar'){
                   setPesanan(prevPesanan => {
-                    let newArr = [...prevPesanan]
-                    newArr.unshift(payload.new)
-                    return newArr
-                  })
-                  
+                    let newPesanan = [...prevPesanan]
+                    newPesanan.unshift(payload.new)
+                    return newPesanan
+                  }) 
+                }else if(payload.new.status == 'diterima'){
+                  setPesanan(prevPesanan => {
+                    return prevPesanan.map(psn => psn.id == payload.new.id ? payload.new : psn)
+                  }) 
                 }
             }
         })

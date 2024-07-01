@@ -8,19 +8,33 @@ function ReservasiPesanDetail({respesModal, setRespesModal}) {
 
   const supabase = createClientComponentClient()
   
-  const handleClickCustomerDone = async () => {
+  const handleClickCustomerDone = async (nomor_meja) => {
+    // Update reservasi pesanan
+    const {dataRespes, errorRespes} = await supabase
+    .from('reservasi_pesanan')
+    .update({status:'kosong',nama_pemesan:null,pesanan:null})
+    .eq('nomor_meja', respesModal.nomor_meja)
+
+    if(errorRespes){
+        return console.log(errorRespes)
+    }else{
+        console.log(dataRespes)
+        setRespesModal(rm => ({...rm, status:'kosong', nama_pemesan:null, pesanan:null}
+        ))
+    }
+
     const {data, error} = await supabase
-      .from('reservasi_pesanan')
-      .update({status:'kosong',nama_pemesan:null,pesanan:null})
-      .eq('id', respesModal.id)
+      .from('pesanan')
+      .update({status:'selesai'})
+      .eq('nomor_meja', respesModal.nomor_meja)
 
       if(error){
         console.log(error)
       }else{
         console.log(data)
-        setRespesModal(rm => ({...rm, status:'kosong', nama_pemesan:null, pesanan:null}
-        ))
       }
+
+    
   }
 
 
