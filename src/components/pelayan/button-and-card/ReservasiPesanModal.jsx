@@ -9,7 +9,8 @@ function ReservasiPesanModal({respesModal, setRespesModal}) {
 
     if(!respesModal){
         return (
-            <></>
+            <div className='w-1/2 mx-4'>
+            </div>
         )
     }
 

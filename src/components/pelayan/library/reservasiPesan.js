@@ -1,6 +1,6 @@
 // Pelayan memesan menu setelah mengisi form pemesanan
 // Fungsi: validasi form, insert data pesanan, update data meja (reservasi_pesanan), reset interface state
-export const handleClickPesan = async (namaInputRef, searchInputRef, menuDipesan, setMenuDipesan, setMenuHasilPencarian, respesModal, supabase) => {
+export const handleClickPesan = async (namaInputRef, searchInputRef, menuDipesan, setMenuDipesan, setMenuHasilPencarian, respesModal, setRespesModal, supabase) => {
     // validasi nama pemesan
     let nama_pemesan = ''
     if(namaInputRef.current && namaInputRef.current.value == ""){
@@ -19,7 +19,7 @@ export const handleClickPesan = async (namaInputRef, searchInputRef, menuDipesan
         let formattedmd = {
             id: md.id,
             nama_masakan : md.nama_masakan,
-            opsi : md.opsiDiplih,
+            opsi : md.opsiDipilih,
             jumlah : md.jumlah,
             harga : md.harga * md.jumlah
         }
@@ -29,7 +29,7 @@ export const handleClickPesan = async (namaInputRef, searchInputRef, menuDipesan
     
     // validasi opsi yang kosong
     if(invalid)return alert("Opsi harus diisi")
-    
+
     // buat objek pesanan baru mengikuti tabel pesanan
     const newPesanan = {
         nama_pemesan : nama_pemesan,
@@ -38,7 +38,6 @@ export const handleClickPesan = async (namaInputRef, searchInputRef, menuDipesan
         status : 'dipesan',
         total_harga : totalHarga
     }
-
     // insert new pesanan data
     const {dataPes, errorPes} = await supabase
         .from("pesanan")
@@ -64,6 +63,8 @@ export const handleClickPesan = async (namaInputRef, searchInputRef, menuDipesan
     }else{
         console.log(dataRespes)
     }
+
+    setRespesModal(rm => false)
 } 
 
 // Reset state yang berfungsi untuk interface

@@ -36,10 +36,15 @@ function MenuDipilihCards({menuDipesan, setMenuDipesan}) {
     }
 
   return (
-    <div className='mt-4 flex flex-col *:mb-2'>
+    <div className='mt-4 w-full'>
+
+        <h1>Pesanan</h1>
+        
+        <div className='flex flex-col *:mb-2 bg-white w-full rounded-md p-2 overflow-auto h-[13rem] max-h-[13rem]'>
+
             {menuDipesan.map(item => {
                 return (
-                    <div key={item.id} className=' w-80 flex justify-between items-center border border-black p-2 rounded-md'>
+                    <div key={item.id} className='w-full flex justify-between items-center border border-black p-2 rounded-md'>
                         <div className='flex flex-col'>
                             <h4>{item.nama_masakan}</h4>
 
@@ -48,15 +53,21 @@ function MenuDipilihCards({menuDipesan, setMenuDipesan}) {
                             {item.opsi != null &&
                                 item.opsi.one.map(itm => {
                                     return (
-                                        <label key={itm}>
+                                        <div key={itm} className='flex items-center'>
                                             <input 
+                                                id={itm}
                                                 type='radio'
                                                 value={itm}
                                                 checked={item.opsiDipilih == itm}
                                                 onChange={(e) => handleClickRadioSelectOpsi(item.id, e.target.value)}
+                                                className='mr-[0.1rem]'
                                             />
-                                            {itm}
-                                        </label>
+
+                                            <label htmlFor={`${itm}`} className=''>
+                                                {itm}
+                                            </label>
+                                        
+                                        </div>
                                     )
                                 })
                                 
@@ -83,6 +94,7 @@ function MenuDipilihCards({menuDipesan, setMenuDipesan}) {
                 )
             })}
         </div>
+    </div>
   )
 }
 
