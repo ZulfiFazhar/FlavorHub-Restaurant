@@ -2,6 +2,7 @@
 
 import { useRouter } from "next/navigation"
 import { createClientComponentClient } from "@supabase/auth-helpers-nextjs"
+import { Icon } from "@iconify/react"
 
 
 const LogoutButton = () => {
@@ -33,7 +34,12 @@ const LogoutButton = () => {
     router.push('/login')
   }
 
-  return <button className="btn btn-solid-error" onClick={logOut}>Logout</button>
+  return ( 
+    <div className="flex justify-center items-center self-center text-black bg-white border border-black rounded-full flex-none mt-auto hover:cursor-pointer hover:bg-slate-300 w-52" onClick={logOut}>
+      <Icon icon={'mdi:logout'} className="mr-2" />
+      Logout
+    </div>
+  )
 }
 
 export default LogoutButton

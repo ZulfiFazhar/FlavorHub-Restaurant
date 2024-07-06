@@ -37,24 +37,35 @@ function ReservasiPesanDetail({respesModal, setRespesModal}) {
       }
   }
 
+  console.log(respesModal)
 
   return (
-    <div className='p-2 flex flex-col'>
-      <div>
+    <div className='mx-4 p-2 flex flex-col items-center w-1/2 border border-black rounded-md orange-custom'>
+      <div className='text-7xl mt-3 mb-5'>
         {respesModal.nomor_meja}
       </div>
-      <div>
-        Pemesan : {respesModal.nama_pemesan}
+
+      <div className='border bg-white border-black rounded-md w-full py-1 px-3'>
+        <span className='block text-sm mb-[-0.3rem]'>Pemesan</span>
+        <span className='block text-xl'>{respesModal.nama_pemesan}</span>
       </div>
-      <div>
-        Pesanan : 
-        <br />
+
+      <div className='border bg-white border-black rounded-md w-full py-1 px-3 mt-3 pb-4'>
+        <span className='block text-sm'>Pesanan</span> 
         {
           respesModal.pesanan.map(psn => {
             return (
-              <div key={Math.random()} className='mr-2'>
-                + {psn.nama_masakan} - Jumlah : {psn.jumlah}
-              </div>
+                <div key={psn.id} className='flex justify-between items-center border border-black rounded-md  px-2 bg-slate-100 mt-2'>
+                  <div className='flex flex-col'>
+                    <p>{psn.nama_masakan}</p>
+                    <p>Rp. {psn.harga}</p>
+                  </div>
+
+                  <p>Jumlah : {psn.jumlah}</p>
+
+
+                </div>
+
             )
           })
         }
@@ -62,7 +73,7 @@ function ReservasiPesanDetail({respesModal, setRespesModal}) {
 
       {
         respesModal.status == 'diterima' &&
-        <button className='border border-black rounded-md px-2 mt-10' onClick={handleClickCustomerDone}>Pelanggan telah selesai</button>
+        <button className='border border-black rounded-md px-2 flex-none mt-auto bg-slate-100' onClick={handleClickCustomerDone}>Pelanggan telah selesai</button>
       }
     </div>
   )

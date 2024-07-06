@@ -6,7 +6,20 @@
   background-color: rgba(0, 0, 0, 0.1);
 }
 
-.login-gradient {
+.main-gradient {
   background: rgb(244,158,58);
   background: linear-gradient(30deg, rgba(244,158,58,1) 18%, rgba(71,71,71,1) 93%);
+}
+
+.main-gradient-2 {
+  background: rgb(244,158,58);
+  background: linear-gradient(30deg, rgba(244,158,58,1) 9%, rgba(71,71,71,1) 90%);
+}
+
+.orange-custom {
+  background: #C67D2A;
+}
+
+.green-custom {
+  background: #0EAE62;
 }

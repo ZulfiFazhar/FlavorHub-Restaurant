@@ -55,7 +55,7 @@ function Login() {
   return (
     <div className='bg-white h-screen min-h-screen'>
         <div className=' flex h-full justify-center items-center w-fit'>
-        <div className=' h-85p login-gradient ml-12 w-[28rem] rounded-3xl flex flex-col py-10 justify-around items-center text-white'>
+        <div className=' h-85p main-gradient ml-12 w-[28rem] rounded-3xl flex flex-col py-10 justify-around items-center text-white'>
             <Image src={'Logo.svg'} width={75} height={75} />
 
             <h1 className='text-2xl mb-3'><span className='text-orange-300'>Flavor</span>Hub</h1>
@@ -98,9 +98,6 @@ function Login() {
         <Image src={'/decoration/coffe 1.png'} width={200} height={200} className='absolute top-52 left-[25rem]' />
         <Image src={'/decoration/cookies 1.png'} width={200} height={200} className='absolute top-72 left-[38rem]' />
         <Image src={'/decoration/pizza 1.png'} width={200} height={200} className='absolute top-96 left-[29rem]' />
-        {/* <Image src={'/decoration/coffe 1.png'} width={250} height={250} className='absolute top-1 left-96' />
-        <Image src={'/decoration/cookies 1.png'} width={250} height={250} className='absolute top-1 left-96' />
-        <Image src={'/decoration/pizza 1.png'} width={250} height={250} className='absolute top-1 left-96' /> */}
     </div>
   )
 }

@@ -17,6 +17,9 @@ module.exports = {
       },
       height : {
         '85p' : '85%',
+      },
+      width : {
+        '90p' : '90%'
       }
     },
   },

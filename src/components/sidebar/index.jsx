@@ -18,21 +18,21 @@ const Sidebar = ({ children }) => {
   switch(pekerjaan){
     case "pelayan":
       fixedMenu = [
-        { name: "Reservasi", path: "/resto", icon: "mdi:cog" },
-        { name: "Pesanan", path: "/resto/pesanan-pelayan", icon: "mdi:account-group" },
+        { name: "Reservasi", path: "/resto", icon: "mdi:local-restaurant" },
+        { name: "Pesanan", path: "/resto/pesanan-pelayan", icon: "mdi:format-list-bulleted" },
       ];
       break;
     case "koki":
       fixedMenu = [
-        { name: "Pesanan", path: "/resto", icon: "mdi:cog" },
-        { name: "Menu", path: "/resto/menu", icon: "mdi:account-group" },
+        { name: "Pesanan", path: "/resto", icon: "mdi:local-restaurant" },
+        { name: "Menu", path: "/resto/menu", icon: "mdi:food-outline" },
       ];
       break;
     case "kasir":
       fixedMenu = [
-        { name: "Pembayaran", path: "/resto", icon: "mdi:cog" },
-        { name: "Histori", path: "/resto/histori", icon: "mdi:account-group" },
-        { name: "Laporan", path: "/resto/laporan", icon: "mdi:mail" }
+        { name: "Pembayaran", path: "/resto", icon: "mdi:payment-clock" },
+        { name: "Histori", path: "/resto/histori", icon: "mdi:clipboard-text-history-outline" },
+        { name: "Laporan", path: "/resto/laporan", icon: "mdi:report-line" }
       ];
       break;
   }
@@ -49,20 +49,26 @@ const Sidebar = ({ children }) => {
           htmlFor="sidebar-mobile-fixed"
           className="sidebar-overlay"
         ></label>
-        <aside className="sidebar px-2 bg-gradient-to-tr from-blue-500 to-purple-600 sidebar-fixed-left sidebar-mobile h-full justify-start max-sm:fixed max-sm:-translate-x-full">
+        <aside className="sidebar px-2 bg-gradient-to-tr main-gradient-2 sidebar-fixed-left sidebar-mobile h-full justify-start max-sm:fixed max-sm:-translate-x-full">
           <section className="sidebar-title items-center p-4 justify-center my-3">
             <Image
-              src="/next.svg"
-              alt="NEXT Logo"
-              width={190}
-              height={37}
+              src="/logo.svg"
+              alt="FlavorHub log0"
+              width={120}
+              height={120}
               priority
             />
           </section>
+          <div className="text-4xl font-bold mx-auto text-white">
+            <span className="text-orange-300">Flavor</span>Hub
+          </div>
+          <div className="mx-auto text-white">
+            Pelayan
+          </div>
           <section className="sidebar-content">
-            <nav className="menu rounded-md">
-              <section className="menu-section px-4">
-                <ul className="flex flex-col gap-4 text-white">
+            <nav className="menu rounded-md h-full">
+              <section className="menu-section px-4 h-full">
+                <ul className="flex flex-col h-full gap-4 text-white">
                   {fixedMenu.map((item, index) => (
                     <li key={index}>
                       <Link href={item.path}>

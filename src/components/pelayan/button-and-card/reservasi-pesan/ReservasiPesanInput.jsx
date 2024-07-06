@@ -33,18 +33,22 @@ function ReservasiPesanInput({respesModal, setRespesModal}) {
     }, [])
 
     const handleClickPsn = () => {
-        handleClickPesan(namaInputRef, searchInputRef, menuDipesan, setMenuDipesan, setMenuHasilPencarian, respesModal, supabase)
+        handleClickPesan(namaInputRef, searchInputRef, menuDipesan, setMenuDipesan, setMenuHasilPencarian, respesModal, setRespesModal, supabase)
     }
     
+    const handleClickCancel = () => {
+        setRespesModal(rm => false)
+    }
 
   return (
-    <div className='w-1/2 flex flex-col bg-blue-100 min-h-screen py-2 px-4'>
-        <h2>Reservasi dan Pesan</h2>
-        <h2>Meja : {respesModal.nomor_meja}</h2>
+    <div className='w-1/2 flex flex-col items-center green-custom mx-4 rounded-md py-2 px-4'>
+        <div className='self-start'>Reservasi</div>
+
+        <h2 className=' text-7xl mb-5'>{respesModal.nomor_meja}</h2>
         
-        <div>
-            <label htmlFor='pemesan'>Pemesan : </label>
-            <input ref={namaInputRef} id='pemesan' className='px-2 rounded-md border border-black mb-2'></input>
+        <div className='flex flex-col w-full'>
+            <label htmlFor='pemesan'>Pemesan</label>
+            <input ref={namaInputRef} id='pemesan' className='px-2 rounded-md border border-black mb-2 w-full'></input>
         </div>
         
         <PencarianMenu
@@ -60,7 +64,11 @@ function ReservasiPesanInput({respesModal, setRespesModal}) {
             setMenuDipesan={setMenuDipesan}
         />
 
-        <button className=' flex-none mt-auto border border-black rounded-md' onClick={handleClickPsn}>Pesan</button>
+        <div className='flex justify-between w-5/6 flex-none mt-auto'>
+            <button className='border border-black rounded-md bg-red-400 px-2 hover:bg-red-500' onClick={handleClickCancel}>Cancel</button>
+
+            <button className='border border-black rounded-md bg-green-400 px-2 hover:bg-green-500' onClick={handleClickPsn}>Pesan</button>
+        </div>
     </div>
   )
 }

@@ -10,14 +10,19 @@ function MejaButton({respesModal, setRespesModal, properti}) {
   return (
     <div className=' flex'>
 
-        <div className={`flex flex-col justify-start items-center w-24 h-28 rounded-md ${properti.status == 'kosong' ? 'bg-green-600' : 'bg-orange-600'} pt-3 hover:cursor-pointer`} onClick={handleClick}>
-            <h3 className='text-6xl mb-1'>
+        <div className={`flex flex-col justify-start items-center w-28 h-fit pb-1 rounded-md bg-white pt-3 hover:cursor-pointer border border-black`} onClick={handleClick}>
+            <h3 className={`text-3xl w-5/6 flex justify-center py-3 mb-1 border border-black rounded-md ${properti.status == 'kosong' ? 'green-custom' : 'orange-custom'}`}>
                 {properti.nomor_meja}
             </h3>
-            <span className=' text-xs'>Status : {properti.status}</span>
-            {properti.nama_pemesan != null &&
-                <span className=' text-xs'>Pemesan : {properti.nama_pemesan}</span>
-            }
+
+            <div className='w-5/6 text-xs'>
+                <span className='block'>Status: {properti.status}</span>
+                <span className=''>Pemesan: 
+                {properti.nama_pemesan != null &&
+                    <span className=''> {properti.nama_pemesan}</span>
+                }
+                </span>
+            </div>
         </div>
 
     </div>

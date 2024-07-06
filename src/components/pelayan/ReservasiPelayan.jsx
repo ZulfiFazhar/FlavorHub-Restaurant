@@ -54,12 +54,21 @@ function ReservasiPelayan() {
     };
   }, [supabase]);
 
-  return (
-    <div className=' w-full min-h-screen bg-white flex'>
-        <div className=' w-1/2 min-h-screen bg-slate-100  '>
-            <h1>Reservasi</h1>
+  const date = new Date()
+  const formattedDate = date.toLocaleDateString('id-ID')
 
-            <div className='flex flex-wrap *:m-1 justify-start'>
+  return (
+    <div className='w-full min-h-screen max-h-screen py-10 bg-white flex'>
+
+        <div className=' w-2/3 bg-slate-100 overflow-auto rounded-md border border-black  '>
+
+            <div className='flex justify-between items-center  w-5/6 border-b border-black mx-auto px-2 py-1 mt-3'>
+              <h1 className='text-2xl'>Reservasi</h1>
+              <span>{formattedDate}</span>
+
+            </div>
+
+            <div className='flex flex-wrap justify-start w-90p mx-auto *:mb-6 *:mr-3  mt-6'>
               {
                 reservasiPesanan?.map(rp => {
                   return (
@@ -73,6 +82,7 @@ function ReservasiPelayan() {
                 })
               }
             </div>
+            
             
         </div>
         

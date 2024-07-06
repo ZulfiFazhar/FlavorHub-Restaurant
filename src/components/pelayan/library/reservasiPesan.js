@@ -1,6 +1,6 @@
 // Pelayan memesan menu setelah mengisi form pemesanan
 // Fungsi: validasi form, insert data pesanan, update data meja (reservasi_pesanan), reset interface state
-export const handleClickPesan = async (namaInputRef, searchInputRef, menuDipesan, setMenuDipesan, setMenuHasilPencarian, respesModal, supabase) => {
+export const handleClickPesan = async (namaInputRef, searchInputRef, menuDipesan, setMenuDipesan, setMenuHasilPencarian, respesModal, setRespesModal, supabase) => {
     // validasi nama pemesan
     let nama_pemesan = ''
     if(namaInputRef.current && namaInputRef.current.value == ""){
@@ -64,6 +64,8 @@ export const handleClickPesan = async (namaInputRef, searchInputRef, menuDipesan
     }else{
         console.log(dataRespes)
     }
+
+    setRespesModal(rm => false)
 } 
 
 // Reset state yang berfungsi untuk interface
