@@ -60,7 +60,7 @@ function ReservasiPelayan() {
   return (
     <div className='w-full min-h-screen max-h-screen py-10 bg-white flex'>
 
-        <div className=' w-2/3 bg-slate-100 overflow-auto rounded-md border border-black  '>
+        <div className=' w-7/12 bg-slate-100 overflow-auto rounded-md border border-black  '>
 
             <div className='flex justify-between items-center  w-5/6 border-b border-black mx-auto px-2 py-1 mt-3'>
               <h1 className='text-2xl'>Reservasi</h1>

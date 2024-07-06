@@ -19,7 +19,7 @@ export const handleClickPesan = async (namaInputRef, searchInputRef, menuDipesan
         let formattedmd = {
             id: md.id,
             nama_masakan : md.nama_masakan,
-            opsi : md.opsiDiplih,
+            opsi : md.opsiDipilih,
             jumlah : md.jumlah,
             harga : md.harga * md.jumlah
         }
@@ -29,7 +29,7 @@ export const handleClickPesan = async (namaInputRef, searchInputRef, menuDipesan
     
     // validasi opsi yang kosong
     if(invalid)return alert("Opsi harus diisi")
-    
+
     // buat objek pesanan baru mengikuti tabel pesanan
     const newPesanan = {
         nama_pemesan : nama_pemesan,
@@ -38,7 +38,6 @@ export const handleClickPesan = async (namaInputRef, searchInputRef, menuDipesan
         status : 'dipesan',
         total_harga : totalHarga
     }
-
     // insert new pesanan data
     const {dataPes, errorPes} = await supabase
         .from("pesanan")

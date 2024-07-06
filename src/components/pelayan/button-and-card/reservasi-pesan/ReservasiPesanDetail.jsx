@@ -37,7 +37,7 @@ function ReservasiPesanDetail({respesModal, setRespesModal}) {
       }
   }
 
-  console.log(respesModal)
+  // console.log(respesModal)
 
   return (
     <div className='mx-4 p-2 flex flex-col items-center w-1/2 border border-black rounded-md orange-custom'>
@@ -57,7 +57,7 @@ function ReservasiPesanDetail({respesModal, setRespesModal}) {
             return (
                 <div key={psn.id} className='flex justify-between items-center border border-black rounded-md  px-2 bg-slate-100 mt-2'>
                   <div className='flex flex-col'>
-                    <p>{psn.nama_masakan}</p>
+                    <p>{psn.nama_masakan} {psn.opsi && <span className='text-sm'>({psn.opsi})</span>}</p>
                     <p>Rp. {psn.harga}</p>
                   </div>
 
