@@ -12,6 +12,7 @@ function page() {
   const [selectedMenu, setSelectedMenu] = useState()
   const supabase = createClientComponentClient()
 
+  // Fetch data menu saat pertama kali load
   useEffect(() => {
     const fetchMenu = async () => {
       const {data, error} = await supabase
@@ -22,12 +23,32 @@ function page() {
         return alert('Error fetch data : ',error)
       }else{
         setMenu(m => data)
-        setSelectedMenu(m => data[3])
       }
     }
 
     fetchMenu()
   }, [])
+
+  // Subcribe realtime ke menu
+  useEffect(() => {
+    const subscribeToMenu = supabase
+    .channel('menu-subscribe')
+    .on('postgres_changes', {
+        event: '*',
+        schema: 'public',
+        table: 'menu'
+    }, (payload) => {
+        if(payload.eventType == "INSERT"){
+          setMenu(m => [...m, payload.new])
+        }
+    })
+    .subscribe();
+
+    // Cleanup subscription on component unmount
+    return () => {
+      subscribeToMenu.unsubscribe();
+    };
+  }, [supabase]);
 
   const handleClickMenuCard = (menu) => {
     setSelectedMenu(sm => menu)
@@ -67,7 +88,7 @@ function page() {
       }
       {
         bukaDetam == "tambah" && 
-        <TambahMenu supabase={supabase} />
+        <TambahMenu supabase={supabase} setBukaDetam={setBukaDetam} />
       }
       {
         bukaDetam == "detail" && 
