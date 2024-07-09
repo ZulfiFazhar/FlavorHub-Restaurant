@@ -20,6 +20,14 @@
   background: #C67D2A;
 }
 
+.text-orange-custom {
+  color: #C67D2A;
+}
+
 .green-custom {
   background: #0EAE62;
+}
+
+.grey-custom {
+  background: #DADFDF;
 }

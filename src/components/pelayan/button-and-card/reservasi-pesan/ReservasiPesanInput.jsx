@@ -49,7 +49,7 @@ function ReservasiPesanInput({respesModal, setRespesModal}) {
         
         <div className='flex flex-col w-full'>
             <label htmlFor='pemesan'>Pemesan</label>
-            <input ref={namaInputRef} id='pemesan' className='px-2 rounded-md border border-black mb-2 w-full'></input>
+            <input ref={namaInputRef} id='pemesan' className='px-2 rounded-md border border-black mb-2 w-full' autoComplete='off'></input>
         </div>
         
         <PencarianMenu
