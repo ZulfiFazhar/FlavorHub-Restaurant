@@ -88,7 +88,7 @@ function page() {
       }
       {
         bukaDetam == "tambah" && 
-        <TambahMenu supabase={supabase} />
+        <TambahMenu supabase={supabase} setBukaDetam={setBukaDetam} />
       }
       {
         bukaDetam == "detail" && 

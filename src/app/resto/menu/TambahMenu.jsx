@@ -2,7 +2,7 @@
 
 import React, {useState} from 'react'
 
-function TambahMenu({supabase}) {
+function TambahMenu({supabase, setBukaDetam}) {
   const [formTambahMenu, setFormTambahMenu] = useState({nama_masakan:'',kategori:'',deskripsi:'',harga:''})
 
   const handleClickSubmit = async () => {   
@@ -88,7 +88,12 @@ function TambahMenu({supabase}) {
         </div>
 
         <div className='flex-none mt-auto px-7 flex justify-between'>
-            <button className='px-2 bg-red-500 rounded-md text-white hover:bg-red-600'>Cancel</button>
+            <button 
+                className='px-2 bg-red-500 rounded-md text-white hover:bg-red-600'
+                onClick={() => setBukaDetam(d => "none")}
+            >
+            Cancel
+            </button>
             
             <button 
                 className='px-2 bg-green-500 rounded-md text-white hover:bg-green-600'
