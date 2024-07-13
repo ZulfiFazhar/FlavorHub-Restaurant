@@ -7,27 +7,27 @@
 }
 
 .main-gradient {
-  background: rgb(244,158,58);
-  background: linear-gradient(30deg, rgba(244,158,58,1) 18%, rgba(71,71,71,1) 93%);
+  /* background: rgb(244, 158, 58); */
+  background: linear-gradient(30deg, #f59e0b 18%, #ec4899 93%);
 }
 
 .main-gradient-2 {
-  background: rgb(244,158,58);
-  background: linear-gradient(30deg, rgba(244,158,58,1) 9%, rgba(71,71,71,1) 90%);
+  /* background: rgb(244, 158, 58); */
+  background: linear-gradient(30deg, #f59e0b 18%, #ec4899 93%);
 }
 
 .orange-custom {
-  background: #C67D2A;
+  background: #c67d2a;
 }
 
 .text-orange-custom {
-  color: #C67D2A;
+  color: #c67d2a;
 }
 
 .green-custom {
-  background: #0EAE62;
+  background: #0eae62;
 }
 
 .grey-custom {
-  background: #DADFDF;
+  background: #dadfdf;
 }
