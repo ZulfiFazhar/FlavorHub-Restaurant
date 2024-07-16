@@ -4,25 +4,19 @@ import React from "react";
 import { usePekerjaanContext } from "./providers";
 import { useRouter } from "next/navigation";
 
-// Local components
-import ReservasiPelayan from "@/components/pelayan/ReservasiPelayan";
-import PesananKoki from "@/components/koki/PesananKoki";
-import PembayaranKasir from "@/components/kasir/PembayaranKasir";
-import Dashboard from "@/components/manajer/Dashboard";
-
 export default function Home() {
   const pekerjaan = usePekerjaanContext()
   const router = useRouter()
   let content;
   switch (pekerjaan) {
     case "pelayan":
-      content = <ReservasiPelayan />
+      router.push('/resto/pelayan')
       break;
     case "koki":
-      content = <PesananKoki />
+      router.push('/resto/koki')
       break;
     case "kasir":
-      content = <PembayaranKasir />
+      router.push('/resto/kasir')
       break;
     case "manajer":
       router.push('/resto/manajer')
