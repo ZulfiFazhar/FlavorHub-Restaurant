@@ -35,6 +35,14 @@ const Sidebar = ({ children }) => {
         { name: "Laporan", path: "/resto/laporan", icon: "mdi:report-line" }
       ];
       break;
+    case "manajer":
+      fixedMenu = [
+        { name: "Dashboard", path: "/resto/manajer", icon: "mdi:report-line" },
+        { name: "Keuangan", path: "/resto/manajer/keuangan", icon: "mdi:clipboard-text-history-outline" },
+        { name: "Menu", path: "/resto/manajer/menu", icon: "mdi:food-outline" },
+        { name: "Karyawan", path: "/resto/manajer/karyawan", icon: "mdi:account-group-outline" }
+      ];
+      break;
   }
 
   return (
