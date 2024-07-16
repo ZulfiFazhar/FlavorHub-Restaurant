@@ -1,18 +1,86 @@
 import React, {useEffect, useState} from 'react'
+import { useRouter } from 'next/navigation'
 import Image from 'next/image'
 
-function TambahUbahKaryawan({karyawan, setSelectedKaryawan}) {
+import { createClientComponentClient } from '@supabase/auth-helpers-nextjs'
+
+function TambahUbahKaryawan({karyawan, setSelectedKaryawan, setRefetch}) {
     const [karyawanForm, setKaryawanForm] = useState(
-            {nama:"", jabatan:"", jenis_kelamin:"", email:"", no_telepon:"", tanggal_lahir:"", umur:"", lama_kerja:""}
+            {nama:"", jabatan:"", jenis_kelamin:"", email:"", no_telepon:"", tanggal_lahir:"", umur:""}
         )
+    const supabase = createClientComponentClient()
+    const router = useRouter()
 
     useEffect(() => {
         if(karyawan.action == "ubah"){
-            setKaryawanForm(kf => ({...karyawan}))
+            setKaryawanForm(kf => {
+                let newKaryawan = {...karyawan}
+                delete newKaryawan.action
+                return newKaryawan
+            })
         }else{
-            setKaryawanForm(kf => ({nama:"", jabatan:"", jenis_kelamin:"", email:"", no_telepon:"", tanggal_lahir:"", umur:"", lama_kerja:""}))
+            setKaryawanForm(kf => ({nama:"", jabatan:"", jenis_kelamin:"", email:"", no_telepon:"", tanggal_lahir:"", umur:""}))
         }
     }, [karyawan])
+
+
+    const handleClickSubmitTambahKaryawan = async () => {
+        // Ambil data form
+        const newKaryawan = {...karyawanForm}
+        console.log(newKaryawan)
+        // Validasi form
+        const adaFieldKosong = newKaryawan.nama == "" || newKaryawan.jabatan == "" || newKaryawan.jenis_kelamin == "" || newKaryawan.email == "" || newKaryawan.no_telepon == "" || newKaryawan.tanggal_lahir == "" || newKaryawan.umur == ""
+
+        if(adaFieldKosong){
+            return alert("Semua field harus diisi")
+        }
+
+        // Konfirmasi
+        let yakinSumbit;
+        if(karyawan.action == "tambah"){
+            yakinSumbit = confirm("Yakin untuk menambahkan data karyawan?")
+        }else if(karyawan.action == "ubah"){
+            yakinSumbit = confirm("Yakin untuk mengubah data karyawan?")
+        }
+        if(!yakinSumbit){
+            return;
+        }
+
+        // Proses data
+        if(karyawan.action == "tambah"){
+            newKaryawan.lama_kerja = 0
+        }
+
+        // Tambah atau ubah data
+        let data, error;
+        if(karyawan.action == "ubah"){
+            ({data, error} = await supabase
+                .from('karyawan')
+                .update(newKaryawan)
+                .eq('id',karyawan.id))
+        }else if(karyawan.action == "tambah"){
+            ({data, error} = await supabase
+                .from('karyawan')
+                .insert([newKaryawan]))
+        }
+        
+        // Proses setelah selesai (berhasil atau eror)
+        if(error){
+            return alert("Error : ",error)
+        }else{
+            if(karyawan.action == "ubah"){
+                alert("Data karyawan berhasil diubah.")
+            }else if(karyawan.action == "tambah"){
+                alert("Karyawan baru berhasil ditambahkan.")
+            }
+
+            // Reset state
+            setSelectedKaryawan(sk => false)
+
+            // Refetch data karyawan
+            setRefetch(r => Date.now())
+        }
+    }
 
     return (
         <div className='w-1/3 h-full px-4 py-3 grey-custom rounded-md overflow-y-auto'>
@@ -123,7 +191,7 @@ function TambahUbahKaryawan({karyawan, setSelectedKaryawan}) {
 
                 <button 
                     className='px-2 rounded-md bg-green-500 text-white'
-                    onClick={() => setSelectedKaryawan(sk => false)}
+                    onClick={handleClickSubmitTambahKaryawan}
                 >Submit</button>
             </div>
 

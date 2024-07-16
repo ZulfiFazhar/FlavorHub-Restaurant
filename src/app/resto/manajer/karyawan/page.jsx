@@ -10,6 +10,7 @@ import TambahUbahKaryawan from './TambahUbahKaryawan'
 function page() {
     const [karyawan, setKaryawan] = useState(null)
     const [selectedKaryawan, setSelectedKaryawan] = useState(false)
+    const [refetch, setRefetch] = useState(false)
     const supabase = createClientComponentClient()
 
     useEffect(() => {
@@ -26,7 +27,7 @@ function page() {
         }
 
         fetchDataKaryawan()
-    }, [])
+    }, [refetch])
 
     const karyawanKoki = karyawan?.filter(kyn => kyn.jabatan == 'Koki')
     const karyawanPelayan = karyawan?.filter(kyn => kyn.jabatan == 'Pelayan')
@@ -93,6 +94,7 @@ function page() {
                         :   <TambahUbahKaryawan 
                                 karyawan={selectedKaryawan} 
                                 setSelectedKaryawan={setSelectedKaryawan}
+                                setRefetch={setRefetch}
                             />
                     )
                 }
