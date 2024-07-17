@@ -1,17 +1,15 @@
-'use client'
+"use client";
 
-import React, { useEffect } from 'react'
-import { useRouter } from 'next/navigation'
+import React, { useEffect } from "react";
+import { useRouter } from "next/navigation";
 
-function page() {
-  const router = useRouter()
+function Page() {
+  const router = useRouter();
   useEffect(() => {
-    router.push('/resto')
-  }, [])
+    router.push("/resto");
+  }, [router]);
 
-  return (
-    <div>Loading...</div>
-  )
+  return <div>Loading...</div>;
 }
 
-export default page
+export default page;
