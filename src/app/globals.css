@@ -31,3 +31,23 @@
 .grey-custom {
   background: #dadfdf;
 }
+
+/* Width of the scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+/* Background of the scrollbar track */
+::-webkit-scrollbar-track {
+  background: #ddd; 
+}
+
+/* Handle of the scrollbar */
+::-webkit-scrollbar-thumb {
+  background: #aaa; 
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #777; 
+}
