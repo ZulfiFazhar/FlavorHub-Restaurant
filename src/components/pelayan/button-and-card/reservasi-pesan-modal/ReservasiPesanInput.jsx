@@ -5,8 +5,8 @@ import React, { useEffect, useState, useRef } from 'react'
 import { resetInterfaceState, handleClickPesan } from '../../library/reservasiPesan'
 
 // Local components
-import MenuDipilihCards from './reservasi-pesan-input-bc/MenuDipilihCards'
-import PencarianMenu from './reservasi-pesan-input-bc/PencarianMenu'
+import MenuDipilihCards from './MenuDipilihCards'
+import PencarianMenu from './PencarianMenu'
 
 
 function ReservasiPesanInput({respesModal, setRespesModal}) {

@@ -1,8 +1,8 @@
 import React from 'react'
 
 // local components
-import ReservasiPesanInput from './reservasi-pesan/ReservasiPesanInput'
-import ReservasiPesanDetail from './reservasi-pesan/ReservasiPesanDetail';
+import ReservasiPesanInput from './reservasi-pesan-modal/ReservasiPesanInput'
+import ReservasiPesanDetail from './reservasi-pesan-modal/ReservasiPesanDetail';
 
 function ReservasiPesanModal({respesModal, setRespesModal}) {
 
