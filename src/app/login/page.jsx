@@ -6,6 +6,8 @@ import { Button } from "@nextui-org/button";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
 import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 function Login() {
   const [loginForm, setLoginForm] = useState({ email: "", password: "" });
@@ -35,12 +37,11 @@ function Login() {
   //     if(error)console.log(error)
   // }
 
-  const [isVisible, setIsVisible] = React.useState(false);
-
-  const toggleVisibility = () => setIsVisible(!isVisible);
+  const [isLoading, setIsLoading] = useState(false);
 
   const login = async () => {
     try {
+      setIsLoading(true);
       const supabase = createClientComponentClient();
       const { data, error } = await supabase.auth.signInWithPassword({
         email: loginForm.email,
@@ -50,9 +51,32 @@ function Login() {
       if (data && data.user != null) {
         console.log(data);
         router.push("/resto");
+        toast.success("Selamat Datang!", {
+          position: "bottom-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "colored",
+        });
+      } else {
+        toast.error("Email atau password salah.", {
+          position: "bottom-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "colored",
+        });
       }
     } catch (error) {
       console.log(error);
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -73,7 +97,7 @@ function Login() {
           </div>
           <div className="w-1/2 flex flex-col gap-6">
             <Input
-              isClearable
+              isRequired
               type="email"
               label="Email"
               placeholder="you@example.com"
@@ -87,7 +111,7 @@ function Login() {
               value={loginForm.email}
             />
             <Input
-              isClearable
+              isRequired
               type="password"
               label="Password"
               variant="bordered"
@@ -102,11 +126,26 @@ function Login() {
             />
             <Button
               radius="full"
-              className="text-white bg-emerald-600 text-lg mt-4"
+              className={`text-white bg-emerald-600 text-lg mt-4 ${
+                isLoading ? "opacity-50 cursor-not-allowed" : ""
+              }`}
               onClick={login}
+              disabled={isLoading}
             >
-              Log In
+              {isLoading ? "Logging In..." : "Log In"}
             </Button>
+            <ToastContainer
+              position="bottom-right"
+              autoClose={5000}
+              hideProgressBar={false}
+              newestOnTop={false}
+              closeOnClick
+              rtl={false}
+              pauseOnFocusLoss
+              draggable
+              pauseOnHover
+              theme="light"
+            />
           </div>
         </div>
       </div>
