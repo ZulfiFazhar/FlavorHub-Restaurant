@@ -39,6 +39,12 @@ function Login() {
 
   const [isLoading, setIsLoading] = useState(false);
 
+  const handleEnterKey = (e) => {
+    if (e.key === "Enter") {
+      login();
+    }
+  };
+
   const login = async () => {
     try {
       setIsLoading(true);
@@ -109,6 +115,7 @@ function Login() {
                 setLoginForm((sd) => ({ ...sd, email: e.target.value }))
               }
               value={loginForm.email}
+              onKeyPress={handleEnterKey}
             />
             <Input
               isRequired
@@ -123,6 +130,7 @@ function Login() {
                 setLoginForm((sd) => ({ ...sd, password: e.target.value }))
               }
               value={loginForm.password}
+              onKeyPress={handleEnterKey}
             />
             <Button
               radius="full"
