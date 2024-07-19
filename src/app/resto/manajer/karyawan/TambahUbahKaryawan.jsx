@@ -38,7 +38,7 @@ function TambahUbahKaryawan({karyawan, setSelectedKaryawan, setRefetch}) {
         // Konfirmasi
         let yakinSumbit;
         if(karyawan.action == "tambah"){
-            yakinSumbit = confirm("Yakin untuk menambahkan data karyawan?")
+            yakinSumbit = confirm("Yakin untuk menambahkan data karyawan?g")
         }else if(karyawan.action == "ubah"){
             yakinSumbit = confirm("Yakin untuk mengubah data karyawan?")
         }
