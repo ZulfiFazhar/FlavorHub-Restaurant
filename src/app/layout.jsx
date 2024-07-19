@@ -1,3 +1,5 @@
+import * as React from "react";
+import { NextUIProvider } from "@nextui-org/react";
 import { Inter } from "next/font/google";
 import NextTopLoader from "nextjs-toploader";
 import "./globals.css";
@@ -23,7 +25,7 @@ export default function RootLayout({ children }) {
           easing="ease"
           speed={200}
         />
-        {children}
+        <NextUIProvider>{children}</NextUIProvider>
       </body>
     </html>
   );

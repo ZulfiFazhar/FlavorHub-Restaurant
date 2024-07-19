@@ -2,9 +2,9 @@
 @tailwind components;
 @tailwind utilities;
 
-.menu-item:hover {
+/* .menu-item:hover {
   background-color: rgba(0, 0, 0, 0.1);
-}
+} */
 
 .main-gradient {
   /* background: rgb(244, 158, 58); */
@@ -39,15 +39,15 @@
 
 /* Background of the scrollbar track */
 ::-webkit-scrollbar-track {
-  background: #ddd; 
+  background: #ddd;
 }
 
 /* Handle of the scrollbar */
 ::-webkit-scrollbar-thumb {
-  background: #aaa; 
+  background: #aaa;
 }
 
 /* Handle on hover */
 ::-webkit-scrollbar-thumb:hover {
-  background: #777; 
+  background: #777;
 }

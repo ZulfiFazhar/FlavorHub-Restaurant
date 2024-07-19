@@ -1,4 +1,4 @@
-"use client"
+"use client";
 
 import Image from "next/image";
 import React from "react";
@@ -11,36 +11,52 @@ import LogoutButton from "../auth/LogoutButton";
 import { usePekerjaanContext } from "@/app/resto/providers";
 
 const Sidebar = ({ children }) => {
-  const pekerjaan = usePekerjaanContext()
+  const pekerjaan = usePekerjaanContext();
   const pathname = usePathname();
 
-  let fixedMenu = []
-  switch(pekerjaan){
+  let fixedMenu = [];
+  switch (pekerjaan) {
     case "pelayan":
       fixedMenu = [
-        { name: "Reservasi", path: "/resto/pelayan", icon: "mdi:local-restaurant" },
-        { name: "Pesanan", path: "/resto/pelayan/pesanan", icon: "mdi:format-list-bulleted" },
+        { name: "Reservasi", path: "/resto", icon: "mdi:local-restaurant" },
+        {
+          name: "Pesanan",
+          path: "/resto/pesanan-pelayan",
+          icon: "mdi:format-list-bulleted",
+        },
       ];
       break;
     case "koki":
       fixedMenu = [
-        { name: "Pesanan", path: "/resto/koki", icon: "mdi:local-restaurant" },
-        { name: "Menu", path: "/resto/koki/menu", icon: "mdi:food-outline" },
+        { name: "Pesanan", path: "/resto", icon: "mdi:local-restaurant" },
+        { name: "Menu", path: "/resto/menu", icon: "mdi:food-outline" },
       ];
       break;
     case "kasir":
       fixedMenu = [
-        { name: "Pembayaran", path: "/resto/kasir", icon: "mdi:payment-clock" },
-        { name: "Histori", path: "/resto/kasir/histori", icon: "mdi:clipboard-text-history-outline" },
-        { name: "Laporan", path: "/resto/kasir/laporan", icon: "mdi:report-line" }
+        { name: "Pembayaran", path: "/resto", icon: "mdi:payment-clock" },
+        {
+          name: "Histori",
+          path: "/resto/histori",
+          icon: "mdi:clipboard-text-history-outline",
+        },
+        { name: "Laporan", path: "/resto/laporan", icon: "mdi:report-line" },
       ];
       break;
     case "manajer":
       fixedMenu = [
         { name: "Dashboard", path: "/resto/manajer", icon: "mdi:report-line" },
-        { name: "Keuangan", path: "/resto/manajer/keuangan", icon: "mdi:clipboard-text-history-outline" },
+        {
+          name: "Keuangan",
+          path: "/resto/manajer/keuangan",
+          icon: "mdi:clipboard-text-history-outline",
+        },
         { name: "Menu", path: "/resto/manajer/menu", icon: "mdi:food-outline" },
-        { name: "Karyawan", path: "/resto/manajer/karyawan", icon: "mdi:account-group-outline" }
+        {
+          name: "Karyawan",
+          path: "/resto/manajer/karyawan",
+          icon: "mdi:account-group-outline",
+        },
       ];
       break;
   }
@@ -57,7 +73,7 @@ const Sidebar = ({ children }) => {
           htmlFor="sidebar-mobile-fixed"
           className="sidebar-overlay"
         ></label>
-        <aside className="sidebar px-2 bg-gradient-to-tr main-gradient-2 sidebar-fixed-left sidebar-mobile h-full justify-start max-sm:fixed max-sm:-translate-x-full">
+        <aside className="sidebar px-2 bg-emerald-700 sidebar-mobile h-full justify-start max-sm:fixed max-sm:-translate-x-full">
           <section className="sidebar-title items-center p-4 justify-center my-3">
             <Image
               src="/logo.svg"
@@ -68,11 +84,9 @@ const Sidebar = ({ children }) => {
             />
           </section>
           <div className="text-4xl font-bold mx-auto text-white">
-            <span className="text-orange-300">Flavor</span>Hub
+            <span className="text-white">FlavorHub</span>
           </div>
-          <div className="mx-auto text-white">
-            Pelayan
-          </div>
+          {/* <div className="mx-auto text-white">Pelayan</div> */}
           <section className="sidebar-content">
             <nav className="menu rounded-md h-full">
               <section className="menu-section px-4 h-full">
@@ -81,8 +95,8 @@ const Sidebar = ({ children }) => {
                     <li key={index}>
                       <Link href={item.path}>
                         <div
-                          className={`menu-item ${
-                            pathname === item.path ? "bg-slate-900/15 py-4" : ""
+                          className={`menu-item hover:bg-slate-100/10 py-4 ${
+                            pathname === item.path ? "bg-slate-100/15" : ""
                           }`}
                         >
                           <Icon icon={item.icon} fontSize={24} />
@@ -95,7 +109,6 @@ const Sidebar = ({ children }) => {
                   ))}
 
                   <LogoutButton />
-
                 </ul>
               </section>
             </nav>
