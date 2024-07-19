@@ -18,29 +18,37 @@ const Sidebar = ({ children }) => {
   switch (pekerjaan) {
     case "pelayan":
       fixedMenu = [
-        { name: "Reservasi", path: "/resto", icon: "mdi:local-restaurant" },
+        {
+          name: "Reservasi",
+          path: "/resto/pelayan",
+          icon: "mdi:local-restaurant",
+        },
         {
           name: "Pesanan",
-          path: "/resto/pesanan-pelayan",
+          path: "/resto/pelayan/pesanan",
           icon: "mdi:format-list-bulleted",
         },
       ];
       break;
     case "koki":
       fixedMenu = [
-        { name: "Pesanan", path: "/resto", icon: "mdi:local-restaurant" },
-        { name: "Menu", path: "/resto/menu", icon: "mdi:food-outline" },
+        { name: "Pesanan", path: "/resto/koki", icon: "mdi:local-restaurant" },
+        { name: "Menu", path: "/resto/koki/menu", icon: "mdi:food-outline" },
       ];
       break;
     case "kasir":
       fixedMenu = [
-        { name: "Pembayaran", path: "/resto", icon: "mdi:payment-clock" },
+        { name: "Pembayaran", path: "/resto/kasir", icon: "mdi:payment-clock" },
         {
           name: "Histori",
-          path: "/resto/histori",
+          path: "/resto/kasir/histori",
           icon: "mdi:clipboard-text-history-outline",
         },
-        { name: "Laporan", path: "/resto/laporan", icon: "mdi:report-line" },
+        {
+          name: "Laporan",
+          path: "/resto/kasir/laporan",
+          icon: "mdi:report-line",
+        },
       ];
       break;
     case "manajer":
