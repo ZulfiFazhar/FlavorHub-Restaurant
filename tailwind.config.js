@@ -1,4 +1,5 @@
-const { nextui } = require("@nextui-org/theme");
+// const { nextui } = require("@nextui-org/theme");
+const { nextui } = require("@nextui-org/react");
 /** @type {import('tailwindcss').Config} */
 module.exports = {
   content: [
@@ -7,6 +8,7 @@ module.exports = {
     "./src/app/**/*.{js,ts,jsx,tsx,mdx}",
     "./src/**/*.{js,ts,jsx,tsx}",
     "./node_modules/@nextui-org/theme/dist/components/[object Object].js",
+    "./node_modules/@nextui-org/theme/dist/**/*.{js,ts,jsx,tsx}",
   ],
   theme: {
     extend: {
@@ -15,13 +17,14 @@ module.exports = {
         "gradient-conic":
           "conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))",
       },
-      height : {
-        '85p' : '85%',
+      height: {
+        "85p": "85%",
       },
-      width : {
-        '90p' : '90%'
-      }
+      width: {
+        "90p": "90%",
+      },
     },
   },
+  darkMode: "class",
   plugins: [nextui(), require("rippleui")],
 };
