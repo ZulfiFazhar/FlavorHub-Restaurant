@@ -55,8 +55,8 @@ const Sidebar = ({ children }) => {
       fixedMenu = [
         { name: "Dashboard", path: "/resto/manajer", icon: "mdi:report-line" },
         {
-          name: "Keuangan",
-          path: "/resto/manajer/keuangan",
+          name: "Laporan",
+          path: "/resto/manajer/laporan",
           icon: "mdi:clipboard-text-history-outline",
         },
         { name: "Menu", path: "/resto/manajer/menu", icon: "mdi:food-outline" },
