@@ -12,4 +12,4 @@ function Page() {
   return <div>Loading...</div>;
 }
 
-export default page;
+export default Page;
