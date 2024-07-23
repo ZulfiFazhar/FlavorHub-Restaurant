@@ -21,7 +21,6 @@ function PembayaranKasir() {
             if(error){
                 return console.log(error)
             }else{
-                console.log(data)
                 setPesanan(p => data.filter(dt => dt.status == "selesai"))
             }
         }
@@ -61,11 +60,16 @@ function PembayaranKasir() {
 
 
     const date = new Date()
-    const formattedDate = date.toLocaleDateString('id-ID')
+    const formattedDate = date.toLocaleDateString('id-ID', { 
+        day: 'numeric', 
+        month: 'long', 
+        year: 'numeric'
+    })
 
   return (
-    <div className='min-h-screen p-2'>
-        <div className='border border-black px-2 rounded-md'>Tanggal : {formattedDate}</div>
+    <div className='min-h-screen px-7 py-6'>
+        <h1 className='text-3xl text-green-custom font-bold'>Pembayaran</h1>
+        <div className='text-sm'>{formattedDate}</div>
         
         <PilihPelanggan pesanan={pesanan} setCurPelanggan={setCurPelanggan} />
 
