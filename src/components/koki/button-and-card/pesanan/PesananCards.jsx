@@ -27,9 +27,8 @@ function PesananCards({pesanan, supabase, setPesanan}) {
         }
     }
 
-
   return (
-    <div className='p-2 min-h-screen'>
+    <div className='p-5 min-h-screen'>
         {pesanan.map(psn => {
             return (
                 <div key={psn.id} className='border border-black rounded-md p-4 grey-custom mb-3 flex'>
@@ -78,6 +77,11 @@ function PesananCards({pesanan, supabase, setPesanan}) {
                 </div>
             )
         })}
+
+        {
+            pesanan.length < 1 
+            && <p className='text-3xl text-red-500'>Tidak ada pesanan</p>
+        }
     </div>
   )
 }

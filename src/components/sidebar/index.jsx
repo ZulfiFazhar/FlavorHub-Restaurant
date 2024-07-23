@@ -40,11 +40,6 @@ const Sidebar = ({ children }) => {
       fixedMenu = [
         { name: "Pembayaran", path: "/resto/kasir", icon: "mdi:payment-clock" },
         {
-          name: "Histori",
-          path: "/resto/kasir/histori",
-          icon: "mdi:clipboard-text-history-outline",
-        },
-        {
           name: "Laporan",
           path: "/resto/kasir/laporan",
           icon: "mdi:report-line",
