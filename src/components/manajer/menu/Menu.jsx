@@ -41,7 +41,9 @@ function selectedMenu() {
         table: 'menu'
     }, (payload) => {
         if(payload.eventType == "INSERT"){
-          setMenu(m => [...m, payload.new])
+          setMenu(m => [...m, payload.new]);
+        }else if(payload.eventType == "DELETE"){
+          setMenu(m => m.filter(mn => mn.id != payload.old.id));
         }
     })
     .subscribe();
@@ -84,7 +86,7 @@ function selectedMenu() {
           <button className='orange-custom rounded-md text-white text-sm px-2 py-1' onClick={() => setBukaDetam(bd => "tambah")}>+ Tambah Menu</button>
         </div>
 
-        <div className='mt-5 flex flex-wrap justify-start *:mr-2 *:mb-2'>
+        <div className='mt-5 overflow-y-auto max-h-[32rem] flex flex-wrap justify-center *:mr-8 *:mb-5'>
           {filteredMenu?.map(mn => {
             return (
               <div key={mn.id} className='bg-slate-200 rounded-md p-2 w-32' >
@@ -115,11 +117,24 @@ function selectedMenu() {
       }
       {
         bukaDetam == "tambah" && 
-        <TambahMenu supabase={supabase} setBukaDetam={setBukaDetam} />
+        <TambahMenu 
+          supabase={supabase} 
+          setBukaDetam={setBukaDetam}
+          menu={{action:"tambah"}} />
+      }
+      {
+        bukaDetam == "edit" && 
+        <TambahMenu 
+          supabase={supabase} 
+          setBukaDetam={setBukaDetam}
+          menu={{...selectedMenu, action:"edit"}} />
       }
       {
         bukaDetam == "detail" && 
-        <DetailMenu selectedMenu={selectedMenu} setBukaDetam={setBukaDetam}  /> 
+        <DetailMenu 
+          selectedMenu={selectedMenu} 
+          setBukaDetam={setBukaDetam} 
+          supabase={supabase}  /> 
       }
         
     </div>

@@ -1,11 +1,22 @@
 "use client"
 
-import React, {useState} from 'react'
+import React, {useEffect, useState} from 'react'
 import Image from 'next/image'
 
-function TambahMenu({supabase, setBukaDetam}) {
+function TambahMenu({supabase, setBukaDetam, menu}) {
   const [formTambahMenu, setFormTambahMenu] = useState({nama_masakan:'',kategori:'',deskripsi:'',harga:'', foto:''})
   const [preview, setPreview] = useState(null)
+
+    // Untuk edit menu
+    // useEffect(() => {
+    //     if(menu.action == "edit"){
+    //         setFormTambahMenu(ftm => {
+    //             let newMenu = {...menu};
+    //             delete newMenu.action;
+    //             return newMenu
+    //         })
+    //     }
+    // }, [])
 
     const handleFileChange = async (e) => {
         const selectedFile = e.target.files[0]
@@ -152,16 +163,16 @@ function TambahMenu({supabase, setBukaDetam}) {
             </div>
         </div>
 
-        <div className='flex-none mt-auto px-7 flex justify-between'>
+        <div className='mt-auto flex justify-between mb-1'>
             <button 
-                className='px-2 bg-red-500 rounded-md text-white hover:bg-red-600'
+                className='px-3 py-1 w-28 bg-orange-500 rounded-md hover:bg-orange-600'
                 onClick={() => setBukaDetam(d => "none")}
             >
             Cancel
             </button>
             
             <button 
-                className='px-2 bg-green-500 rounded-md text-white hover:bg-green-600'
+                className='px-3 py-1 w-28 bg-green-500 rounded-md hover:bg-green-600'
                 onClick={handleClickSubmit}
             >
             Submit
