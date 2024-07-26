@@ -2,6 +2,7 @@
 
 import { createClientComponentClient } from '@supabase/auth-helpers-nextjs'
 import React, { useState, useEffect } from 'react'
+import Image from 'next/image'
 import TambahMenu from './TambahMenu'
 import DetailMenu from './DetailMenu'
 
@@ -87,6 +88,15 @@ function selectedMenu() {
           {filteredMenu?.map(mn => {
             return (
               <div key={mn.id} className='bg-slate-200 rounded-md p-2 w-32' >
+                <div className="relative w-full h-20 overflow-hidden">
+                  <Image
+                    src={`/menu/${mn.foto ? mn.foto : 'placeholder/menu-foto-placeholder.jpg'}`}
+                    alt="Foto menu"
+                    layout="fill"
+                    objectFit="cover"
+                    className="w-full"
+                  />
+                </div>
                 <h1 className='text-md'>{mn.nama_masakan}</h1>
                 <p className='text-[0.5rem]'>{mn.deskripsi}</p>
                 <div className='flex justify-between mt-1'>
