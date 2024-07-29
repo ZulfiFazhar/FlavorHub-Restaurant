@@ -1,10 +1,12 @@
-import React from 'react'
-import ReservasiPelayan from '@/components/pelayan/ReservasiPelayan'
+import React from "react";
+import ReservasiPelayan from "@/components/pelayan/ReservasiPelayan";
 
 function page() {
   return (
-    <ReservasiPelayan />
-  )
+    <div>
+      <ReservasiPelayan />
+    </div>
+  );
 }
 
-export default page
+export default page;

@@ -4,6 +4,7 @@ import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 import Sidebar from "@/components/sidebar";
 import { NextUIProvider } from "@nextui-org/react";
 import { ToastContainer } from "react-toastify";
+import { Motion } from "@/components/transition/motion";
 
 import "react-toastify/dist/ReactToastify.css";
 
@@ -27,7 +28,9 @@ export default function Providers({ children }) {
   return (
     <NextUIProvider>
       <PekerjaanContext.Provider value={pekerjaan}>
-        <Sidebar>{children}</Sidebar>
+        <Sidebar>
+          <Motion>{children}</Motion>
+        </Sidebar>
       </PekerjaanContext.Provider>
       <ToastContainer
         position="bottom-right"

@@ -17,9 +17,9 @@ export default function App() {
   const [isMenuOpen, setIsMenuOpen] = React.useState(false);
 
   const menuItems = [
-    { name: "Semua", path: "/menu" },
-    { name: "Makanan", path: "/menu" },
-    { name: "Minuman", path: "/menu" },
+    { name: "Semua", path: "#semua" },
+    { name: "Makanan", path: "#makanan" },
+    { name: "Minuman", path: "#minuman" },
   ];
 
   return (
