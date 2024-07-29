@@ -1,14 +1,18 @@
 import React from "react";
 import { Card, CardFooter, CardBody, Image } from "@nextui-org/react";
 
-const BlogCard = ({ item }) => {
+const MenuCard = ({ item }) => {
   return (
-    <Card className="py-4" key={item.id}>
+    <Card className="py-4 w-fit" key={item.id}>
       <CardBody className="overflow-visible py-2">
         <Image
           alt="Card background"
           className="object-cover rounded-xl"
-          src="https://nextui.org/images/hero-card-complete.jpeg"
+          src={`/menu/${
+            item.foto ? item.foto : "placeholder/menu-foto-placeholder.jpg"
+          }`}
+          width={250}
+          height={250}
         />
       </CardBody>
       <CardFooter className="pb-0 pt-2 px-4 flex-col items-start">
@@ -20,4 +24,4 @@ const BlogCard = ({ item }) => {
   );
 };
 
-export default BlogCard;
+export default MenuCard;
