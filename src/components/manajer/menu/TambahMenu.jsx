@@ -2,21 +2,27 @@
 
 import React, {useEffect, useState} from 'react'
 import Image from 'next/image'
+import { tambahEditMenu } from './lib'
 
 function TambahMenu({supabase, setBukaDetam, menu}) {
   const [formTambahMenu, setFormTambahMenu] = useState({nama_masakan:'',kategori:'',deskripsi:'',harga:'', foto:''})
   const [preview, setPreview] = useState(null)
 
     // Untuk edit menu
-    // useEffect(() => {
-    //     if(menu.action == "edit"){
-    //         setFormTambahMenu(ftm => {
-    //             let newMenu = {...menu};
-    //             delete newMenu.action;
-    //             return newMenu
-    //         })
-    //     }
-    // }, [])
+    useEffect(() => {
+        if(menu.action == "edit"){
+            setFormTambahMenu(ftm => {
+                let newMenu = {...menu};
+                delete newMenu.action;
+                return newMenu
+            })
+            if(menu.foto != null){
+                setPreview(p => ({status:'old', foto:`/menu/${menu.foto}`}))
+            }else{
+                setPreview(p => ({status:'old-default', foto:`/menu/placeholder/menu-foto-placeholder.jpg`}))
+            }
+        }
+    }, [])
 
     const handleFileChange = async (e) => {
         const selectedFile = e.target.files[0]
@@ -36,61 +42,19 @@ function TambahMenu({supabase, setBukaDetam, menu}) {
 
         // Set preview
         const previewUrl = URL.createObjectURL(selectedFile)
-        setPreview(p => previewUrl)
+        setPreview(p => ({status:'new', foto:previewUrl}))
     }
 
     const handleClickSubmit = async () => {   
-        const {nama_masakan, kategori, deskripsi, harga, foto} = formTambahMenu
-        if(nama_masakan == '' || kategori == '' || deskripsi == '' || harga == '' || foto == ''){
-            return alert("Semua input harus diisi.")
-        }
-
-        const fotoString = `${nama_masakan}-${Date.now().toString()}.${foto.type.split("/")[1]}`
-
-        const newMenu = {
-            nama_masakan,
-            kategori,
-            opsi:null,
-            harga,
-            deskripsi,
-            foto : fotoString
-        }
-
-        const {data, error} = await supabase
-            .from('menu')
-            .insert([newMenu], { returning: 'representation' })
-
-        if(error){
-            return alert("Error insert new menu: ",error)
-        }else{
-            console.log(data)
-        }
-
-
-        const formData = new FormData();
-        formData.append('file', foto);
-        formData.append('fotoName', fotoString)
-
-        const res = await fetch('/api/upload', {
-            method: 'POST',
-            body: formData,
-        });
-
-        if (res.ok) {
-            setFormTambahMenu(tb => ({nama_masakan:'',kategori:'',deskripsi:'',harga:'',foto:''}))
-            setPreview(p => null)
-            return alert("Menu berhasil ditambahkan")
-        } else {
-            return alert("Gagal menambahkan menu")
-        }
+        tambahEditMenu(supabase, menu.action, formTambahMenu, setFormTambahMenu, preview, setPreview, setBukaDetam, menu.id, menu.foto)
     };
 
 
   return (
-    <div className='w-1/3 p-5 flex flex-col bg-slate-200'>
-        <h1 className='text-3xl'>Tambah Menu</h1>
+    <div className='w-1/3 p-5 flex flex-col bg-slate-200 overflow-x-hidden max-h-screen overflow-y-auto'>
+        <h1 className='text-3xl'>{menu.action == "tambah" ? "Tambah Menu" : "Edit Menu"}</h1>
         
-        <div className='mt-5 *:mb-2'>
+        <div className='mt-5 *:mb-2 mb-8'>
             <div className=''>
                 <label htmlFor="foto" className=''>Foto</label>
                 <input 
@@ -104,7 +68,7 @@ function TambahMenu({supabase, setBukaDetam, menu}) {
                 {preview &&
                     <div className='mt-2'>
                         <Image
-                            src={preview}
+                            src={preview.foto}
                             height={300}
                             width={300}
                             alt='foto menu'

@@ -6,13 +6,14 @@ import { createClientComponentClient } from '@supabase/auth-helpers-nextjs'
 function Laporan() {
     const [pembayaran, setPembayaran] = useState(null)
     const [rentangWaktu, setRentangWaktu] = useState({
-        from:getFormattedDate({monthsBefore:1}), 
+        from:getFormattedDate({yearsBefore:1}), 
         to:getFormattedDate()
     })
     const supabase = createClientComponentClient()
 
     useEffect(() => {
         const fetchPembayaranData = async () => {
+            console.log(rentangWaktu)
             const {data, error} = await supabase
                 .from("pembayaran")
                 .select(`
@@ -36,8 +37,12 @@ function Laporan() {
 
         const year = String(currentDate.getFullYear() - yearsBefore)
         const month = String(currentDate.getMonth() + 1 - monthsBefore).padStart(2,'0')
-        const day = String(currentDate.getDate() + 1 - daysBefore).padStart(2,'0')
+        let day = String(currentDate.getDate() - daysBefore).padStart(2,'0')
  
+        if((monthsBefore != 0 || yearsBefore != 0) && (day == 31 || day == 30)){
+            day = day - 2
+        }
+
         const formattedDate = `${year}-${month}-${day}`
         return formattedDate
     }
