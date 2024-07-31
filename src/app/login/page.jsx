@@ -1,8 +1,7 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
-import { Input } from "@nextui-org/input";
-import { Button } from "@nextui-org/button";
+import { Input, Button, Spinner } from "@nextui-org/react";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
 import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
@@ -140,9 +139,10 @@ function Login() {
               onClick={login}
               disabled={isLoading}
             >
-              {isLoading ? "Logging In..." : "Log In"}
+              {isLoading ? <Spinner size="sm" color="white" /> : "Log In"}
             </Button>
             <ToastContainer
+              icon={false}
               position="bottom-right"
               autoClose={5000}
               hideProgressBar={false}

@@ -26,5 +26,5 @@ module.exports = {
     },
   },
   darkMode: "class",
-  plugins: [nextui(), require("rippleui")],
+  plugins: [nextui(), require("rippleui"), require("tailwindcss-animate")],
 };

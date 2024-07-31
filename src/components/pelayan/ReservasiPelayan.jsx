@@ -5,7 +5,6 @@ import React, { useState, useEffect } from "react";
 // Local components
 import MejaButton from "./button-and-card/MejaButton";
 import ReservasiPesanModal from "./button-and-card/ReservasiPesanModal";
-import MyCalendar from "../calendar/Calendar";
 
 // lib
 import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
@@ -67,7 +66,7 @@ function ReservasiPelayan() {
 
   return (
     <div className="w-full min-h-screen max-h-screen py-10 bg-emerald-100/80 flex">
-      <div className="w-6/12 bg-white overflow-auto rounded-md drop-shadow-md ml-4">
+      <div className="animate-in slide-in-from-top w-6/12 bg-white overflow-auto rounded-md drop-shadow-md ml-4">
         <div className="flex justify-between items-center w-5/6 border-b border-black mx-auto px-2 py-1 mt-3">
           <h1 className="text-2xl">Reservasi</h1>
           <span>{formattedDate}</span>

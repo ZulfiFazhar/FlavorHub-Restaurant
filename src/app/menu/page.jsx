@@ -35,8 +35,8 @@ function Page() {
       <div className="w-full flex justify-center">
         <div className="w-4/5 p-6">
           <section id="semua">
-            <h1 className="ml-3 mb-3 text-2xl font-medium">Semua</h1>
-            <div className="flex flex-wrap gap-4 justify-center">
+            <h1 className="ml-3 my-4 text-2xl font-medium">Semua</h1>
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
               {filterMenuByCategory("Semua").map((item) => (
                 <MenuCard item={item} key={item.id} />
               ))}
@@ -44,8 +44,8 @@ function Page() {
           </section>
 
           <section id="makanan">
-            <h1 className="ml-3 mb-3 text-2xl font-medium">Makanan</h1>
-            <div className="flex flex-wrap gap-4 justify-center">
+            <h1 className="ml-3 my-4 text-2xl font-medium">Makanan</h1>
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
               {filterMenuByCategory("Makanan").map((item) => (
                 <MenuCard item={item} key={item.id} />
               ))}
@@ -53,8 +53,8 @@ function Page() {
           </section>
 
           <section id="minuman">
-            <h1 className="ml-3 mb-3 text-2xl font-medium">Minuman</h1>
-            <div className="flex flex-wrap gap-4 justify-center">
+            <h1 className="ml-3 my-4 text-2xl font-medium">Minuman</h1>
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
               {filterMenuByCategory("Minuman").map((item) => (
                 <MenuCard item={item} key={item.id} />
               ))}

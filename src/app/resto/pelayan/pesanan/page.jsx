@@ -83,7 +83,7 @@ function PesananPelayan() {
   const pesananDiterima = pesanan.filter((psn) => psn.status == "diterima");
 
   return (
-    <div className="p-4 min-h-screen">
+    <div className="p-4 min-h-screen bg-emerald-100/80">
       {pesananSiapDiantar.map((psn) => {
         return <PesananCard key={psn.id} psn={psn} supabase={supabase} />;
       })}

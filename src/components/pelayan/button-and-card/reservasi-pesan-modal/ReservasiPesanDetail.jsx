@@ -2,7 +2,7 @@
 
 import React from "react";
 import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
-import { Input } from "@nextui-org/react";
+import { Input, Listbox, ListboxItem } from "@nextui-org/react";
 
 function ReservasiPesanDetail({ respesModal, setRespesModal }) {
   const supabase = createClientComponentClient();
@@ -43,7 +43,7 @@ function ReservasiPesanDetail({ respesModal, setRespesModal }) {
   // console.log(respesModal)
 
   return (
-    <div className="mx-4 p-2 flex flex-col items-center w-1/2 drop-shadow-md rounded-md bg-red-500">
+    <div className="animate-in slide-in-from-top mx-4 p-2 flex flex-col items-center w-1/2 drop-shadow-md rounded-lg bg-white">
       <div className="text-7xl mt-3 mb-5">{respesModal.nomor_meja}</div>
 
       <Input
@@ -51,22 +51,31 @@ function ReservasiPesanDetail({ respesModal, setRespesModal }) {
         type="text"
         label="Pemesan"
         placeholder={respesModal.nama_pemesan}
-        className="text-black"
+        labelPlacement="outside"
+        variant="bordered"
+        radius="full"
+        size="lg"
+        className="px-3"
       />
-      <div className="border bg-white border-black rounded-md w-full py-1 px-3">
+      {/* <div className="border-medium bg-white border-default-400/40 rounded-full w-full py-1 px-4">
         <span className="block text-sm mb-[-0.3rem]">Pemesan</span>
         <span className="block text-xl">{respesModal.nama_pemesan}</span>
-      </div>
+      </div> */}
 
-      <div className="border bg-white border-black rounded-md w-full py-1 px-3 mt-3 pb-4">
-        <span className="block text-sm">Pesanan</span>
+      <div className="w-full py-1 px-3 mt-3 pb-4">
+        <p className="block text-sm">Pesanan</p>
         {respesModal.pesanan.map((psn) => {
           return (
+            // <Listbox key={psn.id} variant="faded">
+            //   <ListboxItem description={psn.opsi} endContent={psn.jumlah}>
+            //     {psn.nama_masakan}
+            //   </ListboxItem>
+            // </Listbox>
             <div
               key={psn.id}
-              className="flex justify-between items-center border border-black rounded-md  px-2 bg-slate-100 mt-2"
+              className="flex justify-between items-center border-medium border-default-400/40 rounded-full py-1 px-4 mt-3"
             >
-              <div className="flex flex-col">
+              <div className="flex flex-col px-1">
                 <p>
                   {psn.nama_masakan}{" "}
                   {psn.opsi && <span className="text-sm">({psn.opsi})</span>}
@@ -74,7 +83,7 @@ function ReservasiPesanDetail({ respesModal, setRespesModal }) {
                 <p>Rp. {psn.harga}</p>
               </div>
 
-              <p>Jumlah : {psn.jumlah}</p>
+              <p className="px-1">Jumlah : {psn.jumlah}</p>
             </div>
           );
         })}

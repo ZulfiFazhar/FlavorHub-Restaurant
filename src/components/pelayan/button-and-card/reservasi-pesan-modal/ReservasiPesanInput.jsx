@@ -1,5 +1,6 @@
 import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 import React, { useEffect, useState, useRef } from "react";
+import { Input, Button } from "@nextui-org/react";
 
 // Local library
 import {
@@ -57,19 +58,23 @@ function ReservasiPesanInput({ respesModal, setRespesModal }) {
   };
 
   return (
-    <div className="w-1/2 flex flex-col items-center mx-4 drop-shadow-md bg-emerald-500 rounded-md py-2 px-4 bg-white">
+    <div className="animate-in slide-in-from-top w-1/2 flex flex-col items-center mx-4 drop-shadow-md bg-emerald-500 rounded-lg py-2 px-4 bg-white">
       <div className="self-start">Reservasi</div>
 
       <h2 className=" text-7xl mb-5">{respesModal.nomor_meja}</h2>
 
-      <div className="flex flex-col w-full">
-        <label htmlFor="pemesan">Pemesan</label>
-        <input
+      <div className="flex flex-col w-full mb-5">
+        <Input
           ref={namaInputRef}
           id="pemesan"
-          className="px-2 rounded-md border border-black mb-2 w-full"
-          autoComplete="off"
-        ></input>
+          type="text"
+          label="Pemesan"
+          placeholder="Nama Pemesan"
+          labelPlacement="outside"
+          variant="bordered"
+          radius="full"
+          size="lg"
+        />
       </div>
 
       <PencarianMenu
@@ -85,8 +90,24 @@ function ReservasiPesanInput({ respesModal, setRespesModal }) {
         setMenuDipesan={setMenuDipesan}
       />
 
-      <div className="flex justify-between w-5/6 flex-none mt-auto">
-        <button
+      <div className="flex justify-between w-5/6 flex-none mt-auto mb-auto">
+        <Button
+          radius="full"
+          color="danger"
+          variant="ghost"
+          onClick={handleClickCancel}
+        >
+          Cancel
+        </Button>
+        <Button
+          radius="full"
+          color="success"
+          variant="ghost"
+          onClick={handleClickPsn}
+        >
+          Pesan
+        </Button>
+        {/* <button
           className="border border-black rounded-md bg-red-400 px-2 hover:bg-red-500"
           onClick={handleClickCancel}
         >
@@ -98,7 +119,7 @@ function ReservasiPesanInput({ respesModal, setRespesModal }) {
           onClick={handleClickPsn}
         >
           Pesan
-        </button>
+        </button> */}
       </div>
     </div>
   );

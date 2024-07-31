@@ -24,15 +24,15 @@ function MejaButton({ respesModal, setRespesModal, properti }) {
           />
         </CardBody>
         <CardFooter
-          className={`flex flex-col text-small justify-start items-start bg-emerald-50 ${
-            properti.status == "kosong" ? "" : "bg-red-50"
+          className={`flex flex-col text-small justify-start items-start bg-emerald-50/50 ${
+            properti.status == "kosong" ? "" : "bg-red-50/50"
           }`}
         >
           <b>{properti.nomor_meja}</b>
           <p className="text-default-500 capitalize">
             Status: <strong>{properti.status}</strong>
           </p>
-          <p className="text-default-500 capitalize">
+          <p className={`text-default-500 capitalize`}>
             Pemesan: <strong>{properti.nama_pemesan}</strong>
           </p>
         </CardFooter>
