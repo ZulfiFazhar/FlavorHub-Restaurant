@@ -1,4 +1,5 @@
 import React from "react";
+import { Button } from "@nextui-org/react";
 
 function MenuDipilihCards({ menuDipesan, setMenuDipesan }) {
   const handleClickRadioSelectOpsi = (id, value) => {
@@ -43,7 +44,7 @@ function MenuDipilihCards({ menuDipesan, setMenuDipesan }) {
           return (
             <div
               key={item.id}
-              className="w-full flex justify-between items-center border border-black p-2 rounded-md"
+              className="w-full flex justify-between items-center border-medium border-default-400/30 py-3 px-5 rounded-full"
             >
               <div className="flex flex-col">
                 <h4>{item.nama_masakan}</h4>
@@ -76,26 +77,33 @@ function MenuDipilihCards({ menuDipesan, setMenuDipesan }) {
                 </div>
               </div>
 
-              <div className=" w-20 flex justify-between border border-black rounded-full">
-                <button
-                  className="px-2 border-r border-black rounded-full"
+              <div className="w-fit flex justify-between items-center">
+                <Button
+                  isIconOnly
+                  size="sm"
+                  radius="full"
+                  variant="ghost"
+                  aria-label="plus"
                   onClick={() =>
                     handleClickReduceAddSelectedItem(item.id, "reduce")
                   }
                 >
                   -
-                </button>
+                </Button>
 
-                <span>{item.jumlah.toLocaleString()}</span>
-
-                <button
-                  className="px-2 border-l border-black rounded-full"
+                <span className="px-3">{item.jumlah.toLocaleString()}</span>
+                <Button
+                  isIconOnly
+                  size="sm"
+                  radius="full"
+                  variant="ghost"
+                  aria-label="plus"
                   onClick={() =>
                     handleClickReduceAddSelectedItem(item.id, "add")
                   }
                 >
                   +
-                </button>
+                </Button>
               </div>
             </div>
           );
