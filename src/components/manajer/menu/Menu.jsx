@@ -2,9 +2,19 @@
 
 import { createClientComponentClient } from '@supabase/auth-helpers-nextjs'
 import React, { useState, useEffect } from 'react'
+import { useRouter } from 'next/navigation'
 import Image from 'next/image'
 import TambahMenu from './TambahMenu'
 import DetailMenu from './DetailMenu'
+
+export const getServerSideProps = async () => {
+  return {
+    props: {},
+    headers: {
+      'Cache-Control': 'no-store',
+    },
+  };
+};
 
 function selectedMenu() {
   const [menu, setMenu] = useState()
@@ -13,6 +23,7 @@ function selectedMenu() {
   const [bukaDetam, setBukaDetam] = useState(false)
   const [selectedMenu, setSelectedMenu] = useState()
   const supabase = createClientComponentClient()
+  const router = useRouter();
 
   // Fetch data menu saat pertama kali load
   useEffect(() => {
@@ -31,6 +42,7 @@ function selectedMenu() {
     fetchMenu()
   }, [])
 
+
   // Subcribe realtime ke menu
   useEffect(() => {
     const subscribeToMenu = supabase
@@ -42,6 +54,9 @@ function selectedMenu() {
     }, (payload) => {
         if(payload.eventType == "INSERT"){
           setMenu(m => [...m, payload.new]);
+        }else if(payload.eventType == "UPDATE"){
+          setMenu(m => m.map(mn => mn.id == payload.new.id ? payload.new : mn))          
+          router.push("/resto/manajer/menu");
         }else if(payload.eventType == "DELETE"){
           setMenu(m => m.filter(mn => mn.id != payload.old.id));
         }
@@ -59,9 +74,16 @@ function selectedMenu() {
     setBukaDetam(bd => 'detail')
   }
 
-  const filteredMenu = menu?.filter(mn => {
-    return mn.nama_masakan.toLowerCase().includes(cariMenu.toLowerCase())
-  })
+  let filteredMenu = menu?.filter(mn => {
+    return mn.nama_masakan.toLowerCase().includes(cariMenu.toLowerCase());
+  }) || []; 
+  
+  // Sort by created_at
+  filteredMenu.sort((a, b) => {
+    const dateA = new Date(a.created_at).getTime();
+    const dateB = new Date(b.created_at).getTime();
+    return dateA - dateB;
+  });
 
   return (
     <div className='min-h-screen flex'>
@@ -89,19 +111,17 @@ function selectedMenu() {
         <div className='mt-5 overflow-y-auto max-h-[32rem] flex flex-wrap justify-center *:mr-8 *:mb-5'>
           {filteredMenu?.map(mn => {
             return (
-              <div key={mn.id} className='bg-slate-200 rounded-md p-2 w-32' >
+              <div key={mn.id} className='flex flex-col bg-slate-200 rounded-md p-2 w-32' >
                 <div className="relative w-full h-20 overflow-hidden">
-                  <Image
+                  <img
                     src={`/menu/${mn.foto ? mn.foto : 'placeholder/menu-foto-placeholder.jpg'}`}
                     alt="Foto menu"
-                    layout="fill"
-                    objectFit="cover"
-                    className="w-full"
+                    className="absolute inset-0 w-full h-full object-cover"
                   />
                 </div>
                 <h1 className='text-md'>{mn.nama_masakan}</h1>
-                <p className='text-[0.5rem]'>{mn.deskripsi}</p>
-                <div className='flex justify-between mt-1'>
+                <p className='text-[0.5rem] mb-2'>{mn.deskripsi}</p>
+                <div className='mt-auto flex justify-between '>
                   <p className='text-xs'><span className='text-orange-custom'>Rp. </span> {mn.harga}</p>
                   <button className='px-2 text-xs orange-custom text-white rounded-full' onClick={() => handleClickMenuCard(mn)}>detail</button>
                 </div>
@@ -118,6 +138,7 @@ function selectedMenu() {
       {
         bukaDetam == "tambah" && 
         <TambahMenu 
+          key={Math.random()}
           supabase={supabase} 
           setBukaDetam={setBukaDetam}
           menu={{action:"tambah"}} />
@@ -125,6 +146,7 @@ function selectedMenu() {
       {
         bukaDetam == "edit" && 
         <TambahMenu 
+          key={Math.random()}
           supabase={supabase} 
           setBukaDetam={setBukaDetam}
           menu={{...selectedMenu, action:"edit"}} />

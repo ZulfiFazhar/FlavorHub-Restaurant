@@ -20,3 +20,24 @@ export async function POST(request){
   return NextResponse.json({success:true})
 
 }
+
+export async function DELETE(request) {
+  try {
+    const { fotoName } = await request.json(); 
+
+    if (!fotoName) {
+      return NextResponse.json({ success: false, message: 'File name not provided' });
+    }
+
+    const path = join(process.cwd(), 'public', 'menu', fotoName);
+
+    try {
+      await fs.unlink(path); 
+      return NextResponse.json({ success: true, message: 'File deleted successfully' });
+    } catch (error) {
+      return NextResponse.json({ success: false, message: 'File not found or could not be deleted' });
+    }
+  } catch (error) {
+    return NextResponse.json({ success: false, message: 'Invalid request' });
+  }
+}

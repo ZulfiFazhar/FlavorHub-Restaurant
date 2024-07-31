@@ -11,16 +11,30 @@ function DetailMenu({selectedMenu, setBukaDetam, supabase}) {
 
         if(error){
             return alert("Hapus menu gagal")
-        }else{
-            setBukaDetam(bd => false)
-            return alert("Menu berhasil dihapus")
         }
 
+        if(selectedMenu.foto != null){
+            let fotoName = selectedMenu.foto;
+            const res = await fetch('/api/upload', {
+                method: 'DELETE',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ fotoName }), 
+            });
+
+            if(!res.ok){
+                alert("Gambar lama gagal dihapus")
+            }
+        }
+
+        setBukaDetam(bd => false)
+        return alert("Menu berhasil dihapus")
     }
 
     const handleClickEdit = async () => {
-        alert("Edit menu belum tersedia")
-        // setBukaDetam(bd => "edit");
+        // alert("Edit menu belum tersedia")
+        setBukaDetam(bd => "edit");
     }
 
   return (
