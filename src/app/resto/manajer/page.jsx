@@ -1,5 +1,5 @@
 import React from 'react'
-import Dashboard from '@/components/manajer/Dashboard'
+import Dashboard from '@/components/manajer/dashboard/Dashboard'
 
 function page() {
   return (
