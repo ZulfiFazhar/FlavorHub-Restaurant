@@ -7,7 +7,7 @@ const MenuCard = ({ item }) => {
       <CardBody className="overflow-visible py-2">
         <Image
           alt="Card background"
-          className="object-cover rounded-xl"
+          className="rounded-xl"
           src={`/menu/${
             item.foto ? item.foto : "placeholder/menu-foto-placeholder.jpg"
           }`}
@@ -15,10 +15,10 @@ const MenuCard = ({ item }) => {
           height={250}
         />
       </CardBody>
-      <CardFooter className="pb-0 pt-2 px-4 flex-col items-start">
+      <CardFooter className="pt-2 px-4 flex-col items-start gap-2">
         <h4 className="font-bold text-large">{item.nama_masakan}</h4>
-        <p className="text-tiny uppercase font-bold">{item.kategori}</p>
-        <small className="text-default-500">Rp.{item.harga}</small>
+        <small className="text-default-500 capitalize">{item.deskripsi}</small>
+        <p className="text-tiny font-bold">Rp.{item.harga}</p>
       </CardFooter>
     </Card>
   );

@@ -43,7 +43,7 @@ function ReservasiPesanDetail({ respesModal, setRespesModal }) {
   // console.log(respesModal)
 
   return (
-    <div className="animate-in slide-in-from-top mx-4 p-2 flex flex-col items-center w-1/2 drop-shadow-md rounded-lg bg-white">
+    <div className="animate-in slide-in-from-top duration-900 mx-4 p-2 flex flex-col items-center w-1/2 drop-shadow-md rounded-lg bg-white">
       <div className="text-7xl mt-3 mb-5">{respesModal.nomor_meja}</div>
 
       <Input
