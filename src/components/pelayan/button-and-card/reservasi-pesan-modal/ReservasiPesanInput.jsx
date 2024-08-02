@@ -58,7 +58,7 @@ function ReservasiPesanInput({ respesModal, setRespesModal }) {
   };
 
   return (
-    <div className="animate-in slide-in-from-top w-1/2 flex flex-col items-center mx-4 drop-shadow-md bg-emerald-500 rounded-lg py-2 px-4 bg-white">
+    <div className="animate-in slide-in-from-top duration-900 w-1/2 flex flex-col items-center mx-4 drop-shadow-md bg-emerald-500 rounded-lg py-2 px-4 bg-white">
       <div className="self-start">Reservasi</div>
 
       <h2 className=" text-7xl mb-5">{respesModal.nomor_meja}</h2>

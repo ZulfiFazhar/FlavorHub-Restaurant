@@ -29,7 +29,7 @@ function PesananCard({ psn, supabase }) {
   return (
     <div
       key={psn.id}
-      className="animate-in slide-in-from-top border border-black rounded-md p-2 mb-3 flex"
+      className="animate-in slide-in-from-top duration-800 border border-black rounded-md p-2 mb-3 flex"
     >
       <div className="p-10 border border-black rounded-md mr-2 text-6xl orange-custom">
         {psn.nomor_meja}

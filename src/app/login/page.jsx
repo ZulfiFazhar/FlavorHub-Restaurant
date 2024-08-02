@@ -89,19 +89,28 @@ function Login() {
     <div className="h-screen min-h-screen flex flex-row">
       <div className="w-1/2 bg-gradient-to-tr from-emerald-700 to-lime-700">
         <div className="w-full h-full flex justify-center items-center">
-          <Image src={"Logo.svg"} width={300} height={100} alt="Logo" />
+          <Image
+            className="animate-in slide-in-from-top duration-800 "
+            src={"Logo.svg"}
+            width={300}
+            height={100}
+            alt="Logo"
+          />
         </div>
       </div>
       <div className="w-1/2 bg-white text-black">
-        <div className="w-full h-full flex flex-col justify-center items-center">
+        <div className="animate-in slide-in-from-top duration-600 w-full h-full flex flex-col justify-center items-center">
           <div className="w-1/2 flex flex-col justify-start mb-8">
-            <h1 className="text-2xl font-bold">Login</h1>
-            <h2 className="text-xs">
+            <h1 className="animate-in slide-in-from-top duration-600 text-2xl font-bold">
+              Login
+            </h1>
+            <h2 className="animate-in slide-in-from-top duration-600 text-xs">
               Masukkan Email dan Password anda untuk Login
             </h2>
           </div>
           <div className="w-1/2 flex flex-col gap-6">
             <Input
+              className="animate-in slide-in-from-top duration-600 "
               isRequired
               type="email"
               label="Email"
@@ -117,6 +126,7 @@ function Login() {
               onKeyPress={handleEnterKey}
             />
             <Input
+              className="animate-in slide-in-from-top duration-600 "
               isRequired
               type="password"
               label="Password"
@@ -133,7 +143,7 @@ function Login() {
             />
             <Button
               radius="full"
-              className={`text-white bg-emerald-600 text-lg mt-4 ${
+              className={`animate-in slide-in-from-top duration-600 text-white bg-emerald-600 text-lg mt-4 ${
                 isLoading ? "opacity-50 cursor-not-allowed" : ""
               }`}
               onClick={login}
