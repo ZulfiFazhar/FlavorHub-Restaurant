@@ -14,7 +14,15 @@ function KaryawanCard({karyawan, setSelectedKaryawan}) {
 
     return (
         <div className='p-4 w-full flex justify-between items-center grey-custom mb-5 rounded-md'>
-            <Image src='/profileplaceholder.jpg' width={100} height={100} alt='foto profil' />
+            <div className='mr-3 overflow-hidden relative h-24 w-32 bg-slate-300'>
+                <Image
+                    src={`/karyawan/${karyawan.foto ? karyawan.foto : 'placeholder/profileplaceholder.jpg'}`}
+                    alt="Foto karyawan"
+                    layout="fill"
+                    objectFit="cover"
+                    className="w-full"
+                />
+            </div>
             
             <div className='flex flex-col w-[17rem]'>
                 <p>Nama : {karyawan.nama}</p>

@@ -3,7 +3,6 @@
 import React, { useEffect, useState, useRef } from 'react'
 import { createClientComponentClient } from '@supabase/auth-helpers-nextjs'
 import { Icon } from "@iconify/react";
-import { Chart } from 'chart.js';
 
 import { hitungTotalPendapatanTahunIni, hitungTotalPendapatanBulanIni, hitungTotalPelangganTahunIni, hitungTotalPelangganBulanIni, getPendapatanPerBulan, generateChart } from './lib';
 
@@ -70,7 +69,7 @@ function Dashboard() {
           </div>
 
           <div className='flex flex-col'>
-            <p className='text-[0.5rem] mb-[-2px] text-slate-600'>Pendapatan bulan Juli</p>
+            <p className='text-[0.5rem] mb-[-2px] text-slate-600'>Pendapatan bulan Agustus</p>
             <p className='text-md font-semibold'>Rp. {pendapatanBulanIni}</p>
           </div>
         </div>

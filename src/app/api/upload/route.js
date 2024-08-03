@@ -4,8 +4,10 @@ import { join } from "path"
 
 export async function POST(request){
   const data = await request.formData()
+  
   const file = data.get("file")
   const namaFile = data.get("fotoName")
+  const directory = data.get("directory")
 
   if(!file){
     return NextResponse.json({success:false})
@@ -14,7 +16,7 @@ export async function POST(request){
   const bytes = await file.arrayBuffer()
   const buffer = Buffer.from(bytes)
 
-  const path = join(process.cwd(), 'public', 'menu', namaFile);
+  const path = join(process.cwd(), 'public', directory, namaFile);
   await fs.writeFile(path, buffer)
 
   return NextResponse.json({success:true})
@@ -23,13 +25,13 @@ export async function POST(request){
 
 export async function DELETE(request) {
   try {
-    const { fotoName } = await request.json(); 
+    const { fotoName, directory } = await request.json(); 
 
-    if (!fotoName) {
-      return NextResponse.json({ success: false, message: 'File name not provided' });
+    if (!fotoName || !directory) {
+      return NextResponse.json({ success: false, message: 'File name or directory not provided' });
     }
 
-    const path = join(process.cwd(), 'public', 'menu', fotoName);
+    const path = join(process.cwd(), 'public', directory, fotoName);
 
     try {
       await fs.unlink(path); 

@@ -50,12 +50,13 @@ export async function tambahEditMenu(supabase, action, formTambahMenu, setFormTa
         // Hapus gambar menu lama di file system jika gambar di update
         if(preview.status == 'new'){
             let fotoName = oldFotoName;
+            let directory = "menu"
             const res = await fetch('/api/upload', {
                 method: 'DELETE',
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify({ fotoName }), 
+                body: JSON.stringify({ fotoName, directory }), 
             });
 
             if(res.ok){
@@ -72,6 +73,7 @@ export async function tambahEditMenu(supabase, action, formTambahMenu, setFormTa
     const formData = new FormData();
     formData.append('file', foto);
     formData.append('fotoName', fotoString)
+    formData.append('directory', "menu")
 
     const res = await fetch('/api/upload', {
         method: 'POST',
