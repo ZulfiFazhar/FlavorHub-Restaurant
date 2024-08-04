@@ -21,11 +21,11 @@ function Login() {
 
   // const createNewUser = async () => {
   //     const { data, error } = await supabase.auth.signUp({
-  //         email: 'koki1@gmail.com',
-  //         password: '123456',
+  //         email: 'budi1@gmail.com',
+  //         password: '1',
   //         options: {
   //           data: {
-  //             nama:"Asep",
+  //             nama:"Budi",
   //             umur: 23,
   //             pekerjaan:"koki"
   //           },
@@ -46,6 +46,7 @@ function Login() {
 
   const login = async () => {
     try {
+
       setIsLoading(true);
       const supabase = createClientComponentClient();
       const { data, error } = await supabase.auth.signInWithPassword({

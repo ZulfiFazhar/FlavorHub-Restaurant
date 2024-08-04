@@ -3,11 +3,13 @@ import { useRouter } from 'next/navigation'
 import Image from 'next/image'
 
 import { createClientComponentClient } from '@supabase/auth-helpers-nextjs'
+import { tambahKaryawan, ubahKaryawan } from './lib'
 
 function TambahUbahKaryawan({karyawan, setSelectedKaryawan, setRefetch}) {
     const [karyawanForm, setKaryawanForm] = useState(
-            {nama:"", jabatan:"", jenis_kelamin:"", email:"", no_telepon:"", tanggal_lahir:"", umur:""}
+            {nama:"", jabatan:"", jenis_kelamin:"", email:"", no_telepon:"", tanggal_lahir:"", umur:"", foto:"", password:"", passwordConfirm:""}
         )
+    const [preview, setPreview] = useState(null)
     const supabase = createClientComponentClient()
     const router = useRouter()
 
@@ -18,72 +20,49 @@ function TambahUbahKaryawan({karyawan, setSelectedKaryawan, setRefetch}) {
                 delete newKaryawan.action
                 return newKaryawan
             })
+            if(karyawan.foto){
+                setPreview(p => ({status:'old', foto:`/karyawan/${karyawan.foto}`}))
+            }else{
+                setPreview(p => null)
+            }
         }else{
-            setKaryawanForm(kf => ({nama:"", jabatan:"", jenis_kelamin:"", email:"", no_telepon:"", tanggal_lahir:"", umur:""}))
+            setKaryawanForm(kf => ({nama:"", jabatan:"", jenis_kelamin:"", email:"", no_telepon:"", tanggal_lahir:"", umur:"", foto:"", password:"", passwordConfirm:""}))
+            setPreview(p => null)
         }
     }, [karyawan])
 
+    const handleFileChange = async (e) => {
+        const selectedFile = e.target.files[0]
+
+        // Validasi
+        if(!selectedFile){
+            return
+        }
+
+        const acceptedFileType = ["image/jpeg","image/jpg","image/png"]
+        if(!acceptedFileType.includes(selectedFile.type)){
+            return alert("Hanya menerima tipe file jpeg, jpg, atau png")
+        }
+
+        // Set file state
+        setKaryawanForm(kf => ({...kf, foto:selectedFile}))
+
+        // Set preview
+        const previewUrl = URL.createObjectURL(selectedFile)
+        setPreview(p => ({status:'new', foto:previewUrl}))
+    }
 
     const handleClickSubmitTambahKaryawan = async () => {
-        // Ambil data form
-        const newKaryawan = {...karyawanForm}
-        console.log(newKaryawan)
-        // Validasi form
-        const adaFieldKosong = newKaryawan.nama == "" || newKaryawan.jabatan == "" || newKaryawan.jenis_kelamin == "" || newKaryawan.email == "" || newKaryawan.no_telepon == "" || newKaryawan.tanggal_lahir == "" || newKaryawan.umur == ""
-
-        if(adaFieldKosong){
-            return alert("Semua field harus diisi")
-        }
-
-        // Konfirmasi
-        let yakinSumbit;
+        // tambahUbahKaryawan(supabase, karyawanForm, karyawan, preview, setPreview, setKaryawanForm, setSelectedKaryawan)
         if(karyawan.action == "tambah"){
-            yakinSumbit = confirm("Yakin untuk menambahkan data karyawan?g")
+            tambahKaryawan(supabase, karyawanForm, setPreview, setKaryawanForm, setSelectedKaryawan, setRefetch)
         }else if(karyawan.action == "ubah"){
-            yakinSumbit = confirm("Yakin untuk mengubah data karyawan?")
-        }
-        if(!yakinSumbit){
-            return;
-        }
-
-        // Proses data
-        if(karyawan.action == "tambah"){
-            newKaryawan.lama_kerja = 0
-        }
-
-        // Tambah atau ubah data
-        let data, error;
-        if(karyawan.action == "ubah"){
-            ({data, error} = await supabase
-                .from('karyawan')
-                .update(newKaryawan)
-                .eq('id',karyawan.id))
-        }else if(karyawan.action == "tambah"){
-            ({data, error} = await supabase
-                .from('karyawan')
-                .insert([newKaryawan]))
-        }
-        
-        // Proses setelah selesai (berhasil atau eror)
-        if(error){
-            return alert("Error : ",error)
-        }else{
-            if(karyawan.action == "ubah"){
-                alert("Data karyawan berhasil diubah.")
-            }else if(karyawan.action == "tambah"){
-                alert("Karyawan baru berhasil ditambahkan.")
-            }
-
-            // Reset state
-            setSelectedKaryawan(sk => false)
-
-            // Refetch data karyawan
-            setRefetch(r => Date.now())
+            ubahKaryawan(supabase, karyawanForm, preview, setPreview, setKaryawanForm, setSelectedKaryawan, setRefetch, karyawan.id, karyawan.foto)
         }
     }
 
     return (
-        <div className='w-1/3 h-full px-4 py-3 grey-custom rounded-md overflow-y-auto'>
+        <div className='w-1/3 h-full px-4 py-3 grey-custom rounded-md overflow-y-auto overflow-x-hidden'>
             <div 
                 className='flex items-center text-xl w-fit hover:cursor-pointer'
                 onClick={() => setSelectedKaryawan(false)}
@@ -97,8 +76,28 @@ function TambahUbahKaryawan({karyawan, setSelectedKaryawan, setRefetch}) {
                 </span>
             </div>
 
-            <div className='mt-3 flex justify-center w-full bg-slate-300'>
-                <Image src={'/profileplaceholder.jpg'} height={150} width={150} alt='foto profil' />
+            <div className='mt-3 w-full'>
+                <label htmlFor="foto" className=''>Foto</label>
+
+                <input 
+                    className='mt-1 w-full' 
+                    type='file'
+                    id='foto'
+                    onChange={handleFileChange}
+                >
+                </input>
+
+                {preview &&
+                    <div className='mt-2 '>
+                        <Image
+                            src={preview.foto}
+                            height={300}
+                            width={300}
+                            alt='foto karyawan'
+                            className='overflow-hidden'
+                        />
+                    </div>
+                }
             </div>
 
             <div>
@@ -125,7 +124,7 @@ function TambahUbahKaryawan({karyawan, setSelectedKaryawan, setRefetch}) {
                 </div>
 
                 <div className='mt-2'>
-                    <label htmlFor='tanggal_lahir'>Tanggal Lahir</label>
+                    <label htmlFor='tanggal_lahir' className='block'>Tanggal Lahir</label>
                     <input 
                         id='tanggal_lahir' 
                         type='date'
@@ -169,6 +168,35 @@ function TambahUbahKaryawan({karyawan, setSelectedKaryawan, setRefetch}) {
                         onChange={(e) => setKaryawanForm(kf => ({...kf, email:e.target.value}))}
                     ></input>
                 </div>
+
+                {
+                    karyawan.action == "tambah" &&
+                    <div>
+                    <div className='mt-2'>
+                        <label htmlFor='password'>Password</label>
+                        <input 
+                            id='password' 
+                            type='password'
+                            className='border border-gray-400 px-2 rounded-md'
+                            value={karyawanForm.password}
+                            autoComplete='off'
+                            onChange={(e) => setKaryawanForm(kf => ({...kf, password:e.target.value}))}
+                        ></input>
+                    </div>
+
+                    <div className='mt-2'>
+                        <label htmlFor='passwordConfirm'>Konfirmasi Password</label>
+                        <input 
+                            id='passwordConfirm' 
+                            type='password'
+                            className='border border-gray-400 px-2 rounded-md'
+                            value={karyawanForm.passwordConfirm}
+                            autoComplete='off'
+                            onChange={(e) => setKaryawanForm(kf => ({...kf, passwordConfirm:e.target.value}))}
+                        ></input>
+                    </div>
+                    </div>
+                }
 
                 <div className='mt-2'>
                     <label htmlFor='no_telepon'>No Telp</label>

@@ -12,8 +12,14 @@ function DetailKaryawan({karyawan, setSelectedKaryawan}) {
             <span className='ml-3 mt-[0.2rem]'>Details</span>
         </div>
 
-        <div className='mt-3 flex justify-center w-full bg-slate-300'>
-            <Image src={'/profileplaceholder.jpg'} height={150} width={150} alt='foto profil' />
+        <div className='mt-3 w-full relative h-56 bg-slate-300'>
+            <Image
+                src={`/karyawan/${karyawan.foto ? karyawan.foto : 'placeholder/profileplaceholder.jpg'}`}
+                alt="Foto karyawan"
+                layout="fill"
+                objectFit="cover"
+                className="w-full"
+            />
         </div>
 
         <div className='mt-3'>
