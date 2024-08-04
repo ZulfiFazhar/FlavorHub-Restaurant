@@ -3,11 +3,11 @@ import { useRouter } from 'next/navigation'
 import Image from 'next/image'
 
 import { createClientComponentClient } from '@supabase/auth-helpers-nextjs'
-import { tambahUbahKaryawan } from './lib'
+import { tambahKaryawan, ubahKaryawan } from './lib'
 
 function TambahUbahKaryawan({karyawan, setSelectedKaryawan, setRefetch}) {
     const [karyawanForm, setKaryawanForm] = useState(
-            {nama:"", jabatan:"", jenis_kelamin:"", email:"", no_telepon:"", tanggal_lahir:"", umur:"", foto:""}
+            {nama:"", jabatan:"", jenis_kelamin:"", email:"", no_telepon:"", tanggal_lahir:"", umur:"", foto:"", password:"", passwordConfirm:""}
         )
     const [preview, setPreview] = useState(null)
     const supabase = createClientComponentClient()
@@ -26,7 +26,7 @@ function TambahUbahKaryawan({karyawan, setSelectedKaryawan, setRefetch}) {
                 setPreview(p => null)
             }
         }else{
-            setKaryawanForm(kf => ({nama:"", jabatan:"", jenis_kelamin:"", email:"", no_telepon:"", tanggal_lahir:"", umur:""}))
+            setKaryawanForm(kf => ({nama:"", jabatan:"", jenis_kelamin:"", email:"", no_telepon:"", tanggal_lahir:"", umur:"", foto:"", password:"", passwordConfirm:""}))
             setPreview(p => null)
         }
     }, [karyawan])
@@ -53,7 +53,12 @@ function TambahUbahKaryawan({karyawan, setSelectedKaryawan, setRefetch}) {
     }
 
     const handleClickSubmitTambahKaryawan = async () => {
-        tambahUbahKaryawan(supabase, karyawanForm, karyawan, preview, setPreview, setKaryawanForm, setSelectedKaryawan)
+        // tambahUbahKaryawan(supabase, karyawanForm, karyawan, preview, setPreview, setKaryawanForm, setSelectedKaryawan)
+        if(karyawan.action == "tambah"){
+            tambahKaryawan(supabase, karyawanForm, setPreview, setKaryawanForm, setSelectedKaryawan, setRefetch)
+        }else if(karyawan.action == "ubah"){
+            ubahKaryawan(supabase, karyawanForm, preview, setPreview, setKaryawanForm, setSelectedKaryawan, setRefetch, karyawan.id, karyawan.foto)
+        }
     }
 
     return (
@@ -163,6 +168,35 @@ function TambahUbahKaryawan({karyawan, setSelectedKaryawan, setRefetch}) {
                         onChange={(e) => setKaryawanForm(kf => ({...kf, email:e.target.value}))}
                     ></input>
                 </div>
+
+                {
+                    karyawan.action == "tambah" &&
+                    <div>
+                    <div className='mt-2'>
+                        <label htmlFor='password'>Password</label>
+                        <input 
+                            id='password' 
+                            type='password'
+                            className='border border-gray-400 px-2 rounded-md'
+                            value={karyawanForm.password}
+                            autoComplete='off'
+                            onChange={(e) => setKaryawanForm(kf => ({...kf, password:e.target.value}))}
+                        ></input>
+                    </div>
+
+                    <div className='mt-2'>
+                        <label htmlFor='passwordConfirm'>Konfirmasi Password</label>
+                        <input 
+                            id='passwordConfirm' 
+                            type='password'
+                            className='border border-gray-400 px-2 rounded-md'
+                            value={karyawanForm.passwordConfirm}
+                            autoComplete='off'
+                            onChange={(e) => setKaryawanForm(kf => ({...kf, passwordConfirm:e.target.value}))}
+                        ></input>
+                    </div>
+                    </div>
+                }
 
                 <div className='mt-2'>
                     <label htmlFor='no_telepon'>No Telp</label>
