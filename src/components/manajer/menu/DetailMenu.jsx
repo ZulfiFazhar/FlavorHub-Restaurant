@@ -1,35 +1,11 @@
 import React from 'react'
 import Image from 'next/image'
+import { hapusMenu } from './lib'
 
-function DetailMenu({selectedMenu, setBukaDetam, supabase}) {
+function DetailMenu({selectedMenu, setBukaDetam, supabase, setRefetch}) {
 
     const handleClickHapus = async () => {
-        const {data, error} = await supabase
-            .from("menu")
-            .delete()
-            .eq("id", selectedMenu.id);
-
-        if(error){
-            return alert("Hapus menu gagal")
-        }
-
-        if(selectedMenu.foto != null){
-            let fotoName = selectedMenu.foto;
-            const res = await fetch('/api/upload', {
-                method: 'DELETE',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({ fotoName }), 
-            });
-
-            if(!res.ok){
-                alert("Gambar lama gagal dihapus")
-            }
-        }
-
-        setBukaDetam(bd => false)
-        return alert("Menu berhasil dihapus")
+        hapusMenu(supabase, selectedMenu, setBukaDetam, setRefetch)
     }
 
     const handleClickEdit = async () => {

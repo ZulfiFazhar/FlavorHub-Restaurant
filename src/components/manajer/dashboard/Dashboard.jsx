@@ -80,8 +80,8 @@ function Dashboard() {
           </div>
 
           <div className='flex flex-col'>
-            <p className='text-[0.5rem] mb-[-2px] text-slate-600'>Pendapatan tahun 2024</p>
-            <p className='text-md font-semibold'>Rp. {pelangganTahunIni}</p>
+            <p className='text-[0.5rem] mb-[-2px] text-slate-600'>Pelanggan tahun 2024</p>
+            <p className='text-md font-semibold'>{pelangganTahunIni}</p>
           </div>
         </div>
         <div className='flex items-center shadow-[0_3px_13px_rgba(0,0,0,0.25)] px-3 py-5 rounded-md max-w-56 mr-4'>
@@ -90,8 +90,8 @@ function Dashboard() {
           </div>
 
           <div className='flex flex-col'>
-            <p className='text-[0.5rem] mb-[-2px] text-slate-600'>Pendapatan tahun 2024</p>
-            <p className='text-md font-semibold'>Rp. {pelangganBulanIni}</p>
+            <p className='text-[0.5rem] mb-[-2px] text-slate-600'>Pelanggan bulan Agustus</p>
+            <p className='text-md font-semibold'>{pelangganBulanIni}</p>
           </div>
         </div>
       </div>

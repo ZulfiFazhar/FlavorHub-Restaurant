@@ -3,7 +3,7 @@ import { useRouter } from 'next/navigation'
 import Image from 'next/image'
 
 import { createClientComponentClient } from '@supabase/auth-helpers-nextjs'
-import { tambahKaryawan, ubahKaryawan } from './lib'
+import { tambahKaryawan, ubahKaryawan, hapusKaryawan } from './lib'
 
 function TambahUbahKaryawan({karyawan, setSelectedKaryawan, setRefetch}) {
     const [karyawanForm, setKaryawanForm] = useState(
@@ -59,6 +59,10 @@ function TambahUbahKaryawan({karyawan, setSelectedKaryawan, setRefetch}) {
         }else if(karyawan.action == "ubah"){
             ubahKaryawan(supabase, karyawanForm, preview, setPreview, setKaryawanForm, setSelectedKaryawan, setRefetch, karyawan.id, karyawan.foto)
         }
+    }
+
+    const handleClickHapusKaryawan = async () => {
+        hapusKaryawan(supabase, karyawan.id, setSelectedKaryawan, setRefetch)
     }
 
     return (
@@ -211,11 +215,16 @@ function TambahUbahKaryawan({karyawan, setSelectedKaryawan, setRefetch}) {
 
             </div>
 
-            <div className='mt-7 mb-3 mx-auto w-5/6 px-3 flex justify-between'>
+            <div className='mt-7 mb-3 mx-auto w-full px- flex justify-between'>
                 <button 
-                    className='px-2 rounded-md bg-red-500 text-white'
+                    className='px-2 rounded-md orange-custom text-white'
                     onClick={() => setSelectedKaryawan(sk => false)}
                 >Cancel</button>
+                
+                <button 
+                    className='px-2 rounded-md bg-red-500 text-white'
+                    onClick={handleClickHapusKaryawan}
+                >Hapus</button>
 
                 <button 
                     className='px-2 rounded-md bg-green-500 text-white'
