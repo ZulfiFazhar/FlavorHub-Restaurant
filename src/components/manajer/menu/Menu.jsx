@@ -22,52 +22,52 @@ function selectedMenu() {
   // Detam = detail atau tambah
   const [bukaDetam, setBukaDetam] = useState(false)
   const [selectedMenu, setSelectedMenu] = useState()
+  const [refetch, setRefetch] = useState(false)
   const supabase = createClientComponentClient()
   const router = useRouter();
 
-  // Fetch data menu saat pertama kali load
   useEffect(() => {
-    const fetchMenu = async () => {
-      const {data, error} = await supabase
-        .from('menu')
-        .select('*')
+    const fetchDataMenu = async () => {
+        const {data, error} = await supabase
+            .from("menu")    
+            .select("*")
 
-      if(error){
-        return alert('Error fetch data : ',error)
-      }else{
-        setMenu(m => data)
-      }
+        if(error){
+            return alert("Error fetch data : ",error)
+        }else{
+            setMenu(k => data)
+        }
     }
 
-    fetchMenu()
-  }, [])
+    fetchDataMenu()
+}, [refetch])
 
 
   // Subcribe realtime ke menu
-  useEffect(() => {
-    const subscribeToMenu = supabase
-    .channel('menu-subscribe')
-    .on('postgres_changes', {
-        event: '*',
-        schema: 'public',
-        table: 'menu'
-    }, (payload) => {
-        if(payload.eventType == "INSERT"){
-          setMenu(m => [...m, payload.new]);
-        }else if(payload.eventType == "UPDATE"){
-          setMenu(m => m.map(mn => mn.id == payload.new.id ? payload.new : mn))          
-          router.push("/resto/manajer/menu");
-        }else if(payload.eventType == "DELETE"){
-          setMenu(m => m.filter(mn => mn.id != payload.old.id));
-        }
-    })
-    .subscribe();
+  // useEffect(() => {
+  //   const subscribeToMenu = supabase
+  //   .channel('menu-subscribe')
+  //   .on('postgres_changes', {
+  //       event: '*',
+  //       schema: 'public',
+  //       table: 'menu'
+  //   }, (payload) => {
+  //       if(payload.eventType == "INSERT"){
+  //         setMenu(m => [...m, payload.new]);
+  //       }else if(payload.eventType == "UPDATE"){
+  //         setMenu(m => m.map(mn => mn.id == payload.new.id ? payload.new : mn))          
+  //         router.push("/resto/manajer/menu");
+  //       }else if(payload.eventType == "DELETE"){
+  //         setMenu(m => m.filter(mn => mn.id != payload.old.id));
+  //       }
+  //   })
+  //   .subscribe();
 
-    // Cleanup subscription on component unmount
-    return () => {
-      subscribeToMenu.unsubscribe();
-    };
-  }, [supabase]);
+  //   // Cleanup subscription on component unmount
+  //   return () => {
+  //     subscribeToMenu.unsubscribe();
+  //   };
+  // }, [supabase]);
 
   const handleClickMenuCard = (menu) => {
     setSelectedMenu(sm => menu)
@@ -108,7 +108,7 @@ function selectedMenu() {
           <button className='orange-custom rounded-md text-white text-sm px-2 py-1' onClick={() => setBukaDetam(bd => "tambah")}>+ Tambah Menu</button>
         </div>
 
-        <div className='mt-5 overflow-y-auto max-h-[32rem] flex flex-wrap justify-center *:mr-8 *:mb-5'>
+        <div className='mt-5 overflow-y-auto max-h-[38rem] flex flex-wrap justify-center *:mr-8 *:mb-5'>
           {filteredMenu?.map(mn => {
             return (
               <div key={mn.id} className='flex flex-col bg-slate-200 rounded-md p-2 w-32' >
@@ -141,7 +141,8 @@ function selectedMenu() {
           key={Math.random()}
           supabase={supabase} 
           setBukaDetam={setBukaDetam}
-          menu={{action:"tambah"}} />
+          menu={{action:"tambah"}}
+          setRefetch={setRefetch} />
       }
       {
         bukaDetam == "edit" && 
@@ -149,14 +150,16 @@ function selectedMenu() {
           key={Math.random()}
           supabase={supabase} 
           setBukaDetam={setBukaDetam}
-          menu={{...selectedMenu, action:"edit"}} />
+          menu={{...selectedMenu, action:"edit"}}
+          setRefetch={setRefetch} />
       }
       {
         bukaDetam == "detail" && 
         <DetailMenu 
           selectedMenu={selectedMenu} 
           setBukaDetam={setBukaDetam} 
-          supabase={supabase}  /> 
+          supabase={supabase}
+          setRefetch={setRefetch} /> 
       }
         
     </div>

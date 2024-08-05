@@ -186,3 +186,28 @@ export async function ubahKaryawan(supabase, karyawanForm, preview, setPreview, 
     return alert("Edit karyawan berhasil")
 
 }
+
+
+export async function hapusKaryawan(supabase, id, setSelectedKaryawan, setRefetch){
+    // Konfirmasi
+    let yakinHapus = confirm("Yakin untuk menghapus data karyawan?")
+    if(!yakinHapus){
+        return;
+    }
+
+    // Hapus data
+    const {dataHapus, errorHapus} = await supabase
+        .from("karyawan")
+        .delete()
+        .eq("id", id)
+
+    if(errorHapus){
+        return alert("Gagal menghapus data karyawan")
+    }
+
+    // Refetch and reset state
+    setRefetch(r => !r)
+    setSelectedKaryawan(sk => false)
+
+    return alert("Hapus karyawan berhasil")
+}

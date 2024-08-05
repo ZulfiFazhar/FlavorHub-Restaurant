@@ -2,9 +2,9 @@
 
 import React, {useEffect, useState} from 'react'
 import Image from 'next/image'
-import { tambahEditMenu } from './lib'
+import { editMenu, tambahMenu } from './lib'
 
-function TambahMenu({supabase, setBukaDetam, menu}) {
+function TambahMenu({supabase, setBukaDetam, menu, setRefetch}) {
   const [formTambahMenu, setFormTambahMenu] = useState({nama_masakan:'',kategori:'',deskripsi:'',harga:'', foto:''})
   const [preview, setPreview] = useState(null)
 
@@ -46,7 +46,12 @@ function TambahMenu({supabase, setBukaDetam, menu}) {
     }
 
     const handleClickSubmit = async () => {   
-        tambahEditMenu(supabase, menu.action, formTambahMenu, setFormTambahMenu, preview, setPreview, setBukaDetam, menu.id, menu.foto)
+        
+        if(menu.action == "tambah"){
+            tambahMenu(supabase, formTambahMenu, setFormTambahMenu, setPreview, setBukaDetam, setRefetch)
+        }else if(menu.action == "edit"){
+            editMenu(supabase, formTambahMenu, setFormTambahMenu, preview, setPreview, setBukaDetam, setRefetch, menu.id, menu.foto)
+        }
     };
 
 
