@@ -3,6 +3,7 @@
 import React, {useEffect, useState} from 'react'
 import Image from 'next/image'
 import { editMenu, tambahMenu } from './lib'
+import { Input, Button } from "@nextui-org/react";
 
 function TambahMenu({supabase, setBukaDetam, menu, setRefetch}) {
   const [formTambahMenu, setFormTambahMenu] = useState({nama_masakan:'',kategori:'',deskripsi:'',harga:'', foto:''})
@@ -56,11 +57,11 @@ function TambahMenu({supabase, setBukaDetam, menu, setRefetch}) {
 
 
   return (
-    <div className='w-1/3 p-5 flex flex-col bg-slate-200 overflow-x-hidden max-h-screen overflow-y-auto'>
+    <div className='w-1/3 py-5 px-6 flex flex-col bg-slate-200 overflow-x-hidden max-h-screen overflow-y-auto'>
         <h1 className='text-3xl'>{menu.action == "tambah" ? "Tambah Menu" : "Edit Menu"}</h1>
         
         <div className='mt-5 *:mb-2 mb-8'>
-            <div className=''>
+            <div className='mt-4'>
                 <label htmlFor="foto" className=''>Foto</label>
                 <input 
                     className='mt-1' 
@@ -82,49 +83,52 @@ function TambahMenu({supabase, setBukaDetam, menu, setRefetch}) {
                 }
             </div>
 
-            <div className='mt-3'>
-                <label htmlFor="nama" className='block'>Nama Masakan</label>
+            <div className='mt-6'>
+                <label htmlFor="nama" className='ml-2'>Nama Menu</label>
                 <input 
-                    className='bg-white px-2 rounded-md ' 
+                    className='bg-white px-3 mt-1 py-2 rounded-lg border-2 border-gray-300 w-full' 
                     id='nama' 
                     autoComplete='off'
+                    placeholder='Nama menu'
                     onChange={(event) => setFormTambahMenu(ft => ({...ft, nama_masakan:event.target.value}))}
                     value={formTambahMenu.nama_masakan}
                 >
                 </input>
             </div>
 
-            <div className=''>
-                <label htmlFor="kategori" className='block'>Kategori</label>
-                <input 
-                    className='bg-white px-2 rounded-md' 
-                    id='kategori' 
-                    autoComplete='off'
-                    onChange={(event) => setFormTambahMenu(ft => ({...ft, kategori:event.target.value}))}
-                    value={formTambahMenu.kategori}
-                >
+            <div className='mt-5'>
+                <label htmlFor="kategori" className='ml-2'>Kategori</label>
+                    <input 
+                        className='bg-white px-3 mt-1 py-2 rounded-lg border-2 border-gray-300 w-full' 
+                        id='kategori' 
+                        placeholder='Kategori'
+                        autoComplete='off'
+                        onChange={(event) => setFormTambahMenu(ft => ({...ft, kategori:event.target.value}))}
+                        value={formTambahMenu.kategori}
+                    >
                 </input>
             </div>
 
-            <div className=''>
-                <label htmlFor="deskripsi" className='block'>Deskripsi</label>
+            <div className='mt-5'>
+                <label htmlFor="deskripsi" className='ml-2'>Deskripsi</label>
                 <textarea 
-                    className='bg-white px-2 rounded-md h-20 w-[14rem]' 
-                    id='deskripsi' 
+                    className='bg-white px-3 mt-1 py-2 rounded-lg border-2 border-gray-300 w-full' 
                     autoComplete='off'
+                    placeholder='Deskrisi menu'
                     onChange={(event) => setFormTambahMenu(ft => ({...ft, deskripsi:event.target.value}))}
                     value={formTambahMenu.deskripsi}
                 >
                 </textarea>
             </div>
 
-            <div className=''>
-                <label htmlFor="harga" className='block'>Harga</label>
+            <div className='mt-5'>
+                <label htmlFor="harga" className='ml-2'>Harga</label>
                 <input 
                     type="number" 
-                    className='bg-white px-2 rounded-md ' 
+                    className='bg-white px-3 mt-1 py-2 rounded-lg border-2 border-gray-300 w-full' 
                     id='harga'  
                     autoComplete='off'
+                    placeholder='Harga'
                     onChange={(event) => setFormTambahMenu(ft => ({...ft, harga:event.target.value}))}
                     value={formTambahMenu.harga}
                 > 

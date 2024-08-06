@@ -10,7 +10,6 @@ function Laporan() {
         to:getFormattedDate()
     })
     const supabase = createClientComponentClient()
-
     useEffect(() => {
         const fetchPembayaranData = async () => {
             console.log(rentangWaktu)
@@ -48,8 +47,8 @@ function Laporan() {
     }
 
   return (
-    <div className='min-h-screen px-8 py-7'>
-        <h1 className='text-green-custom text-3xl font-bold'>Laporan Keuangan</h1>
+    <div className='min-h-screen h-screen max-h-screen px-10 py-10'>
+        <h1 className='text-green-custom text-4xl font-bold'>Laporan Keuangan</h1>
     
         <div className='flex items-center mt-7'>
             <p className='text-gray-400'>Berdasarkan rentang waktu : </p>
@@ -71,10 +70,10 @@ function Laporan() {
                 />
         </div>
 
-        <div className='mt-10'>
-            <div className="overflow-x-auto max-h-96 overflow-y-auto">
+        <div className='mt-10 h-77p'>
+            <div className="overflow-x-auto h-full overflow-y-auto">
                 <table className="w-full text-sm text-left rtl:text-right text-gray-500">
-                    <thead className="text-gray-700 bg-gray-50">
+                    <thead className="text-gray-700 sticky top-0 bg-gray-50">
                         <tr>
                             <th scope="col" className="px-3 py-3">
                                 No

@@ -6,10 +6,16 @@ function PencarianMenu({
   setMenuDipesan,
   menuHasilPencarian,
   setMenuHasilPencarian,
-  searchInputRef,
+  input,
+  setInput
 }) {
   function handleTypeSearchMenu(e) {
-    const input = e.target.value.toLowerCase();
+    // Change setInput state
+    const inputOri = e.target.value;
+    setInput(i => ({...i, pencarian:inputOri}))
+
+    const input = inputOri.toLowerCase();
+
     if (input == "") {
       setMenuHasilPencarian((mhp) => []);
       return;
@@ -21,10 +27,10 @@ function PencarianMenu({
     setMenuHasilPencarian((mhp) => filteredMenu);
   }
 
-  const handleClickDeleteSearchInput = () => {
-    if (searchInputRef.current) searchInputRef.current.value = "";
-    setMenuHasilPencarian((mhp) => []);
-  };
+  // const handleClickDeleteSearchInput = () => {
+  //   if (searchInputRef.current) searchInputRef.current.value = "";
+  //   setMenuHasilPencarian((mhp) => []);
+  // };
 
   const handleClickSelectMenu = (item) => {
     const itemFormatted = {
@@ -35,9 +41,17 @@ function PencarianMenu({
       jumlah: 1,
     };
     setMenuDipesan((md) => [...md, itemFormatted]);
+    
+    // Reset pencarian state
     setMenuHasilPencarian((mhp) => []);
-    if (searchInputRef.current) searchInputRef.current.value = "";
+    // if (searchInputRef.current) {
+    //   console.log(searchInputRef.current.value)
+    //   searchInputRef.current.value = "";
+    //   console.log(searchInputRef.current)
+    // }
+    setInput(i => ({...i, pencarian:""}))
   };
+
   return (
     <div className=" w-full">
       <div className="flex">
@@ -45,7 +59,7 @@ function PencarianMenu({
           isClearable
           id="carimenu"
           onChange={(e) => handleTypeSearchMenu(e)}
-          ref={searchInputRef}
+          value={input.pencarian}
           type="text"
           label="Menu"
           placeholder="Cari Menu"
@@ -82,7 +96,7 @@ function PencarianMenu({
           })}
         </div>
       ) : (
-        searchInputRef.current?.value != "" && (
+        input.pencarian != "" && (
           <p className="text-red-700 text-tiny">Menu tidak ditemukan</p>
         )
       )}

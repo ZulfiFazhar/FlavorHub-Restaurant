@@ -33,9 +33,9 @@ function page() {
     const karyawanKasir = karyawan?.filter(kyn => kyn.jabatan == 'Kasir')
 
     return (
-        <div className='px-6 pt-5 h-screen max-h-screen'>
-            <div className='flex items-center'>
-                <h1 className='text-4xl'>Karyawan</h1>
+        <div className='p-10 h-screen max-h-screen'>
+            <div className='flex items-center mb-5'>
+                <h1 className='text-4xl text-green-custom font-bold'>Karyawan</h1>
                 <button 
                     className='px-2 orange-custom rounded-md mt-1 ml-20 text-white'
                     onClick={() => setSelectedKaryawan(kyn => ({action:'tambah'}))}

@@ -39,7 +39,7 @@ function MenuDipilihCards({ menuDipesan, setMenuDipesan }) {
     <div className="mt-4 w-full">
       <h1>Pesanan</h1>
 
-      <div className="flex flex-col *:mb-2 bg-white w-full rounded-md p-2 overflow-auto h-[13rem] max-h-[13rem]">
+      <div className="flex flex-col *:mb-2 bg-white w-full rounded-md p-2 overflow-auto max-h-[13rem]">
         {menuDipesan.map((item) => {
           return (
             <div

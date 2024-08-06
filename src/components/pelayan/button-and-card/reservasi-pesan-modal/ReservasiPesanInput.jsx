@@ -16,6 +16,7 @@ function ReservasiPesanInput({ respesModal, setRespesModal }) {
   const [menu, setMenu] = useState(null);
   const [menuDipesan, setMenuDipesan] = useState([]);
   const [menuHasilPencarian, setMenuHasilPencarian] = useState([]);
+  const [input, setInput] = useState({nama:"", pencarian:""})
   const searchInputRef = useRef(null);
   const namaInputRef = useRef(null);
   const supabase = createClientComponentClient();
@@ -24,8 +25,7 @@ function ReservasiPesanInput({ respesModal, setRespesModal }) {
     resetInterfaceState(
       setMenuDipesan,
       setMenuHasilPencarian,
-      searchInputRef,
-      namaInputRef
+      setInput
     );
   }, [respesModal]);
 
@@ -42,13 +42,13 @@ function ReservasiPesanInput({ respesModal, setRespesModal }) {
 
   const handleClickPsn = () => {
     handleClickPesan(
-      namaInputRef,
-      searchInputRef,
       menuDipesan,
       setMenuDipesan,
       setMenuHasilPencarian,
       respesModal,
       setRespesModal,
+      input,
+      setInput,
       supabase
     );
   };
@@ -58,14 +58,15 @@ function ReservasiPesanInput({ respesModal, setRespesModal }) {
   };
 
   return (
-    <div className="animate-in slide-in-from-top duration-900 w-1/2 flex flex-col items-center mx-4 drop-shadow-md bg-emerald-500 rounded-lg py-2 px-4 bg-white">
+    <div className="animate-in slide-in-from-top duration-900 w-1/2 flex flex-col items-center mx-4 drop-shadow-md rounded-lg py-2 px-4 bg-white">
       <div className="self-start">Reservasi</div>
 
       <h2 className=" text-7xl mb-5">{respesModal.nomor_meja}</h2>
 
       <div className="flex flex-col w-full mb-5">
         <Input
-          ref={namaInputRef}
+          value={input.nama}
+          onChange={(e) => setInput(i => ({...i, nama:e.target.value}))}
           id="pemesan"
           type="text"
           label="Pemesan"
@@ -82,7 +83,8 @@ function ReservasiPesanInput({ respesModal, setRespesModal }) {
         setMenuDipesan={setMenuDipesan}
         menuHasilPencarian={menuHasilPencarian}
         setMenuHasilPencarian={setMenuHasilPencarian}
-        searchInputRef={searchInputRef}
+        input={input}
+        setInput={setInput}
       />
 
       <MenuDipilihCards
@@ -90,7 +92,7 @@ function ReservasiPesanInput({ respesModal, setRespesModal }) {
         setMenuDipesan={setMenuDipesan}
       />
 
-      <div className="flex justify-between w-5/6 flex-none mt-auto mb-auto">
+      <div className="flex-none mt-auto flex justify-between w-5/6 ">
         <Button
           radius="full"
           color="danger"
