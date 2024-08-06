@@ -64,6 +64,22 @@ function ReservasiPelayan() {
   const date = new Date();
   const formattedDate = date.toLocaleDateString("id-ID");
 
+  const sortedReservasiPesanan =  reservasiPesanan?.slice().sort((a, b) => {
+    // Compare the first character
+    const charA = a.nomor_meja[0];
+    const charB = b.nomor_meja[0];
+  
+    if (charA === charB) {
+      // If the first character is the same, compare the number part
+      const numA = parseInt(a.nomor_meja.slice(1), 10);
+      const numB = parseInt(b.nomor_meja.slice(1), 10);
+      return numA - numB;
+    } else {
+      // If the first character is different, sort by character
+      return charA.localeCompare(charB);
+    }
+  });
+
   return (
     <div className="w-full min-h-screen max-h-screen py-10 bg-emerald-100/80 flex">
       <div className="animate-in slide-in-from-top w-6/12 bg-white overflow-auto rounded-md drop-shadow-md ml-4">
@@ -73,7 +89,7 @@ function ReservasiPelayan() {
         </div>
 
         <div className="flex flex-wrap justify-center gap-4 py-4">
-          {reservasiPesanan?.map((rp) => {
+          {sortedReservasiPesanan?.map((rp) => {
             return (
               <MejaButton
                 key={rp.id}

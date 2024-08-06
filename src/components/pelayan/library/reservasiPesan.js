@@ -1,12 +1,17 @@
 // Pelayan memesan menu setelah mengisi form pemesanan
 // Fungsi: validasi form, insert data pesanan, update data meja (reservasi_pesanan), reset interface state
-export const handleClickPesan = async (namaInputRef, searchInputRef, menuDipesan, setMenuDipesan, setMenuHasilPencarian, respesModal, setRespesModal, supabase) => {
+export const handleClickPesan = async (menuDipesan, setMenuDipesan, setMenuHasilPencarian, respesModal, setRespesModal, input, setInput, supabase) => {
     // validasi nama pemesan
     let nama_pemesan = ''
-    if(namaInputRef.current && namaInputRef.current.value == ""){
+    // if(namaInputRef.current && namaInputRef.current.value == ""){
+    //     return alert("Nama pemesan harus diisi")
+    // }else{
+    //     nama_pemesan = namaInputRef.current.value
+    // }
+    if(input.nama == ""){
         return alert("Nama pemesan harus diisi")
     }else{
-        nama_pemesan = namaInputRef.current.value
+        nama_pemesan = input.nama
     }
 
     // buat pesanan dengan format mengikuti tabel pesanan kolom pesanan
@@ -50,7 +55,7 @@ export const handleClickPesan = async (namaInputRef, searchInputRef, menuDipesan
     }
 
     // Reset interface state
-    resetInterfaceState(setMenuDipesan, setMenuHasilPencarian, searchInputRef, namaInputRef)
+    resetInterfaceState(setMenuDipesan, setMenuHasilPencarian, setInput)
 
     // Update status meja dalam tabel reservasi_pesanan
     const {dataRespes, errorRespes} = await supabase
@@ -68,9 +73,10 @@ export const handleClickPesan = async (namaInputRef, searchInputRef, menuDipesan
 } 
 
 // Reset state yang berfungsi untuk interface
-export const resetInterfaceState = (setMenuDipesan, setMenuHasilPencarian, searchInputRef, namaInputRef) => {
+export const resetInterfaceState = (setMenuDipesan, setMenuHasilPencarian, setInput) => {
     setMenuDipesan(md => [])
     setMenuHasilPencarian(mhp => [])
-    if(searchInputRef.current)searchInputRef.current.value = ''
-    if(namaInputRef.current)namaInputRef.current.value = ''
+    // if(searchInputRef.current)searchInputRef.current.value = ''
+    // if(namaInputRef.current)namaInputRef.current.value = ''
+    setInput(i => ({nama:"", pencarian:""}))
 }
