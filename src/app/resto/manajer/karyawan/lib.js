@@ -50,25 +50,6 @@ export async function tambahKaryawan(supabase, karyawanForm, setPreview, setKary
         return alert("Gagal tambah data karyawan")
     }
 
-    // Tambah data ke tabel auth
-    // const { data, errorAuth } = await supabase.auth.signUp({
-    //     email,
-    //     password,
-    //     options: {
-    //             data: {
-    //                 nama,
-    //                 umur,
-    //                 pekerjaan:jabatan
-    //             },
-    //         },
-    //     })
-
-    // if(errorAuth){
-    //     return alert("Gagal tambah data auth")
-    // }else{
-    //     console.log(data)
-    // }
-
     // Jika tambah foto
     if(fotoString != null){
         const formData = new FormData();

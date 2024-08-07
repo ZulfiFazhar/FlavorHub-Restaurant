@@ -2,7 +2,7 @@
 
 import React, {useEffect, useState} from 'react'
 import Image from 'next/image'
-import { editMenu, tambahMenu } from './lib'
+import { editMenu, hapusMenu, tambahMenu } from './lib'
 import { Input, Button } from "@nextui-org/react";
 
 function TambahMenu({supabase, setBukaDetam, menu, setRefetch}) {
@@ -55,12 +55,16 @@ function TambahMenu({supabase, setBukaDetam, menu, setRefetch}) {
         }
     };
 
+    const handleClickDelete = async () => {
+        hapusMenu(supabase, menu, setBukaDetam, setRefetch)
+    }
+
 
   return (
     <div className='w-1/3 py-5 px-6 flex flex-col bg-slate-200 overflow-x-hidden max-h-screen overflow-y-auto'>
         <h1 className='text-3xl'>{menu.action == "tambah" ? "Tambah Menu" : "Edit Menu"}</h1>
         
-        <div className='mt-5 *:mb-2 mb-8'>
+        <div className='mt-1 *:mb-2 mb-8'>
             <div className='mt-4'>
                 <label htmlFor="foto" className=''>Foto</label>
                 <input 
@@ -121,7 +125,7 @@ function TambahMenu({supabase, setBukaDetam, menu, setRefetch}) {
                 </textarea>
             </div>
 
-            <div className='mt-5'>
+            <div className='mt-5 mb-14'>
                 <label htmlFor="harga" className='ml-2'>Harga</label>
                 <input 
                     type="number" 
@@ -136,21 +140,25 @@ function TambahMenu({supabase, setBukaDetam, menu, setRefetch}) {
             </div>
         </div>
 
-        <div className='mt-auto flex justify-between mb-1'>
-            <button 
-                className='px-3 py-1 w-28 bg-orange-500 rounded-md hover:bg-orange-600'
-                onClick={() => setBukaDetam(d => "none")}
-            >
-            Cancel
-            </button>
-            
-            <button 
-                className='px-3 py-1 w-28 bg-green-500 rounded-md hover:bg-green-600'
-                onClick={handleClickSubmit}
-            >
-            Submit
-            </button>
-        </div>
+        <div className='mt-auto mx-auto w-full'>
+                <button 
+                    className='py-2 text-center w-full rounded-md text-white mb-4 bg-green-600 hover:bg-green-800 transition ease-out'
+                    onClick={handleClickSubmit}
+                >Submit</button>
+
+                <button 
+                    className='py-2 text-center w-full rounded-md bg-orange-500 text-white mb-4 hover:bg-orange-700 transition ease-out'
+                    onClick={() => setBukaDetam(d => "none")}
+                >Cancel</button>
+                
+                {   
+                    menu.action == "edit" &&
+                    <button 
+                        className='py-2 text-center w-full rounded-md text-white mb-2 bg-red-500 hover:bg-red-700 transition ease-out'
+                        onClick={handleClickDelete}
+                    >Hapus</button>
+                }
+            </div>
 
     </div>
   )
