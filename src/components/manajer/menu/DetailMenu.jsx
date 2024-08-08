@@ -50,22 +50,6 @@ function DetailMenu({selectedMenu, setBukaDetam, supabase, setRefetch}) {
                 </p>
             </div>
         }
-
-        <div className='mt-auto flex justify-between mb-1'>
-            <button 
-                className='px-3 py-1 w-28 bg-orange-400 rounded-md hover:bg-orange-600'
-                onClick={handleClickEdit}
-                >
-                Edit
-            </button>
-
-            <button 
-                className='px-3 py-1 w-28 bg-red-500 rounded-md hover:bg-red-600'
-                onClick={handleClickHapus}
-                >
-                Hapus
-            </button>
-        </div>
     </div>
   )
 }

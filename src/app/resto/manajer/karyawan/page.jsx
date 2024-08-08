@@ -8,8 +8,9 @@ import TambahUbahKaryawan from './TambahUbahKaryawan'
 
 function page() {
     const [karyawan, setKaryawan] = useState(null)
-    const [selectedKaryawan, setSelectedKaryawan] = useState(false)
+    const [selectedKaryawan, setSelectedKaryawan] = useState({action:"tambah"})
     const [refetch, setRefetch] = useState(false)
+    const [cariKaryawan, setCariKaryawan] = useState("")
     const supabase = createClientComponentClient()
 
     useEffect(() => {
@@ -28,23 +29,43 @@ function page() {
         fetchDataKaryawan()
     }, [refetch])
 
-    const karyawanKoki = karyawan?.filter(kyn => kyn.jabatan == 'Koki')
-    const karyawanPelayan = karyawan?.filter(kyn => kyn.jabatan == 'Pelayan')
-    const karyawanKasir = karyawan?.filter(kyn => kyn.jabatan == 'Kasir')
+    let filteredKaryawan = karyawan?.filter(kr => {
+        return kr.nama.toLowerCase().includes(cariKaryawan.toLowerCase());
+      }) || []; 
+
+    const karyawanKoki = filteredKaryawan?.filter(kyn => kyn.jabatan == 'Koki')
+    const karyawanPelayan = filteredKaryawan?.filter(kyn => kyn.jabatan == 'Pelayan')
+    const karyawanKasir = filteredKaryawan?.filter(kyn => kyn.jabatan == 'Kasir')
 
     return (
-        <div className='p-10 h-screen max-h-screen'>
-            <div className='flex items-center mb-5'>
-                <h1 className='text-4xl text-green-custom font-bold'>Karyawan</h1>
+        <div className='px-10 py-8 h-screen max-h-screen '>
+            <div className='flex w-4/5 items-center *:mr-16 mb-7'>
+                <h1 className='text-4xl text-green-custom font-bold mb-1'>Karyawan</h1>
+
+                <div className='flex ml-3'>
+                    <input 
+                        className='bg-slate-200 rounded-md px-2 text-sm py-1' 
+                        placeholder='Cari nama karyawan' 
+                        autoComplete='off'
+                        value={cariKaryawan}
+                        onChange={(e) => setCariKaryawan(ck => e.target.value)} 
+                    /> 
+
+                    <button className={`ml-1 rounded-xl bg-red-400 text-white px-2 hover:bg-red-600 pb-[0.1rem] ${cariKaryawan == "" && 'bg-white hover:bg-white cursor-default'}`}
+                        onClick={() => setCariKaryawan(cm => "")}>
+                         x
+                    </button>
+                </div>
+
                 <button 
-                    className='px-2 orange-custom rounded-md mt-1 ml-20 text-white'
+                    className='text-center py-1 px-2 w-56 bg-orange-400 hover:bg-orange-500  transition ease-out rounded-md text-white'
                     onClick={() => setSelectedKaryawan(kyn => ({action:'tambah'}))}
                 >+ Tambah Karyawan</button>
             </div>
 
-            <div className='mt-3 h-5/6 flex'>
-                <div className='w-2/3 h-full pr-4 overflow-auto custom-scrollbar'>
-                <div className='w-full h-full pr-3 overflow-auto custom-scrollbar'>
+            <div className='mt-3 h-90p flex'>
+                <div className='w-2/3 pr-5'>
+                <div className='w-full p-5 rounded-md h-full pr-4 bg-slate-100 overflow-auto '>
                     <div className='flex flex-col'>
                         <h1 className='text-xl mb-1'>Pelayan</h1>
                         {karyawanPelayan?.map(kyn => (

@@ -50,25 +50,6 @@ export async function tambahKaryawan(supabase, karyawanForm, setPreview, setKary
         return alert("Gagal tambah data karyawan")
     }
 
-    // Tambah data ke tabel auth
-    // const { data, errorAuth } = await supabase.auth.signUp({
-    //     email,
-    //     password,
-    //     options: {
-    //             data: {
-    //                 nama,
-    //                 umur,
-    //                 pekerjaan:jabatan
-    //             },
-    //         },
-    //     })
-
-    // if(errorAuth){
-    //     return alert("Gagal tambah data auth")
-    // }else{
-    //     console.log(data)
-    // }
-
     // Jika tambah foto
     if(fotoString != null){
         const formData = new FormData();
@@ -112,16 +93,6 @@ export async function ubahKaryawan(supabase, karyawanForm, preview, setPreview, 
         return;
     }
 
-    // Preproses foto
-    let fotoBlob;
-    let fotoString;
-    if(foto != ""){
-        fotoBlob = foto
-        fotoString = `${nama}-${Date.now().toString()}.${fotoBlob.type.split("/")[1]}`
-    }else{
-        fotoString = null
-    }
-
     // Object data karyawan yang sudah terupdate
     const newKaryawan = {
         nama,
@@ -131,7 +102,17 @@ export async function ubahKaryawan(supabase, karyawanForm, preview, setPreview, 
         umur,
         jenis_kelamin,
         jabatan,
-        foto:fotoString
+    }
+
+    // Preproses foto
+    let fotoBlob;
+    let fotoString;
+    if(preview.status == "new"){
+        fotoBlob = foto
+        fotoString = `${nama}-${Date.now().toString()}.${fotoBlob.type.split("/")[1]}`
+        newKaryawan.foto = fotoString
+    }else{
+        fotoString = null
     }
 
     // Ubah data

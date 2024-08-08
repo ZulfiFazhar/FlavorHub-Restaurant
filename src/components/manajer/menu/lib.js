@@ -66,7 +66,7 @@ export async function editMenu(supabase, formTambahMenu, setFormTambahMenu, prev
 
     // Preproses foto
     let fotoString;
-    if(foto != "" && foto != null){
+    if(preview.status == "new"){
         fotoString = `${nama_masakan}-${Date.now().toString()}.${foto.type.split("/")[1]}`
     }else{
         fotoString = null
@@ -152,12 +152,13 @@ export async function hapusMenu(supabase, selectedMenu, setBukaDetam, setRefetch
 
     if(selectedMenu.foto != null){
         let fotoName = selectedMenu.foto;
+        let directory = "menu"
         const res = await fetch('/api/upload', {
             method: 'DELETE',
             headers: {
                 'Content-Type': 'application/json',
             },
-            body: JSON.stringify({ fotoName }), 
+            body: JSON.stringify({ fotoName, directory }), 
         });
 
         if(!res.ok){
