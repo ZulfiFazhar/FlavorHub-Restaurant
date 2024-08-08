@@ -7,7 +7,7 @@ import { tambahKaryawan, ubahKaryawan, hapusKaryawan } from './lib'
 
 function TambahUbahKaryawan({karyawan, setSelectedKaryawan, setRefetch}) {
     const [karyawanForm, setKaryawanForm] = useState(
-            {nama:"", jabatan:"", jenis_kelamin:"", email:"", no_telepon:"", tanggal_lahir:"", umur:"", foto:"", password:"", passwordConfirm:""}
+            {nama:"", jabatan:"", jenis_kelamin:"", email:"", no_telepon:"", tanggal_lahir:"", foto:"", password:"", passwordConfirm:""}
         )
     const [preview, setPreview] = useState(null)
     const supabase = createClientComponentClient()
@@ -26,11 +26,11 @@ function TambahUbahKaryawan({karyawan, setSelectedKaryawan, setRefetch}) {
                 setPreview(p => null)
             }
         }else{
-            setKaryawanForm(kf => ({nama:"", jabatan:"", jenis_kelamin:"", email:"", no_telepon:"", tanggal_lahir:"", umur:"", foto:"", password:"", passwordConfirm:""}))
+            setKaryawanForm(kf => ({nama:"", jabatan:"", jenis_kelamin:"", email:"", no_telepon:"", tanggal_lahir:"", foto:"", password:"", passwordConfirm:""}))
             setPreview(p => null)
         }
     }, [karyawan])
-
+    console.log(karyawanForm)
     const handleFileChange = async (e) => {
         const selectedFile = e.target.files[0]
 
@@ -104,7 +104,7 @@ function TambahUbahKaryawan({karyawan, setSelectedKaryawan, setRefetch}) {
 
             <div>
                 <div className='mt-6'>
-                    <label htmlFor='nama' className='ml-2'>Nama Karyawan</label>
+                    <label htmlFor='nama' className='ml-1'>Nama Karyawan</label>
                     <input 
                         id='nama' 
                         className='bg-white px-3 mt-1 py-2 rounded-lg border-2 border-gray-300 w-full'
@@ -116,19 +116,36 @@ function TambahUbahKaryawan({karyawan, setSelectedKaryawan, setRefetch}) {
                 </div>
 
                 <div className='mt-6'>
-                    <label htmlFor='jenis_kelamin' className='ml-2'>Jenis Kelamin</label>
-                    <input 
-                        id='jenis_kelamin' 
-                        className='bg-white px-3 mt-1 py-2 rounded-lg border-2 border-gray-300 w-full'
-                        placeholder='Jenis kelamin'
-                        value={karyawanForm.jenis_kelamin}
-                        autoComplete='off'
-                        onChange={(e) => setKaryawanForm(kf => ({...kf, jenis_kelamin:e.target.value}))}
-                    ></input>
+                    <label htmlFor='jenis_kelamin' className='ml-1 mb-2'>Jenis Kelamin</label>
+    
+                    <div className='flex w-full bg-gray-100 py-2 px-3 rounded-md'>
+                        <div className='flex items-center mr-5'>
+                            <input 
+                                type='radio'
+                                id='lakiLaki'
+                                name='jenisKelamin'
+                                className='cursor-pointer mr-1'
+                                checked={karyawanForm.jenis_kelamin == "Laki-laki"}
+                                onClick={(e) => setKaryawanForm(kf => ({...kf, jenis_kelamin:"Laki-laki"}))}
+                            ></input>
+                            <label htmlFor='lakiLaki' className='cursor-pointer'>Laki-laki</label>
+                        </div>
+                        <div className='flex items-center'>
+                            <input 
+                                type='radio'
+                                id='perempuan'
+                                name='jenisKelamin'
+                                className='cursor-pointer mr-1'
+                                checked={karyawanForm.jenis_kelamin == "Perempuan"}
+                                onClick={(e) => setKaryawanForm(kf => ({...kf, jenis_kelamin:"Perempuan"}))}
+                            ></input>
+                            <label htmlFor='perempuan' className='cursor-pointer'>Perempuan</label>
+                        </div>
+                    </div>
                 </div>
 
                 <div className='mt-6'>
-                    <label htmlFor='tanggal_lahir' className='ml-2'>Tanggal Lahir</label>
+                    <label htmlFor='tanggal_lahir' className='ml-1'>Tanggal Lahir</label>
                     <input 
                         id='tanggal_lahir' 
                         type='date'
@@ -141,32 +158,46 @@ function TambahUbahKaryawan({karyawan, setSelectedKaryawan, setRefetch}) {
                 </div>
 
                 <div className='mt-6'>
-                    <label htmlFor='umur' className='ml-2'>Umur</label>
-                    <input 
-                        id='umur' 
-                        type='number'
-                        className='bg-white px-3 mt-1 py-2 rounded-lg border-2 border-gray-300 w-full'
-                        placeholder='Umur'
-                        value={karyawanForm.umur}
-                        autoComplete='off'
-                        onChange={(e) => setKaryawanForm(kf => ({...kf, umur:e.target.value}))}
-                    ></input>
+                    <label htmlFor='jabatan' className='ml-1'>Jabatan</label>
+                    <div className='flex w-full bg-gray-100 py-2 px-3 rounded-md *:mr-5'>
+                        <div className='flex items-center'>
+                            <input 
+                                type='radio'
+                                id='pelayan'
+                                name='jabatan'
+                                className='cursor-pointer mr-1'
+                                checked={karyawanForm.jabatan == "Pelayan"}
+                                onClick={(e) => setKaryawanForm(kf => ({...kf, jabatan:"Pelayan"}))}
+                            ></input>
+                            <label htmlFor='pelayan' className='cursor-pointer'>Pelayan</label>
+                        </div>
+                        <div className='flex items-center'>
+                            <input 
+                                type='radio'
+                                id='Koki'
+                                name='jabatan'
+                                className='cursor-pointer mr-1'
+                                checked={karyawanForm.jabatan == "Koki"}
+                                onClick={(e) => setKaryawanForm(kf => ({...kf, jabatan:"Koki"}))}
+                            ></input>
+                            <label htmlFor='Koki' className='cursor-pointer'>Koki</label>
+                        </div>
+                        <div className='flex items-center'>
+                            <input 
+                                type='radio'
+                                id='Kasir'
+                                name='jabatan'
+                                className='cursor-pointer mr-1'
+                                checked={karyawanForm.jabatan == "Kasir"}
+                                onClick={(e) => setKaryawanForm(kf => ({...kf, jabatan:"Kasir"}))}
+                            ></input>
+                            <label htmlFor='Kasir' className='cursor-pointer'>Kasir</label>
+                        </div>
+                    </div>
                 </div>
 
                 <div className='mt-6'>
-                    <label htmlFor='jabatan' className='ml-2'>Jabatan</label>
-                    <input 
-                        id='jabatan' 
-                        className='bg-white px-3 mt-1 py-2 rounded-lg border-2 border-gray-300 w-full'
-                        placeholder='Jabatan'
-                        value={karyawanForm.jabatan}
-                        autoComplete='off'
-                        onChange={(e) => setKaryawanForm(kf => ({...kf, jabatan:e.target.value}))}
-                    ></input>
-                </div>
-
-                <div className='mt-6'>
-                    <label htmlFor='email' className='ml-2'>Email</label>
+                    <label htmlFor='email' className='ml-1'>Email</label>
                     <input 
                         id='email' 
                         type='email'
@@ -182,7 +213,7 @@ function TambahUbahKaryawan({karyawan, setSelectedKaryawan, setRefetch}) {
                     karyawan.action == "tambah" &&
                     <div>
                     <div className='mt-6'>
-                        <label htmlFor='password' className='ml-2'>Password</label>
+                        <label htmlFor='password' className='ml-1'>Password</label>
                         <input 
                             id='password' 
                             type='password'
@@ -195,7 +226,7 @@ function TambahUbahKaryawan({karyawan, setSelectedKaryawan, setRefetch}) {
                     </div>
 
                     <div className='mt-6'>
-                        <label htmlFor='passwordConfirm' className='ml-2'>Konfirmasi Password</label>
+                        <label htmlFor='passwordConfirm' className='ml-1'>Konfirmasi Password</label>
                         <input 
                             id='passwordConfirm' 
                             type='password'
@@ -210,7 +241,7 @@ function TambahUbahKaryawan({karyawan, setSelectedKaryawan, setRefetch}) {
                 }
 
                 <div className='mt-6 mb-14'>
-                    <label htmlFor='no_telepon' ml-2>No Telp</label>
+                    <label htmlFor='no_telepon' className='ml-1'>No Telp</label>
                     <input 
                         id='no_telepon' 
                         className='bg-white px-3 mt-1 py-2 rounded-lg border-2 border-gray-300 w-full'

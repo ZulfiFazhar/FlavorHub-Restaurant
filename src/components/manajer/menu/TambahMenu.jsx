@@ -102,15 +102,32 @@ function TambahMenu({supabase, setBukaDetam, menu, setRefetch}) {
 
             <div className='mt-5'>
                 <label htmlFor="kategori" className='ml-2'>Kategori</label>
-                    <input 
-                        className='bg-white px-3 mt-1 py-2 rounded-lg border-2 border-gray-300 w-full' 
-                        id='kategori' 
-                        placeholder='Kategori'
-                        autoComplete='off'
-                        onChange={(event) => setFormTambahMenu(ft => ({...ft, kategori:event.target.value}))}
-                        value={formTambahMenu.kategori}
-                    >
-                </input>
+        
+                <div className='flex w-full bg-gray-100 py-2 px-3 rounded-md'>
+                        <div className='flex items-center mr-5'>
+                            <input 
+                                type='radio'
+                                id='Makanan'
+                                name='kategori'
+                                className='cursor-pointer mr-1'
+                                checked={formTambahMenu.kategori == "Makanan"}
+                                onClick={(e) => setFormTambahMenu(ftm => ({...ftm, kategori:"Makanan"}))}
+                            ></input>
+                            <label htmlFor='Makanan' className='cursor-pointer'>Makanan</label>
+                        </div>
+
+                        <div className='flex items-center'>
+                            <input 
+                                type='radio'
+                                id='Minuman'
+                                name='kategori'
+                                className='cursor-pointer mr-1'
+                                checked={formTambahMenu.kategori == "Minuman"}
+                                onClick={(e) => setFormTambahMenu(ftm => ({...ftm, kategori:"Minuman"}))}
+                            ></input>
+                            <label htmlFor='Minuman' className='cursor-pointer'>Minuman</label>
+                        </div>
+                    </div>
             </div>
 
             <div className='mt-5'>

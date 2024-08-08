@@ -66,7 +66,7 @@ export async function editMenu(supabase, formTambahMenu, setFormTambahMenu, prev
 
     // Preproses foto
     let fotoString;
-    if(foto != "" && foto != null){
+    if(preview.status == "new"){
         fotoString = `${nama_masakan}-${Date.now().toString()}.${foto.type.split("/")[1]}`
     }else{
         fotoString = null

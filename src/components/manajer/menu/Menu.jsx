@@ -89,7 +89,7 @@ function selectedMenu() {
         <div className='mt-5 overflow-y-auto max-h-[38rem] flex flex-wrap justify-between *:mb-5 bg-slate-100 p-5 rounded-md h-5/6'>
           {filteredMenu?.map(mn => {
             return (
-              <div key={mn.id} className='flex flex-col bg-slate-200 rounded-md p-2 w-32 h-72' >
+              <div key={mn.id} className='flex flex-col bg-slate-200 rounded-md p-2 w-32 h-72 mr-2' >
                 <div className="relative w-full min-h-20 h-20">
                   <img
                     src={`/menu/${mn.foto ? mn.foto : 'placeholder/menu-foto-placeholder.jpg'}`}

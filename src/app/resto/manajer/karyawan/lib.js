@@ -93,16 +93,6 @@ export async function ubahKaryawan(supabase, karyawanForm, preview, setPreview, 
         return;
     }
 
-    // Preproses foto
-    let fotoBlob;
-    let fotoString;
-    if(foto != ""){
-        fotoBlob = foto
-        fotoString = `${nama}-${Date.now().toString()}.${fotoBlob.type.split("/")[1]}`
-    }else{
-        fotoString = null
-    }
-
     // Object data karyawan yang sudah terupdate
     const newKaryawan = {
         nama,
@@ -112,7 +102,17 @@ export async function ubahKaryawan(supabase, karyawanForm, preview, setPreview, 
         umur,
         jenis_kelamin,
         jabatan,
-        foto:fotoString
+    }
+
+    // Preproses foto
+    let fotoBlob;
+    let fotoString;
+    if(preview.status == "new"){
+        fotoBlob = foto
+        fotoString = `${nama}-${Date.now().toString()}.${fotoBlob.type.split("/")[1]}`
+        newKaryawan.foto = fotoString
+    }else{
+        fotoString = null
     }
 
     // Ubah data
