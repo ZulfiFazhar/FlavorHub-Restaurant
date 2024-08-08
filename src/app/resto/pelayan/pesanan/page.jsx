@@ -88,7 +88,7 @@ function PesananPelayan() {
         return <PesananCard key={psn.id} psn={psn} supabase={supabase} />;
       })}
 
-      <div className="border border-black rounded-md px-2 bg-orange-400 mb-3 mt-5">
+      <div className="border rounded-lg p-4 bg-white drop-shadow-md my-4">
         Pesanan yang sudah diterima
       </div>
 

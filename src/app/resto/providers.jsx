@@ -5,6 +5,7 @@ import Sidebar from "@/components/sidebar";
 import { NextUIProvider } from "@nextui-org/react";
 import { ToastContainer } from "react-toastify";
 import { Motion } from "@/components/transition/motion";
+import InitLoading from "@/components/initialization/index";
 
 import "react-toastify/dist/ReactToastify.css";
 
@@ -12,6 +13,7 @@ const PekerjaanContext = createContext();
 
 export default function Providers({ children }) {
   const [pekerjaan, setPekerjaan] = useState();
+  const [loading, setLoading] = useState(true);
   const supabase = createClientComponentClient();
 
   useEffect(() => {
@@ -19,7 +21,10 @@ export default function Providers({ children }) {
       const {
         data: { user },
       } = await supabase.auth.getUser();
-      setPekerjaan((rl) => user.user_metadata.pekerjaan);
+      setPekerjaan(user.user_metadata.pekerjaan);
+      setTimeout(() => {
+        setLoading(false);
+      }, 1500);
     }
 
     setPekerjaanData();
@@ -28,9 +33,13 @@ export default function Providers({ children }) {
   return (
     <NextUIProvider>
       <PekerjaanContext.Provider value={pekerjaan}>
-        <Sidebar>
-          <Motion>{children}</Motion>
-        </Sidebar>
+        {loading ? (
+          <InitLoading />
+        ) : (
+          <Sidebar>
+            <Motion>{children}</Motion>
+          </Sidebar>
+        )}
       </PekerjaanContext.Provider>
       <ToastContainer
         position="bottom-right"
