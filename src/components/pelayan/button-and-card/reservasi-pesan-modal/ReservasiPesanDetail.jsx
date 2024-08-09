@@ -2,7 +2,7 @@
 
 import React from "react";
 import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
-import { Input, Listbox, ListboxItem } from "@nextui-org/react";
+import { Input, Button } from "@nextui-org/react";
 
 function ReservasiPesanDetail({ respesModal, setRespesModal }) {
   const supabase = createClientComponentClient();
@@ -90,12 +90,21 @@ function ReservasiPesanDetail({ respesModal, setRespesModal }) {
       </div>
 
       {respesModal.status == "diterima" && (
-        <button
-          className="border border-black rounded-md px-2 flex-none mt-auto bg-slate-100"
+        <Button
+          className="flex-none mt-auto mb-2"
+          radius="full"
+          color="success"
+          variant="ghost"
           onClick={handleClickCustomerDone}
         >
           Pelanggan telah selesai
-        </button>
+        </Button>
+        // <button
+        //   className="border border-black rounded-md px-2 flex-none mt-auto bg-slate-100"
+        //   onClick={handleClickCustomerDone}
+        // >
+        //   Pelanggan telah selesai
+        // </button>
       )}
     </div>
   );

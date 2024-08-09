@@ -84,17 +84,21 @@ function PesananPelayan() {
 
   return (
     <div className="p-4 min-h-screen bg-emerald-100/80">
-      {pesananSiapDiantar.map((psn) => {
-        return <PesananCard key={psn.id} psn={psn} supabase={supabase} />;
-      })}
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+        {pesananSiapDiantar.map((psn) => {
+          return <PesananCard key={psn.id} psn={psn} supabase={supabase} />;
+        })}
+      </div>
 
       <div className="border rounded-lg p-4 bg-white drop-shadow-md my-4">
         Pesanan yang sudah diterima
       </div>
 
-      {pesananDiterima.map((psn) => {
-        return <PesananCard key={psn.id} psn={psn} supabase={supabase} />;
-      })}
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+        {pesananDiterima.map((psn) => {
+          return <PesananCard key={psn.id} psn={psn} supabase={supabase} />;
+        })}
+      </div>
     </div>
   );
 }
