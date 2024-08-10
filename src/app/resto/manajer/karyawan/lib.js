@@ -62,9 +62,9 @@ export async function tambahKaryawan(supabase, karyawanForm, setPreview, setKary
             body: formData,
         });
 
-        if (!res.ok) {
-            return alert("Tambah karyawan gagal")
-        }
+        // if (!res.ok) {
+        //     return alert("Tambah karyawan gagal")
+        // }
     }    
 
     // Reset state
@@ -154,9 +154,9 @@ export async function ubahKaryawan(supabase, karyawanForm, preview, setPreview, 
             body: formData,
         });
 
-        if (!res.ok) {
-            return alert("Edit karyawan gagal")
-        }
+        // if (!res.ok) {
+        //     return alert("Edit karyawan gagal")
+        // }
     }    
 
     // Reset state

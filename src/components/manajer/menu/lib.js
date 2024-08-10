@@ -44,16 +44,17 @@ export async function tambahMenu(supabase, formTambahMenu, setFormTambahMenu, se
             method: 'POST',
             body: formData,
         });
+
+        setFormTambahMenu(tb => ({nama_masakan:'',kategori:'',deskripsi:'',harga:'',foto:''}))
+        setPreview(p => null)
+        setBukaDetam(bd => false)
+        setRefetch(r => !r)
     
-        if (res.ok) {
-            setFormTambahMenu(tb => ({nama_masakan:'',kategori:'',deskripsi:'',harga:'',foto:''}))
-            setPreview(p => null)
-            setBukaDetam(bd => false)
-            setRefetch(r => !r)
-            return alert("Tambah menu berhasil")
-        } else {
-            return alert("Tambah menu gagal")
-        }
+        return alert("Tambah menu berhasil")
+        // if (res.ok) {
+        // } else {
+        //     return alert("Tambah menu gagal")
+        // }
     }
 }
 
@@ -123,9 +124,9 @@ export async function editMenu(supabase, formTambahMenu, setFormTambahMenu, prev
             body: formData,
         });
     
-        if (!res.ok) {
-            return alert("Edit menu gagal")
-        }
+        // if (!res.ok) {
+        //     return alert("Edit menu gagal")
+        // }
     }
 
     // Reset state
