@@ -79,7 +79,7 @@ const Sidebar = ({ children }) => {
         <aside className="sidebar px-2 bg-emerald-700 sidebar-mobile h-full justify-start max-sm:fixed max-sm:-translate-x-full">
           <section className="sidebar-title items-center p-4 justify-center my-3">
             <Image
-              src="/logo.svg"
+              src="/LogoNew.webp"
               alt="FlavorHub logo"
               width={120}
               height={120}
@@ -89,7 +89,6 @@ const Sidebar = ({ children }) => {
           <div className="text-4xl font-bold mx-auto text-white">
             <span className="text-white capitalize">{pekerjaan}</span>
           </div>
-          {/* <div className="mx-auto text-white">Pelayan</div> */}
           <section className="sidebar-content">
             <nav className="menu rounded-md h-full">
               <section className="menu-section px-4 h-full">

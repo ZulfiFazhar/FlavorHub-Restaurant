@@ -46,7 +46,6 @@ function Login() {
 
   const login = async () => {
     try {
-
       setIsLoading(true);
       const supabase = createClientComponentClient();
       const { data, error } = await supabase.auth.signInWithPassword({
