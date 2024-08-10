@@ -37,8 +37,8 @@ export default function App({ onSearch }) {
         <NavbarBrand>
           <Link href="#top">
             <Image
-              src="/logo_black.svg"
-              alt="FlavorHub log0"
+              src="/LogoBlackNew.webp"
+              alt="FlavorHub logo"
               width={50}
               height={50}
             />
