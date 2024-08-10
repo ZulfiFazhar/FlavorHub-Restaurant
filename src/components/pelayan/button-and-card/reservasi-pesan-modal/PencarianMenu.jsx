@@ -7,12 +7,12 @@ function PencarianMenu({
   menuHasilPencarian,
   setMenuHasilPencarian,
   input,
-  setInput
+  setInput,
 }) {
   function handleTypeSearchMenu(e) {
     // Change setInput state
     const inputOri = e.target.value;
-    setInput(i => ({...i, pencarian:inputOri}))
+    setInput((i) => ({ ...i, pencarian: inputOri }));
 
     const input = inputOri.toLowerCase();
 
@@ -41,7 +41,7 @@ function PencarianMenu({
       jumlah: 1,
     };
     setMenuDipesan((md) => [...md, itemFormatted]);
-    
+
     // Reset pencarian state
     setMenuHasilPencarian((mhp) => []);
     // if (searchInputRef.current) {
@@ -49,7 +49,7 @@ function PencarianMenu({
     //   searchInputRef.current.value = "";
     //   console.log(searchInputRef.current)
     // }
-    setInput(i => ({...i, pencarian:""}))
+    setInput((i) => ({ ...i, pencarian: "" }));
   };
 
   return (
@@ -67,24 +67,12 @@ function PencarianMenu({
           variant="bordered"
           radius="full"
           size="lg"
-        />
-        {/* <input
-          id="carimenu"
-          className="px-2 rounded-md border border-black w-full"
-          onChange={(e) => handleTypeSearchMenu(e)}
-          ref={searchInputRef}
           autoComplete="off"
-        ></input> */}
-        {/* <button
-          className="text-red-700 text-md absolute right-10"
-          onClick={handleClickDeleteSearchInput}
-        >
-          x
-        </button> */}
+        />
       </div>
 
       {menuHasilPencarian.length != 0 ? (
-        <div className="border-medium border-default-400/35 p-2 mt-2 absolute w-[14rem] bg-white rounded-lg">
+        <div className="border-medium border-default-400/35 p-2 mt-2 absolute w-[14rem] bg-white rounded-lg z-10">
           {menuHasilPencarian.map((item) => {
             return (
               <Listbox key={item.id} variant="faded">
