@@ -85,12 +85,7 @@ function PesananCard({ psn, supabase }) {
           </Button>
         )}
         {psn.status == "diterima" && (
-          <Button
-            className="cursor-default"
-            radius="full"
-            color="warning"
-            variant="ghost"
-          >
+          <Button isDisabled radius="full" color="warning" variant="ghost">
             Pesanan Sudah Diterima
           </Button>
         )}

@@ -80,14 +80,14 @@ const Sidebar = ({ children }) => {
           <section className="sidebar-title items-center p-4 justify-center my-3">
             <Image
               src="/logo.svg"
-              alt="FlavorHub log0"
+              alt="FlavorHub logo"
               width={120}
               height={120}
               priority
             />
           </section>
           <div className="text-4xl font-bold mx-auto text-white">
-            <span className="text-white">FlavorHub</span>
+            <span className="text-white capitalize">{pekerjaan}</span>
           </div>
           {/* <div className="mx-auto text-white">Pelayan</div> */}
           <section className="sidebar-content">
