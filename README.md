@@ -5,7 +5,7 @@
 Website untuk mengelola restoran milik Pak Resto UNIKOM.
 
 Website dapat diakses melalui link berikut :
-[FlavorHub Restaurant](https://flavorub.vercel.app/)
+[FlavorHub Restaurant](https://flavorhub.vercel.app/)
 
 ## Akun Pengguna
 
